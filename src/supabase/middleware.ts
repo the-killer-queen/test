@@ -39,13 +39,13 @@ export async function updateSession(request: NextRequest) {
   if (isPasswordResetPending && !pathname.startsWith('/reset-password'))
     return NextResponse.redirect(new URL('/reset-password', request.url));
 
-  if (isProtectedRoute(pathname) || pathname === '/')
+  if ((isProtectedRoute(pathname) || pathname === '/') && !user)
     return NextResponse.redirect(new URL('/sign-in', request.url));
 
   if (pathname.startsWith('/reset-password') && isPasswordResetPending)
     return supabaseRes;
 
-  if (isAuthRoute(pathname) && user && !isPasswordResetPending)
+  if (isAuthRoute(pathname) && user)
     return NextResponse.redirect(new URL('/', request.url));
 
   return supabaseRes;

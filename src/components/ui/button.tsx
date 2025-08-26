@@ -5,41 +5,55 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all duration-200 ease-in-out disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 focus:outline-none focus-visible:outline-none aria-invalid:!ring-error/20 dark:aria-invalid:!ring-error/40",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all duration-300 ease-in-out disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 !outline-none !focus:outline-none !focus-visible:outline-none focus:!outline-0 focus-visible:!outline-0 [&:focus]:!outline-none [&:focus-visible]:!outline-none !border-none !border-0",
   {
     variants: {
       variant: {
         default:
-          '!bg-primary/15 ring-2 ring-primary/80 !text-primary/80 shadow-sm hover:!bg-primary/20 hover:shadow-md hover:ring-primary/50 active:scale-[0.98] focus-visible:!bg-primary/20 focus-visible:shadow-md focus-visible:ring-primary/50',
+          '!bg-primary !text-primary-foreground ring-2 ring-primary/30 shadow-lg hover:!bg-primary/85 hover:ring-primary/50 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] focus-visible:ring-primary/70 focus-visible:ring-offset-2 dark:!bg-primary dark:!text-primary-foreground dark:ring-primary/40 dark:hover:!bg-primary/85 dark:hover:ring-primary/60 dark:focus-visible:ring-primary/80',
+
         destructive:
-          '!bg-error/15 ring-2 ring-error/80 !text-error/80 shadow-sm hover:!bg-error/20 hover:shadow-md hover:ring-error/50 active:scale-[0.98] focus-visible:!bg-error/20 focus-visible:shadow-md focus-visible:ring-error/50',
+          '!bg-destructive !text-destructive-foreground ring-2 ring-destructive/30 shadow-lg hover:!bg-destructive/85 hover:ring-destructive/50 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] focus-visible:ring-destructive/70 focus-visible:ring-offset-2 dark:!bg-destructive dark:!text-destructive-foreground dark:ring-destructive/40 dark:hover:!bg-destructive/85 dark:hover:ring-destructive/60 dark:focus-visible:ring-destructive/80',
+
         outline:
-          '!bg-background/15 ring-2 ring-border/80 !text-foreground/80 shadow-sm hover:!bg-background/20 hover:shadow-md hover:ring-border/50 active:scale-[0.98] focus-visible:!bg-background/20 focus-visible:shadow-md focus-visible:ring-border/50 dark:!bg-input/20 dark:ring-input dark:hover:!bg-input/40',
+          '!bg-transparent !text-foreground ring-2 ring-border hover:!bg-accent hover:!text-accent-foreground hover:ring-primary/40 hover:shadow-sm active:scale-[0.98] focus-visible:ring-primary/60 focus-visible:ring-offset-2 dark:!bg-transparent dark:!text-foreground dark:ring-border dark:hover:!bg-accent dark:hover:!text-accent-foreground dark:hover:ring-primary/50 dark:focus-visible:ring-primary/70',
+
         secondary:
-          '!bg-secondary/15 ring-2 ring-secondary/80 !text-secondary-foreground/80 shadow-sm hover:!bg-secondary/20 hover:shadow-md hover:ring-secondary/50 active:scale-[0.98] focus-visible:!bg-secondary/20 focus-visible:shadow-md focus-visible:ring-secondary/50',
+          '!bg-secondary !text-secondary-foreground ring-2 ring-secondary/40 shadow-sm hover:!bg-hover-bg hover:!text-foreground hover:ring-border hover:shadow-md active:scale-[0.98] focus-visible:ring-ring/50 focus-visible:ring-offset-2 dark:!bg-secondary dark:!text-secondary-foreground dark:ring-secondary/60 dark:hover:!bg-hover-bg dark:hover:!text-foreground dark:hover:ring-border dark:focus-visible:ring-ring/60',
+
         ghost:
-          '!bg-accent/15 ring-2 ring-accent/80 !text-accent-foreground/80 shadow-sm hover:!bg-accent/20 hover:shadow-md hover:ring-accent/50 active:scale-[0.98] focus-visible:!bg-accent/20 focus-visible:shadow-md focus-visible:ring-accent/50 dark:hover:!bg-accent/50',
-        link: '!text-muted-foreground hover:!text-primary',
+          '!bg-transparent !text-muted-foreground ring-2 ring-transparent hover:!bg-muted hover:!text-foreground hover:ring-muted/60 hover:shadow-sm active:scale-[0.98] focus-visible:ring-ring/40 focus-visible:ring-offset-2 dark:!bg-transparent dark:!text-muted-foreground dark:ring-transparent dark:hover:!bg-muted dark:hover:!text-foreground dark:hover:ring-muted/70 dark:focus-visible:ring-ring/50',
+
+        link: '!text-primary hover:!text-primary/80 dark:!text-primary dark:hover:!text-primary/80',
+
         success:
-          '!bg-success/15 ring-2 ring-success/80 !text-success/80 shadow-sm hover:!bg-success/20 hover:shadow-md hover:ring-success/50 active:scale-[0.98] focus-visible:!bg-success/20 focus-visible:shadow-md focus-visible:ring-success/50 transition-all duration-200 ease-in-out dark:!bg-success/15 dark:hover:!bg-success/20',
+          '!bg-success !text-success-foreground ring-2 ring-success/30 shadow-lg hover:!bg-success/85 hover:ring-success/50 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] focus-visible:ring-success/70 focus-visible:ring-offset-2 dark:!bg-success dark:!text-success-foreground dark:ring-success/40 dark:hover:!bg-success/85 dark:hover:ring-success/60 dark:focus-visible:ring-success/80',
+
         warning:
-          '!bg-warning/15 ring-2 ring-warning/80 !text-warning/80 shadow-sm hover:!bg-warning/20 hover:shadow-md hover:ring-warning/50 active:scale-[0.98] focus-visible:!bg-warning/20 focus-visible:shadow-md focus-visible:ring-warning/50 transition-all duration-200 ease-in-out dark:!bg-warning/15 dark:hover:!bg-warning/20',
-        info: '!bg-info/15 ring-2 ring-info/80 !text-info/80 shadow-sm hover:!bg-info/20 hover:shadow-md hover:ring-info/50 active:scale-[0.98] focus-visible:!bg-info/20 focus-visible:shadow-md focus-visible:ring-info/50 transition-all duration-200 ease-in-out dark:!bg-info/15 dark:hover:!bg-info/20',
+          '!bg-warning !text-warning-foreground ring-2 ring-warning/40 shadow-lg hover:!bg-warning/85 hover:ring-warning/60 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] focus-visible:ring-warning/70 focus-visible:ring-offset-2 dark:!bg-warning dark:!text-warning-foreground dark:ring-warning/50 dark:hover:!bg-warning/85 dark:hover:ring-warning/70 dark:focus-visible:ring-warning/80',
+
+        error:
+          '!bg-error !text-error-foreground ring-2 ring-error/30 shadow-lg hover:!bg-error/85 hover:ring-error/50 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] focus-visible:ring-error/70 focus-visible:ring-offset-2 dark:!bg-error dark:!text-error-foreground dark:ring-error/40 dark:hover:!bg-error/85 dark:hover:ring-error/60 dark:focus-visible:ring-error/80',
+
+        info: '!bg-info !text-info-foreground ring-2 ring-info/30 shadow-lg hover:!bg-info/85 hover:ring-info/50 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] focus-visible:ring-info/70 focus-visible:ring-offset-2 dark:!bg-info dark:!text-info-foreground dark:ring-info/40 dark:hover:!bg-info/85 dark:hover:ring-info/60 dark:focus-visible:ring-info/80',
+
         'habit-complete':
-          '!bg-habit-complete/15 ring-2 ring-habit-complete/80 !text-habit-complete/80 shadow-sm hover:!bg-habit-complete/20 hover:shadow-md hover:ring-habit-complete/50 active:scale-[0.98] focus-visible:!bg-habit-complete/20 focus-visible:shadow-md focus-visible:ring-habit-complete/50 transition-all duration-200 ease-in-out dark:!bg-habit-complete/15 dark:hover:!bg-habit-complete/20',
+          '!bg-habit-complete !text-white ring-2 ring-habit-complete/40 shadow-lg hover:!bg-habit-complete/90 hover:ring-habit-complete/60 hover:shadow-xl hover:scale-[1.05] active:scale-[0.98] focus-visible:ring-habit-complete/70 focus-visible:ring-offset-2 dark:!bg-habit-complete dark:!text-white dark:ring-habit-complete/50 dark:hover:!bg-habit-complete/90 dark:hover:ring-habit-complete/70 dark:focus-visible:ring-habit-complete/80',
+
         'habit-incomplete':
-          '!bg-habit-incomplete/15 ring-2 ring-habit-incomplete/80 !text-habit-incomplete/80 shadow-sm hover:!bg-habit-incomplete/20 hover:shadow-md hover:ring-habit-incomplete/50 active:scale-[0.98] focus-visible:!bg-habit-incomplete/20 focus-visible:shadow-md focus-visible:ring-habit-incomplete/50 transition-all duration-200 ease-in-out dark:!bg-habit-incomplete/15 dark:hover:!bg-habit-incomplete/20',
+          '!bg-habit-incomplete !text-foreground ring-2 ring-habit-incomplete/50 shadow-sm hover:!bg-muted hover:!text-foreground hover:ring-border/60 hover:shadow-md active:scale-[0.98] focus-visible:ring-ring/50 focus-visible:ring-offset-2 dark:!bg-habit-incomplete dark:!text-foreground dark:ring-habit-incomplete/60 dark:hover:!bg-muted dark:hover:ring-border/70 dark:focus-visible:ring-ring/60',
+
         'habit-streak':
-          '!bg-habit-streak/15 ring-2 ring-habit-streak/80 !text-habit-streak/80 shadow-sm hover:!bg-habit-streak/20 hover:shadow-md hover:ring-habit-streak/50 active:scale-[0.98] focus-visible:!bg-habit-streak/20 focus-visible:shadow-md focus-visible:ring-habit-streak/50 transition-all duration-200 ease-in-out dark:!bg-habit-streak/15 dark:hover:!bg-habit-streak/20',
+          '!bg-habit-streak !text-white ring-2 ring-habit-streak/40 shadow-lg hover:!bg-habit-streak/90 hover:ring-habit-streak/60 hover:shadow-xl hover:scale-[1.05] active:scale-[0.98] focus-visible:ring-habit-streak/70 focus-visible:ring-offset-2 dark:!bg-habit-streak dark:!text-white dark:ring-habit-streak/50 dark:hover:!bg-habit-streak/90 dark:hover:ring-habit-streak/70 dark:focus-visible:ring-habit-streak/80',
       },
       size: {
-        default: 'h-10 px-4 py-2 has-[>svg]:px-3',
-        sm: 'h-8 rounded-md gap-1.5 px-3 text-xs has-[>svg]:px-2.5',
-        lg: 'h-12 rounded-lg px-6 text-base has-[>svg]:px-5',
-        xl: 'h-14 rounded-lg px-8 text-lg has-[>svg]:px-6',
-        icon: 'size-10',
-        'icon-sm': 'size-8',
-        'icon-lg': 'size-12',
+        default: 'h-9 px-4 py-2',
+        sm: 'h-8 rounded-md px-3 text-xs',
+        lg: 'h-10 px-6',
+        xl: 'h-12 px-8 text-base',
+        icon: 'h-9 w-9',
+        'icon-sm': 'h-8 w-8',
+        'icon-lg': 'h-10 w-10',
       },
     },
     defaultVariants: {

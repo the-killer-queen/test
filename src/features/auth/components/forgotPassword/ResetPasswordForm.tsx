@@ -1,6 +1,6 @@
 'use client';
 
-import SubmitButton from '@/components/SubmitButton';
+import SubmitButton from '@/components/shared/SubmitButton';
 import {
   Form,
   FormControl,

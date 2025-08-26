@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { forgotPassword } from '../../actions/forgotPassword';
 import { toast } from 'sonner';
-import SubmitButton from '@/components/SubmitButton';
+import SubmitButton from '@/components/shared/SubmitButton';
 import { ForgotPasswordFormSchema, forgotPasswordSchema } from '../../schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
