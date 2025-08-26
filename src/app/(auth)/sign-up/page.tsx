@@ -30,7 +30,7 @@ function SignupPage() {
           <div className='grid grid-cols-7 items-center gap-3'>
             <Separator className='col-span-3' />
             <p className='!text-muted-foreground col-span-1 text-center text-sm'>
-              or
+              OR
             </p>
             <Separator className='col-span-3' />
           </div>

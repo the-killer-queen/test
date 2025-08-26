@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
-import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
+import type { Metadata } from 'next';
 import { ReactNode } from 'react';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,7 +14,10 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang='en' className='dark'>
+    <html lang='en'>
+      <head>
+        <meta name='apple-mobile-web-app-title' content='MyWebSite' />
+      </head>
       <body className='min-h-dvh w-full antialiased'>
         <main>{children}</main>
         <Toaster position='bottom-right' />
