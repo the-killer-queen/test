@@ -84,7 +84,7 @@ function SigninForm() {
         />
 
         <p className='text-muted-foreground flex items-center gap-1 text-sm'>
-          <Button variant='link' className='p-0 text-inherit'>
+          <Button variant='link' className='p-0'>
             <Link href='/forgot-password'>Forgot your password?</Link>
           </Button>
         </p>

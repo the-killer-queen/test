@@ -26,7 +26,7 @@ function LoginWithGoogleButton() {
   return (
     <Button
       disabled={isLoading}
-      variant={'outline'}
+      variant={'ghost'}
       className='flex-1'
       onClick={handleGoogleSignin}
     >
