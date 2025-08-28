@@ -1,21 +1,19 @@
-import Logo from '@/app/icon0.svg';
-import Image from 'next/image';
-import { H4 } from '../typography/H4';
 import Link from 'next/link';
+import { H4 } from '../typography/H4';
+import { Muted } from '../typography/Muted';
+import { DrumstickIcon } from 'lucide-react';
 
 function AppLogo() {
   return (
-    <Link className='flex w-min items-center gap-1' href={'/'}>
-      <span className='relative size-8'>
-        <Image
-          loading='eager'
-          src={Logo}
-          alt='loopify logo'
-          className='object-cover'
-        />
-      </span>
+    <Link className='flex items-center gap-2' href={'/dashboard'}>
+      <div className='relative'>
+        <DrumstickIcon className='text-primary' />
+      </div>
 
-      <H4>Loopify</H4>
+      <div className='flex flex-col'>
+        <H4>CafeCtrl</H4>
+        <Muted>Dashboard</Muted>
+      </div>
     </Link>
   );
 }
