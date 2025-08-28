@@ -62,151 +62,129 @@
 :root {
   --radius: 0.5rem;
 
-  /* GitHub-style minimal backgrounds */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.13 0 0);
+  --background: oklch(0.99 0.003 240);
+  --foreground: oklch(0.25 0.015 250);
+
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.13 0 0);
+  --card-foreground: oklch(0.25 0.015 250);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.13 0 0);
+  --popover-foreground: oklch(0.25 0.015 250);
 
-  /* Neutral primary - GitHub blue for links/actions */
-  --primary: oklch(0.45 0.1 212);
-  --primary-foreground: oklch(1 0 0);
+  --primary: oklch(0.75 0.1 345);
+  --primary-foreground: oklch(0.15 0.01 345);
 
-  /* True neutral secondary - GitHub's button gray */
-  --secondary: oklch(0.96 0 0);
-  --secondary-foreground: oklch(0.13 0 0);
+  --secondary: oklch(0.94 0.01 240);
+  --secondary-foreground: oklch(0.3 0.015 250);
 
-  /* Subtle muted grays */
-  --muted: oklch(0.975 0 0);
-  --muted-foreground: oklch(0.45 0 0);
+  --muted: oklch(0.96 0.005 240);
+  --muted-foreground: oklch(0.5 0.01 250);
 
-  /* Minimal accent - very subtle gray */
-  --accent: oklch(0.96 0 0);
-  --accent-foreground: oklch(0.13 0 0);
+  --accent: oklch(0.96 0.005 240);
+  --accent-foreground: oklch(0.25 0.015 250);
 
-  /* Clean, minimal borders */
-  --border: oklch(0.87 0 0);
-  --input: oklch(1 0 0);
-  --ring: oklch(0.45 0.1 212);
+  --border: oklch(0.92 0.01 240);
+  --input: oklch(0.95 0.01 240);
+  --ring: oklch(0.75 0.1 345);
 
-  /* Error - red but not harsh */
-  --destructive: oklch(0.55 0.15 27);
-  --destructive-foreground: oklch(1 0 0);
+  --destructive: oklch(0.7 0.18 15);
+  --destructive-foreground: oklch(0.98 0.01 15);
 
-  /* Vibrant chart colors - ONLY for data visualization */
-  --chart-1: oklch(0.45 0.2 264); /* GitHub Purple */
-  --chart-2: oklch(0.6 0.18 142); /* GitHub Green */
-  --chart-3: oklch(0.7 0.15 50); /* Orange */
-  --chart-4: oklch(0.55 0.15 195); /* Cyan */
-  --chart-5: oklch(0.75 0.12 85); /* Yellow */
+  --chart-1: oklch(0.75 0.1 345);
+  --chart-2: oklch(0.8 0.05 200);
+  --chart-3: oklch(0.8 0.08 150);
+  --chart-4: oklch(0.75 0.1 50);
+  --chart-5: oklch(0.85 0.05 300);
 
-  /* Sidebar - same neutral approach */
-  --sidebar: oklch(0.99 0 0);
-  --sidebar-foreground: oklch(0.13 0 0);
-  --sidebar-primary: oklch(0.45 0.1 212);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.96 0 0);
-  --sidebar-accent-foreground: oklch(0.13 0 0);
-  --sidebar-border: oklch(0.87 0 0);
-  --sidebar-ring: oklch(0.45 0.1 212);
+  --sidebar: oklch(0.98 0.004 240);
+  --sidebar-foreground: oklch(0.3 0.015 250);
+  --sidebar-primary: oklch(0.75 0.1 345);
+  --sidebar-primary-foreground: oklch(0.15 0.01 345);
+  --sidebar-accent: oklch(0.94 0.01 240);
+  --sidebar-accent-foreground: oklch(0.3 0.015 250);
+  --sidebar-border: oklch(0.92 0.01 240);
+  --sidebar-ring: oklch(0.75 0.1 345);
 
-  /* Status colors - vibrant for clarity */
-  --success: oklch(0.6 0.18 142);
-  --success-foreground: oklch(1 0 0);
-  --warning: oklch(0.75 0.12 85);
-  --warning-foreground: oklch(0.13 0 0);
-  --error: oklch(0.55 0.15 27);
-  --error-foreground: oklch(1 0 0);
-  --info: oklch(0.55 0.15 195);
-  --info-foreground: oklch(1 0 0);
+  --success: oklch(0.65 0.15 150);
+  --success-foreground: oklch(0.98 0.01 150);
+  --warning: oklch(0.8 0.15 80);
+  --warning-foreground: oklch(0.3 0.02 80);
+  --error: oklch(0.7 0.18 15);
+  --error-foreground: oklch(0.98 0.01 15);
+  --info: oklch(0.7 0.1 230);
+  --info-foreground: oklch(0.98 0.01 230);
 
-  /* Habit tracking colors - vibrant like GitHub contributions */
-  --habit-complete: oklch(0.6 0.18 142);
-  --habit-incomplete: oklch(0.92 0 0);
-  --habit-streak: oklch(0.7 0.15 50);
-  --progress-track: oklch(0.92 0 0);
-  --progress-fill: oklch(0.45 0.2 264);
+  --habit-complete: oklch(0.75 0.1 345);
+  --habit-incomplete: oklch(0.94 0.01 240);
+  --habit-streak: oklch(0.8 0.05 200);
+  --progress-track: oklch(0.94 0.01 240);
+  --progress-fill: oklch(0.75 0.1 345);
 
-  /* Utility colors */
-  --subtle-bg: oklch(0.99 0 0);
-  --hover-bg: oklch(0.96 0 0);
-  --text-muted-soft: oklch(0.55 0 0);
+  --subtle-bg: oklch(0.98 0.004 240);
+  --hover-bg: oklch(0.96 0.005 240);
+  --text-muted-soft: oklch(0.55 0.01 250);
 }
 
 .dark {
-  /* GitHub dark theme inspired */
-  --background: oklch(0.08 0 0);
-  --foreground: oklch(0.95 0 0);
-  --card: oklch(0.11 0 0);
-  --card-foreground: oklch(0.95 0 0);
-  --popover: oklch(0.11 0 0);
-  --popover-foreground: oklch(0.95 0 0);
+  --background: oklch(0.12 0.015 250);
+  --foreground: oklch(0.9 0.01 240);
 
-  /* GitHub dark primary blue */
-  --primary: oklch(0.58 0.15 212);
-  --primary-foreground: oklch(0.08 0 0);
+  --card: oklch(0.15 0.02 250);
+  --card-foreground: oklch(0.9 0.01 240);
+  --popover: oklch(0.15 0.02 250);
+  --popover-foreground: oklch(0.9 0.01 240);
 
-  /* GitHub dark button gray */
-  --secondary: oklch(0.15 0 0);
-  --secondary-foreground: oklch(0.95 0 0);
+  --primary: oklch(0.8 0.1 345);
+  --primary-foreground: oklch(0.1 0.01 345);
 
-  /* Dark muted tones */
-  --muted: oklch(0.13 0 0);
-  --muted-foreground: oklch(0.65 0 0);
+  --secondary: oklch(0.2 0.02 250);
+  --secondary-foreground: oklch(0.85 0.01 240);
 
-  /* Dark accent */
-  --accent: oklch(0.15 0 0);
-  --accent-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.22 0.02 250);
+  --muted-foreground: oklch(0.6 0.01 240);
 
-  /* Dark borders */
-  --border: oklch(0.21 0 0);
-  --input: oklch(0.11 0 0);
-  --ring: oklch(0.58 0.15 212);
+  --accent: oklch(0.22 0.02 250);
+  --accent-foreground: oklch(0.9 0.01 240);
 
-  /* Dark error */
-  --destructive: oklch(0.65 0.18 27);
-  --destructive-foreground: oklch(0.95 0 0);
+  --border: oklch(0.25 0.02 250);
+  --input: oklch(0.25 0.02 250);
+  --ring: oklch(0.8 0.1 345);
 
-  /* Vibrant chart colors for dark mode - more luminous */
-  --chart-1: oklch(0.65 0.22 264); /* Bright Purple */
-  --chart-2: oklch(0.7 0.2 142); /* Bright Green */
-  --chart-3: oklch(0.75 0.18 50); /* Bright Orange */
-  --chart-4: oklch(0.65 0.18 195); /* Bright Cyan */
-  --chart-5: oklch(0.8 0.15 85); /* Bright Yellow */
+  --destructive: oklch(0.75 0.2 15);
+  --destructive-foreground: oklch(0.1 0.01 15);
 
-  /* Dark sidebar */
-  --sidebar: oklch(0.11 0 0);
-  --sidebar-foreground: oklch(0.95 0 0);
-  --sidebar-primary: oklch(0.58 0.15 212);
-  --sidebar-primary-foreground: oklch(0.08 0 0);
-  --sidebar-accent: oklch(0.15 0 0);
-  --sidebar-accent-foreground: oklch(0.95 0 0);
-  --sidebar-border: oklch(0.21 0 0);
-  --sidebar-ring: oklch(0.58 0.15 212);
+  --chart-1: oklch(0.8 0.1 345);
+  --chart-2: oklch(0.8 0.06 200);
+  --chart-3: oklch(0.8 0.09 150);
+  --chart-4: oklch(0.8 0.12 50);
+  --chart-5: oklch(0.85 0.06 300);
 
-  /* Dark status colors - more vibrant */
-  --success: oklch(0.7 0.2 142);
-  --success-foreground: oklch(0.08 0 0);
-  --warning: oklch(0.8 0.15 85);
-  --warning-foreground: oklch(0.08 0 0);
-  --error: oklch(0.65 0.18 27);
-  --error-foreground: oklch(0.95 0 0);
-  --info: oklch(0.65 0.18 195);
-  --info-foreground: oklch(0.08 0 0);
+  --sidebar: oklch(0.14 0.018 250);
+  --sidebar-foreground: oklch(0.85 0.01 240);
+  --sidebar-primary: oklch(0.8 0.1 345);
+  --sidebar-primary-foreground: oklch(0.1 0.01 345);
+  --sidebar-accent: oklch(0.2 0.02 250);
+  --sidebar-accent-foreground: oklch(0.85 0.01 240);
+  --sidebar-border: oklch(0.25 0.02 250);
+  --sidebar-ring: oklch(0.8 0.1 345);
 
-  /* Dark habit colors - vibrant against dark background */
-  --habit-complete: oklch(0.7 0.2 142);
-  --habit-incomplete: oklch(0.16 0 0);
-  --habit-streak: oklch(0.75 0.18 50);
-  --progress-track: oklch(0.16 0 0);
-  --progress-fill: oklch(0.65 0.22 264);
+  --success: oklch(0.7 0.18 150);
+  --success-foreground: oklch(0.1 0.01 150);
+  --warning: oklch(0.8 0.18 80);
+  --warning-foreground: oklch(0.15 0.02 80);
+  --error: oklch(0.75 0.2 15);
+  --error-foreground: oklch(0.1 0.01 15);
+  --info: oklch(0.75 0.12 230);
+  --info-foreground: oklch(0.1 0.01 230);
 
-  /* Dark utility colors */
-  --subtle-bg: oklch(0.13 0 0);
-  --hover-bg: oklch(0.18 0 0);
-  --text-muted-soft: oklch(0.75 0 0);
+  --habit-complete: oklch(0.8 0.1 345);
+  --habit-incomplete: oklch(0.2 0.02 250);
+  --habit-streak: oklch(0.8 0.06 200);
+  --progress-track: oklch(0.2 0.02 250);
+  --progress-fill: oklch(0.8 0.1 345);
+
+  --subtle-bg: oklch(0.18 0.02 250);
+  --hover-bg: oklch(0.22 0.02 250);
+  --text-muted-soft: oklch(0.55 0.01 240);
 }
 
 @layer base {
