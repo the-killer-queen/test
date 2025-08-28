@@ -1,14 +1,7 @@
-import withPWA from 'next-pwa';
+import { NextConfig } from 'next';
 
-const nextConfig = {
-  experimental: {
-    optimizePackageImports: ['@phosphor-icons/react'],
-  },
+const nextConfig: NextConfig = {
+  reactStrictMode: false,
 };
 
-export default withPWA({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-  register: true,
-  skipWaiting: true,
-})(nextConfig);
+export default nextConfig;
