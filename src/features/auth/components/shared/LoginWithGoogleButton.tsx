@@ -11,15 +11,9 @@ function LoginWithGoogleButton() {
 
   async function handleGoogleSignin() {
     startSignin(async () => {
-      try {
-        await loginWithGoogle();
-      } catch (error) {
-        const message =
-          error instanceof Error
-            ? error.message
-            : 'Failed to login with your google account';
-        toast.error(message);
-      }
+      const { success, error } = await loginWithGoogle();
+      if (success) toast.success('Welcome back!');
+      if (!success) toast.error(error);
     });
   }
 

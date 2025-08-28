@@ -14,8 +14,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ResetPasswordFormSchema, resetPasswordSchema } from '../../schema';
-import { oneTimeResetPasword } from '../../actions/forgotPassword';
+
 import { useRouter } from 'next/navigation';
+import { oneTimeResetPassword } from '../../actions/forgotPassword';
 
 function ResetPasswordForm() {
   const router = useRouter();
@@ -28,18 +29,14 @@ function ResetPasswordForm() {
   });
 
   async function onSubmit(values: ResetPasswordFormSchema) {
-    try {
-      await oneTimeResetPasword(values.password);
+    const { success, error } = await oneTimeResetPassword(values.password);
 
+    if (success) {
       toast.success('Your password has been reset successfully!');
       router.push('/sign-in');
-    } catch (error) {
-      const message =
-        error instanceof Error
-          ? error.message
-          : 'Something went wrong. Please try again later.';
-      toast.error(message);
     }
+
+    if (!success) toast.error(error);
   }
 
   return (

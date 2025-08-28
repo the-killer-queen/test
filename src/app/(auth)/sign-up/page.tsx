@@ -41,10 +41,7 @@ function SignupPage() {
 
           <p className='!text-muted-foreground mt-4 flex items-center justify-center gap-1 text-sm'>
             Already have an account?
-            <Button
-              variant='link'
-              className='!hover:text-primary p-0 font-medium !text-inherit'
-            >
+            <Button variant='link' className='p-0'>
               <Link href='/sign-in'>Sign in</Link>
             </Button>
           </p>

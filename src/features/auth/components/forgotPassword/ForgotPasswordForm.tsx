@@ -25,16 +25,10 @@ function ForgotPasswordForm() {
   });
 
   async function onSubmit(values: ForgotPasswordFormSchema) {
-    try {
-      await forgotPassword(values.email);
-      toast.success('Password reset link sent to your email!');
-    } catch (error) {
-      const message =
-        error instanceof Error
-          ? error.message
-          : 'Unable to send the reset link. Please try again later.';
-      toast.error(message);
-    }
+    const { success, error } = await forgotPassword(values.email);
+
+    if (success) toast.success('Password reset link sent to your email!');
+    if (!success) toast.error(error);
   }
 
   return (

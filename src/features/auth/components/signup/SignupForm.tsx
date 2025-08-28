@@ -33,19 +33,15 @@ function SignupForm() {
 
   async function onSubmit(values: SignupFormSchema) {
     startTransition(async () => {
-      try {
-        await signup(values);
+      const { success, error } = await signup(values);
+
+      if (success) {
         toast.success(
           'Account created successfully! Please check your email to verify your account.',
         );
         router.push('/');
-      } catch (error: unknown) {
-        const message =
-          error instanceof Error
-            ? error.message
-            : 'Something went wrong. Please try again.';
-        toast.error(message);
       }
+      if (!success) toast.error(error);
     });
   }
 

@@ -30,18 +30,14 @@ function SigninForm() {
   });
 
   async function onSubmit(values: LoginFormSchema) {
-    try {
-      await login(values);
+    const { success, error } = await login(values);
+
+    if (success) {
       toast.success('Welcome back! You have successfully signed in.');
       router.push('/');
-    } catch (error: unknown) {
-      const message =
-        error instanceof Error
-          ? error.message
-          : 'Something went wrong. Please try again.';
-
-      toast.error(message);
     }
+
+    if (!success) toast.error(error);
   }
 
   return (

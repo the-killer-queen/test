@@ -1,15 +1,27 @@
 'use server';
 
 import { createClient } from '@/supabase/server';
-import { SignupFormSchema } from '../schema';
+import { ActionResult, SignupFormSchema } from '../schema';
 
-export async function signup(formData: SignupFormSchema) {
+export async function signup(
+  formData: SignupFormSchema,
+): Promise<ActionResult> {
   try {
     const supabase = await createClient();
-    const { error: loginError } = await supabase.auth.signUp(formData);
+    const { error: signupError } = await supabase.auth.signUp(formData);
 
-    if (loginError) throw new Error(loginError.message);
+    if (signupError)
+      return {
+        success: false,
+        error: signupError.message,
+      };
+
+    return { success: true };
   } catch (error) {
-    throw error;
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : 'An unexpected error occurred',
+    };
   }
 }

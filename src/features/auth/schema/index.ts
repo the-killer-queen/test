@@ -48,3 +48,8 @@ export const resetPasswordSchema = z
     path: ['confirmPassword'],
   });
 export type ResetPasswordFormSchema = z.infer<typeof resetPasswordSchema>;
+
+export type ActionResult = {
+  success: boolean;
+  error?: string;
+};

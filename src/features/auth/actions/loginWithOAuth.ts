@@ -1,7 +1,8 @@
 import { getURL } from '@/lib/utils';
 import { createClient } from '@/supabase/client';
+import { ActionResult } from '../schema';
 
-export async function loginWithGoogle() {
+export async function loginWithGoogle(): Promise<ActionResult> {
   try {
     const redirectTo = `${getURL()}api/auth/callback`;
 
@@ -11,8 +12,18 @@ export async function loginWithGoogle() {
       options: { redirectTo },
     });
 
-    if (oAuthError) throw new Error(oAuthError.message);
+    if (oAuthError)
+      return {
+        success: false,
+        error: oAuthError.message,
+      };
+
+    return { success: true };
   } catch (error) {
-    throw error;
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : 'An unexpected error occurred',
+    };
   }
 }

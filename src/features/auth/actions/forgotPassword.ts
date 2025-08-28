@@ -2,8 +2,9 @@
 
 import { getURL } from '@/lib/utils';
 import { createClient } from '@/supabase/server';
+import { ActionResult } from '../schema';
 
-export async function forgotPassword(email: string) {
+export async function forgotPassword(email: string): Promise<ActionResult> {
   try {
     const redirectTo = `${getURL()}api/auth/reset-password`;
 
@@ -11,13 +12,26 @@ export async function forgotPassword(email: string) {
     const { error: forgotPasswordError } =
       await supabase.auth.resetPasswordForEmail(email, { redirectTo });
 
-    if (forgotPasswordError) throw new Error(forgotPasswordError.message);
+    if (forgotPasswordError) {
+      return {
+        success: false,
+        error: forgotPasswordError.message,
+      };
+    }
+
+    return { success: true };
   } catch (error) {
-    throw error;
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : 'An unexpected error occurred',
+    };
   }
 }
 
-export async function oneTimeResetPasword(newPassword: string) {
+export async function oneTimeResetPassword(
+  newPassword: string,
+): Promise<ActionResult> {
   try {
     const supabase = await createClient();
     const { error: resetPassError } = await supabase.auth.updateUser({
@@ -25,11 +39,27 @@ export async function oneTimeResetPasword(newPassword: string) {
       data: { password_reset_verified: null },
     });
 
-    if (resetPassError) throw new Error(resetPassError.message);
+    if (resetPassError) {
+      return {
+        success: false,
+        error: resetPassError.message,
+      };
+    }
 
     const { error: signOutError } = await supabase.auth.signOut();
-    if (signOutError) throw new Error(signOutError.message);
+    if (signOutError) {
+      return {
+        success: false,
+        error: signOutError.message,
+      };
+    }
+
+    return { success: true };
   } catch (error) {
-    throw error;
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : 'An unexpected error occurred',
+    };
   }
 }
