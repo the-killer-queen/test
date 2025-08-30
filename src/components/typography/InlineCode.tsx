@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export function InlineCode({ children }: { children: ReactNode }) {
   return (
-    <code className='bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold'>
+    <code className='bg-muted/80 text-foreground ring-border/50 relative rounded-md px-2 py-1 font-mono text-sm font-medium ring-1 backdrop-blur-sm'>
       {children}
     </code>
   );

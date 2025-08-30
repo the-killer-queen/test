@@ -1,5 +1,9 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export function Lead({ children }: { children: ReactNode }) {
-  return <p className='text-muted-foreground text-xl'>{children}</p>;
+  return (
+    <p className='text-muted-foreground mb-6 text-xl leading-relaxed text-pretty'>
+      {children}
+    </p>
+  );
 }

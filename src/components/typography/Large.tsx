@@ -1,5 +1,7 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export function Large({ children }: { children: ReactNode }) {
-  return <div className='text-lg font-semibold'>{children}</div>;
+  return (
+    <p className='mb-3 text-lg leading-relaxed font-semibold'>{children}</p>
+  );
 }
