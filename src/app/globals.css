@@ -47,9 +47,7 @@
   --color-error-foreground: var(--error-foreground);
   --color-info: var(--info);
   --color-info-foreground: var(--info-foreground);
-  --color-habit-complete: var(--habit-complete);
-  --color-habit-incomplete: var(--habit-incomplete);
-  --color-habit-streak: var(--habit-streak);
+
   --color-progress-track: var(--progress-track);
   --color-progress-fill: var(--progress-fill);
 
@@ -113,12 +111,6 @@
   --info: oklch(0.7 0.1 230);
   --info-foreground: oklch(0.98 0.01 230);
 
-  --habit-complete: oklch(0.75 0.1 345);
-  --habit-incomplete: oklch(0.94 0.01 240);
-  --habit-streak: oklch(0.8 0.05 200);
-  --progress-track: oklch(0.94 0.01 240);
-  --progress-fill: oklch(0.75 0.1 345);
-
   --subtle-bg: oklch(0.98 0.004 240);
   --hover-bg: oklch(0.96 0.005 240);
   --text-muted-soft: oklch(0.55 0.01 250);
@@ -175,12 +167,6 @@
   --error-foreground: oklch(0.1 0.01 15);
   --info: oklch(0.75 0.12 230);
   --info-foreground: oklch(0.1 0.01 230);
-
-  --habit-complete: oklch(0.8 0.1 345);
-  --habit-incomplete: oklch(0.2 0.02 250);
-  --habit-streak: oklch(0.8 0.06 200);
-  --progress-track: oklch(0.2 0.02 250);
-  --progress-fill: oklch(0.8 0.1 345);
 
   --subtle-bg: oklch(0.18 0.02 250);
   --hover-bg: oklch(0.22 0.02 250);
