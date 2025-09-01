@@ -1,4 +1,4 @@
-export type GetActionResult<T> =
+export type GetActionResult<T = undefined> =
   | {
       success: true;
       data: T;
@@ -9,3 +9,7 @@ export type GetActionResult<T> =
       error: string;
       data?: never;
     };
+
+export type PageProps = {
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+};
