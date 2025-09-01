@@ -1,0 +1,18 @@
+import { TableHead, TableHeader, TableRow } from '@/components/ui/table';
+
+function Header() {
+  return (
+    <TableHeader>
+      <TableRow>
+        <TableHead></TableHead>
+        <TableHead>Name</TableHead>
+        <TableHead>Category</TableHead>
+        <TableHead>Ingredients</TableHead>
+        <TableHead>Price</TableHead>
+        <TableHead></TableHead>
+      </TableRow>
+    </TableHeader>
+  );
+}
+
+export default Header;
