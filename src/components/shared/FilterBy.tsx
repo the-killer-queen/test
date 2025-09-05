@@ -1,16 +1,18 @@
 'use client';
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { useSetSearchParam } from '@/hooks/use-setSearchParam';
+import { CommandEmpty } from 'cmdk';
 import { Filter } from 'lucide-react';
+import { useState } from 'react';
 import { Button } from '../ui/button';
+import {
+  Command,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '../ui/command';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import DynamicIcon from './DynamicIcon';
 
 type FilterByProps = {
@@ -23,6 +25,8 @@ type FilterByProps = {
 
 function FilterBy({ options }: FilterByProps) {
   const { setSearchParam, getSearchParam } = useSetSearchParam();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   let selectedFilters = getSearchParam('filter_by')
     ? [getSearchParam('filter_by')]
     : [];
@@ -30,33 +34,39 @@ function FilterBy({ options }: FilterByProps) {
   function handleUpdateFilter(value: string) {
     selectedFilters = [...new Set([...selectedFilters, value.toLowerCase()])];
     setSearchParam('filter_by', selectedFilters.join('%'));
+    setIsOpen(false);
   }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant={'secondary'}>
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <PopoverTrigger asChild>
+        <Button role='combobox' variant={'secondary'}>
           <Filter />
           Apply Filter
         </Button>
-      </DropdownMenuTrigger>
+      </PopoverTrigger>
 
-      <DropdownMenuContent side='bottom'>
-        <DropdownMenuGroup>
-          {options.map((option, i, array) => (
-            <div key={option.value}>
-              <DropdownMenuItem
-                onSelect={() => handleUpdateFilter(option.value)}
-              >
-                <DynamicIcon iconName={option.iconName || ''} />
-                {option.label}
-              </DropdownMenuItem>
-              {i < array.length - 1 && <DropdownMenuSeparator />}
-            </div>
-          ))}
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+      <PopoverContent side='bottom' className='w-full p-0'>
+        <Command>
+          <CommandInput placeholder='Search...' />
+          <CommandEmpty>No category found</CommandEmpty>
+          <CommandList>
+            <CommandGroup>
+              {options.map((option, i) => (
+                <CommandItem
+                  key={i}
+                  className='border-b'
+                  onSelect={() => handleUpdateFilter(option.value)}
+                >
+                  <DynamicIcon iconName={option.iconName || ''} />
+                  {option.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
   );
 }
 

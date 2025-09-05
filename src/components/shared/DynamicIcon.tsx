@@ -8,7 +8,7 @@ function DynamicIcon({ iconName, size = 24, className }: DynamicIconProps) {
   ] as LucideIcons.LucideIcon;
 
   if (!IconComponent)
-    return <LucideIcons.HelpCircle size={size} className={className} />;
+    return <LucideIcons.Coffee size={size} className={className} />;
 
   return <IconComponent size={size} className={className} />;
 }

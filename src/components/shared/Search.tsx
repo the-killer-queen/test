@@ -4,10 +4,12 @@ import { useSetSearchParam } from '@/hooks/use-setSearchParam';
 import { ComponentProps, FormEvent, useRef } from 'react';
 import { Input } from '../ui/input';
 import { X } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 function Search({
   placeholder = 'Search...',
   name = 'query',
+  className,
   ...props
 }: ComponentProps<'input'>) {
   const ref = useRef<HTMLFormElement>(null);
@@ -34,7 +36,7 @@ function Search({
     <form
       ref={ref}
       onSubmit={handleSearch}
-      className='relative flex flex-1 items-center gap-1'
+      className={cn('relative flex flex-1 items-center gap-1', className)}
     >
       <Input name={name} placeholder={placeholder} {...props} />
 
