@@ -11,7 +11,7 @@ import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { SquarePen } from 'lucide-react';
 import { useState } from 'react';
 import { MenuRow } from '@/types/tables';
-import EditMenuItemForm from '../EditMenuItemForm';
+import EditMenuItemForm from '../form/EditMenuItemForm';
 
 type EditMenuItemProps = { menuItem: MenuRow };
 

@@ -1,4 +1,4 @@
-import { TableBody } from '@/components/ui/table';
+import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { getMenu } from '@/supabase/data/menu-service';
 import { PageProps } from '@/types';
 import {
@@ -6,9 +6,9 @@ import {
   searchMenuItems,
   sortMenuItems,
 } from '../../lib/utils';
-import Row from './Row';
+import MenuTableRow from './MenuTableRow';
 
-async function Body({ searchParams }: PageProps) {
+async function MenuTableBody({ searchParams }: PageProps) {
   const { data: menu, error } = await getMenu();
   if (error || !menu) return <p>Failed to fetch data!!!!</p>;
 
@@ -26,13 +26,24 @@ async function Body({ searchParams }: PageProps) {
   const filterBy = params.filter_by;
   const filteredMenuItems = filterMenuItems(filterBy, sortedMenuItems);
 
+  if (filteredMenuItems.length === 0)
+    return (
+      <TableBody>
+        <TableRow>
+          <TableCell colSpan={6}>
+            <div className='flex items-center justify-center'>NO Item!!!</div>
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    );
+
   return (
     <TableBody>
       {filteredMenuItems.map((menuItem) => (
-        <Row key={menuItem.id} menuItem={menuItem} />
+        <MenuTableRow key={menuItem.id} menuItem={menuItem} />
       ))}
     </TableBody>
   );
 }
 
-export default Body;
+export default MenuTableBody;

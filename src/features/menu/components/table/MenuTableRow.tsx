@@ -10,16 +10,17 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { TableCell, TableRow } from '@/components/ui/table';
+import { formatNumber } from '@/lib/utils';
 import { MenuRow } from '@/types/tables';
-import { DollarSignIcon, Ellipsis, Eye, Layers } from 'lucide-react';
-import DeleteMenuItem from './DeleteMenuItem';
-import UpdateMenuItem from './UpdateMenuItem';
+import { Ellipsis, Eye } from 'lucide-react';
+import DeleteMenuItem from '../Dialog/DeleteMenuItemDialog';
+import UpdateMenuItem from '../Dialog/UpdateMenuItemDialog';
 
 type MenuTableRowProps = {
   menuItem: MenuRow;
 };
 
-function Row({ menuItem }: MenuTableRowProps) {
+function MenuTableRow({ menuItem }: MenuTableRowProps) {
   return (
     <TableRow>
       {/* AVATAR */}
@@ -41,15 +42,11 @@ function Row({ menuItem }: MenuTableRowProps) {
       {/* CATEGORY */}
       <TableCell>
         <div className='flex items-center gap-1 capitalize'>
-          {menuItem.tag ? (
-            <DynamicIcon
-              iconName={menuItem.tag.icon!}
-              className='size-3.5 lg:size-4'
-            />
-          ) : (
-            <Layers />
-          )}
-          {menuItem.tag?.name ? menuItem.tag.name.replaceAll('_', ' ') : '—'}
+          <DynamicIcon
+            iconName={menuItem?.menu_categories?.icon_name || ''}
+            className='size-3.5 lg:size-4'
+          />
+          {menuItem.category ? menuItem.category.replaceAll('_', ' ') : '—'}
         </div>
       </TableCell>
 
@@ -66,8 +63,12 @@ function Row({ menuItem }: MenuTableRowProps) {
       {/* PRICE */}
       <TableCell>
         <div className='flex items-center'>
-          <DollarSignIcon className='size-3.5 lg:size-4' />
-          <span>{menuItem.price.toFixed(2)}</span>
+          <span>
+            {formatNumber({
+              locale: 'en-US',
+              number: menuItem.price,
+            })}
+          </span>
         </div>
       </TableCell>
 
@@ -96,4 +97,4 @@ function Row({ menuItem }: MenuTableRowProps) {
   );
 }
 
-export default Row;
+export default MenuTableRow;

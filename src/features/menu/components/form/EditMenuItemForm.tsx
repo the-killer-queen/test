@@ -18,7 +18,10 @@ import { useForm } from 'react-hook-form';
 import { updateMenuItem } from '@/supabase/data/menu-service';
 import Spinner from '@/components/shared/Spinner';
 import { toast } from 'sonner';
-import { updateMenuItemSchema, UpdateMenuItemSchema } from '../schema/schema';
+import {
+  updateMenuItemSchema,
+  UpdateMenuItemSchema,
+} from '../../schema/schema';
 
 type MenuItemUpdateFormProps = {
   onClose: () => void;
@@ -33,7 +36,7 @@ function EditMenuItemForm({ menuToUpdate, onClose }: MenuItemUpdateFormProps) {
       price: menuToUpdate?.price || 0,
       image_url: menuToUpdate?.image_url || '',
       ingredients: menuToUpdate?.ingredients || [],
-      tag: menuToUpdate?.tag || { name: '', icon: '' },
+      category: menuToUpdate?.category || '',
     },
   });
 
@@ -114,16 +117,16 @@ function EditMenuItemForm({ menuToUpdate, onClose }: MenuItemUpdateFormProps) {
           />
 
           <FormField
-            name='tag'
+            name='category'
             control={form.control}
             render={({ field }) => (
               <FormItem className='w-32'>
                 <FormLabel>Tag</FormLabel>
                 <FormControl>
                   <Input
-                    defaultValue={field.value.name}
+                    // defaultValue={field.value.name}
                     placeholder='Enter tag (e.g., vegetarian, spicy)'
-                    // {...field}
+                    {...field}
                   />
                 </FormControl>
 

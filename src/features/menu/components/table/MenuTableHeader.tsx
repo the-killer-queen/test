@@ -1,6 +1,6 @@
 import { TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
-function Header() {
+function MenuTableHeader() {
   return (
     <TableHeader>
       <TableRow>
@@ -15,4 +15,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default MenuTableHeader;
