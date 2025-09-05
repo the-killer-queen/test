@@ -1,11 +1,11 @@
 import { MenuRow } from '@/types/tables';
-import { SortDirection, SortField, Tag } from '../schema/types';
+import { SortDirection, SortField } from './types';
 
 export function searchMenuItems(query: string, menu: MenuRow[]) {
   return menu.filter(
     (item) =>
       item.name.toLowerCase().includes(query.toLowerCase()) ||
-      item.tag?.name.toLowerCase().includes(query.toLowerCase()),
+      item.category?.toLowerCase().includes(query.toLowerCase()),
   );
 }
 
@@ -38,16 +38,18 @@ export function filterMenuItems(filterBy: string | undefined, menu: MenuRow[]) {
   return selectedFilters
     ? menu.filter((item) =>
         selectedFilters.find(
-          (filter) => item.tag?.name.toLowerCase() == filter.toLowerCase(),
+          (filter) => item.category?.toLowerCase() == filter.toLowerCase(),
         ),
       )
     : menu;
 }
 
-export function menuFilterOptions(categories: { tag: Tag | null }[]) {
+export function menuFilterOptions(
+  categories: { name: string; icon_name: string | null }[],
+) {
   return categories.map((cat) => ({
-    label: cat.tag!.name,
-    value: cat.tag!.name,
-    iconName: cat.tag?.icon,
+    label: cat.name,
+    value: cat.name,
+    iconName: cat?.icon_name || '',
   }));
 }
