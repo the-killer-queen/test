@@ -1,4 +1,5 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { startTransition } from 'react';
 
 export function useSetSearchParam() {
   const searchParams = useSearchParams();
@@ -9,14 +10,18 @@ export function useSetSearchParam() {
     const search = new URLSearchParams(searchParams);
     search.set(name, value);
 
-    router.push(`${pathname}?${search.toString()}`);
+    startTransition(() => {
+      router.replace(`${pathname}?${search.toString()}`);
+    });
   }
 
   function removeSearchParam(name: string) {
     const search = new URLSearchParams(searchParams);
     search.delete(name);
 
-    router.push(`${pathname}?${search.toString()}`);
+    startTransition(() => {
+      router.replace(`${pathname}?${search.toString()}`);
+    });
   }
 
   function getSearchParam(name: string) {
