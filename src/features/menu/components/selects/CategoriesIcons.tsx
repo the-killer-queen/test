@@ -20,7 +20,7 @@ import {
 import { ChevronsUpDown } from 'lucide-react';
 import { useState } from 'react';
 import { ControllerRenderProps } from 'react-hook-form';
-import { icons } from '../lib/constant';
+import { icons } from '../../lib/constant';
 
 function CategoriesIcons({ ...field }: ControllerRenderProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);

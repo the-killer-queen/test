@@ -11,15 +11,15 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { createCategoryItem } from '@/supabase/data/categories-service';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import {
   createCategorySchema,
   CreateCategorySchema,
 } from '../../schema/schema';
-import { createCategoryItem } from '@/supabase/data/menu-service';
-import { toast } from 'sonner';
-import CategoriesIcons from '../CategoriesIcons';
+import CategoriesIcons from '../selects/CategoriesIcons';
 
 function CreateCategoryForm({ onClose }: { onClose: () => void }) {
   const form = useForm<CreateCategorySchema>({

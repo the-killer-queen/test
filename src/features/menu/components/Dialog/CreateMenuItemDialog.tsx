@@ -12,11 +12,7 @@ import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import CreateMenuItemForm from '../form/CreateMenuItemForm';
 
-function CreateMenuItemDialog({
-  categories,
-}: {
-  categories: { name: string; icon_name: string | null }[];
-}) {
+function CreateMenuItemDialog() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
@@ -26,17 +22,14 @@ function CreateMenuItemDialog({
         Add New Item
       </Button>
 
-      <DialogContent>
+      <DialogContent className='max-h-[90vh] overflow-y-auto'>
         <DialogHeader>
           <DialogTitle>Create Menu Item</DialogTitle>
           <DialogDescription>
             Fill in the details to add a new menu item
           </DialogDescription>
 
-          <CreateMenuItemForm
-            onClose={() => setIsOpen(false)}
-            categories={categories}
-          />
+          <CreateMenuItemForm onClose={() => setIsOpen(false)} />
         </DialogHeader>
       </DialogContent>
     </Dialog>

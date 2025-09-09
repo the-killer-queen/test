@@ -8,7 +8,7 @@ interface MenuTableSkeletonProps {
   rows?: number;
 }
 
-function LoadingSkeleton({ rows = 5 }: MenuTableSkeletonProps) {
+function MenuTableLoadingSkeleton({ rows = 5 }: MenuTableSkeletonProps) {
   return (
     <TableBody>
       {Array.from({ length: rows }).map((_, index) => (
@@ -55,4 +55,4 @@ function LoadingSkeleton({ rows = 5 }: MenuTableSkeletonProps) {
   );
 }
 
-export default LoadingSkeleton;
+export default MenuTableLoadingSkeleton;

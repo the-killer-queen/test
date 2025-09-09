@@ -7,38 +7,35 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
-import { SquarePen } from 'lucide-react';
-import { useState } from 'react';
 import { MenuRow } from '@/types/tables';
-import EditMenuItemForm from '../form/EditMenuItemForm';
+import { cloneElement, ReactElement, useState } from 'react';
+import UpdateMenuItemForm from '../form/UpdateMenuItemForm';
 
-type EditMenuItemProps = { menuItem: MenuRow };
+type EditMenuItemProps = {
+  menuItem: MenuRow;
+  children: ReactElement<{ onClick: (e: MouseEvent) => void }>;
+};
 
-function UpdateMenuItem({ menuItem }: EditMenuItemProps) {
+function UpdateMenuItemDialog({ menuItem, children }: EditMenuItemProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DropdownMenuItem
-        className='!text-info [&_svg]:!text-info hover:!bg-info/5'
-        onSelect={(e) => {
+      {cloneElement(children, {
+        onClick: (e) => {
           e.preventDefault();
           setIsOpen(true);
-        }}
-      >
-        <SquarePen />
-        Edit
-      </DropdownMenuItem>
+        },
+      })}
 
-      <DialogContent className='!max-w-md'>
+      <DialogContent className='max-h-[90vh] overflow-y-auto'>
         <DialogHeader>
           <DialogTitle>Update Menu Item</DialogTitle>
           <DialogDescription>
             Update the details of your menu item
           </DialogDescription>
 
-          <EditMenuItemForm
+          <UpdateMenuItemForm
             menuToUpdate={menuItem}
             onClose={() => setIsOpen(false)}
           />
@@ -48,4 +45,4 @@ function UpdateMenuItem({ menuItem }: EditMenuItemProps) {
   );
 }
 
-export default UpdateMenuItem;
+export default UpdateMenuItemDialog;

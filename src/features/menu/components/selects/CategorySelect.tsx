@@ -20,14 +20,21 @@ import {
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { useState } from 'react';
 import { ControllerRenderProps } from 'react-hook-form';
-import CreateCategoryDialog from './Dialog/CreateCategoryDialog';
+import { useGetMenucCategories } from '../../hooks/useGetMenucCategories';
+import CreateCategoryDialog from '../Dialog/CreateCategoryDialog';
+import CategorySelectSkeleton from '../skeletons/CategorySelectSkeleton';
 
-type CategorySelectProps = {
-  categories: { name: string; icon_name: string | null }[];
-} & ControllerRenderProps;
+type CategorySelectProps = ControllerRenderProps;
 
-function CategorySelect({ categories, ...field }: CategorySelectProps) {
+function CategorySelect({ ...field }: CategorySelectProps) {
+  const { isPending, categories, error } = useGetMenucCategories();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  if (isPending) return <CategorySelectSkeleton />;
+  if (!categories) return <CategorySelectSkeleton />;
+
+  if (error) return <p>!!!!</p>;
+
   return (
     <div className='flex items-center gap-2'>
       <Popover modal={true} open={isOpen} onOpenChange={setIsOpen}>
@@ -48,7 +55,7 @@ function CategorySelect({ categories, ...field }: CategorySelectProps) {
             <ChevronsUpDown />
           </Button>
         </PopoverTrigger>
-        <PopoverContent side='bottom' className='h-48 w-48 p-0'>
+        <PopoverContent side='bottom' className='max-h-48 w-48 p-0'>
           <Command>
             <CommandInput placeholder='Search categories...' />
             <CommandEmpty>No category found.</CommandEmpty>
@@ -58,7 +65,7 @@ function CategorySelect({ categories, ...field }: CategorySelectProps) {
                   <CommandItem
                     key={i}
                     value={category.name}
-                    className={'justify-between border-b'}
+                    className={'justify-between'}
                     onSelect={() => {
                       setIsOpen(false);
                       field.onChange(category);

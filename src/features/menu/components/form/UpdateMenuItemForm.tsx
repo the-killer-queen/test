@@ -10,55 +10,77 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { MenuRow } from '@/types/tables';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { SquarePen } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 
+import { updateMenuItem } from '@/supabase/data/menu-service';
 import Spinner from '@/components/shared/Spinner';
 import UploadImage from '@/components/shared/UploadImage';
-import { Small } from '@/components/typography/Small';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { Textarea } from '@/components/ui/textarea';
-import { createMenuItem } from '@/supabase/data/menu-service';
-import { Plus } from 'lucide-react';
 import { toast } from 'sonner';
 import {
-  createMenuItemSchema,
-  CreateMenuItemSchema,
+  updateMenuItemSchema,
+  UpdateMenuItemSchema,
 } from '../../schema/schema';
-import CategorySelect from '../selects/CategorySelect';
 import IngredientsList from '../selects/IngredientsList';
 import CreateIngredientsForm from './CreateIngredientsForm';
+import CategorySelect from '../selects/CategorySelect';
+import { Small } from '@/components/typography/Small';
+import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
 
-function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
-  const form = useForm<CreateMenuItemSchema>({
-    resolver: zodResolver(createMenuItemSchema),
+type MenuItemUpdateFormProps = {
+  onClose: () => void;
+  menuToUpdate: MenuRow;
+};
+
+function UpdateMenuItemForm({
+  menuToUpdate,
+  onClose,
+}: MenuItemUpdateFormProps) {
+  const form = useForm<UpdateMenuItemSchema>({
+    resolver: zodResolver(updateMenuItemSchema),
     defaultValues: {
-      name: '',
-      price: 0,
+      name: menuToUpdate?.name || '',
+      price: menuToUpdate?.price || 0,
       image: undefined,
-      ingredients: [],
-      category: { name: undefined, icon_name: undefined },
+      ingredients: menuToUpdate?.ingredients || [],
+      description: menuToUpdate?.description || '',
+      category: menuToUpdate?.menu_categories
+        ? {
+            name: menuToUpdate.menu_categories.name,
+            icon_name: menuToUpdate.menu_categories.icon_name,
+          }
+        : {
+            icon_name: undefined,
+            name: undefined,
+          },
     },
   });
   const isLoading = form.formState.isSubmitting;
 
   const [charLength, setCharLength] = useState<number>(0);
 
-  async function onSubmit(values: CreateMenuItemSchema) {
-    const { success, error } = await createMenuItem({
-      ...values,
-      category: values?.category?.name,
-    });
+  async function onSubmit(values: UpdateMenuItemSchema) {
+    const { success, error } = await updateMenuItem(
+      {
+        ...values,
+        image_url: menuToUpdate.image_url,
+        category: values?.category?.name,
+      },
+      menuToUpdate.id,
+    );
 
     onClose();
 
-    if (success) toast.success('Successgully Created');
+    if (success) toast.success('Updated Successfully');
     if (!success) toast.error(error);
   }
 
@@ -110,7 +132,7 @@ function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
             control={form.control}
             render={({ field }) => (
               <FormItem className='flex-1'>
-                <FormLabel>Category</FormLabel>
+                <FormLabel>Category (Optional)</FormLabel>
                 <FormControl>
                   <CategorySelect {...field} />
                 </FormControl>
@@ -120,7 +142,12 @@ function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
           />
         </div>
 
-        <Accordion type='single' collapsible className='!my-2 w-full'>
+        <Accordion
+          type='single'
+          collapsible
+          value='item-1'
+          className='!my-2 w-full'
+        >
           <AccordionItem value='item-1'>
             <AccordionTrigger>Additional Details</AccordionTrigger>
             <AccordionContent className='mx-1 my-1 space-y-6'>
@@ -190,7 +217,11 @@ function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
           render={({ field, fieldState: { error } }) => (
             <FormItem>
               <FormControl>
-                <UploadImage error={error} {...field} />
+                <UploadImage
+                  error={error}
+                  {...field}
+                  defaultImageURL={menuToUpdate?.image_url}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -198,12 +229,21 @@ function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
         />
 
         <div className='flex items-center justify-center gap-2'>
-          <Button disabled={isLoading} variant={'secondary'} onClick={onClose}>
+          <Button
+            type='button'
+            disabled={isLoading}
+            variant={'secondary'}
+            onClick={onClose}
+          >
             Cancel
           </Button>
-          <Button variant={'default'} disabled={isLoading} className='flex-1'>
-            {isLoading ? <Spinner /> : <Plus />}
-            {isLoading ? 'Creating...' : 'Create Item'}
+          <Button
+            variant={'default'}
+            disabled={isLoading}
+            className='!bg-info/15 !text-info [&_svg]:!text-info hover:!bg-info/10 flex-1'
+          >
+            {isLoading ? <Spinner /> : <SquarePen />}
+            {isLoading ? 'Updating...' : 'Update Item'}
           </Button>
         </div>
       </form>
@@ -211,4 +251,4 @@ function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
   );
 }
 
-export default CreateMenuItemForm;
+export default UpdateMenuItemForm;

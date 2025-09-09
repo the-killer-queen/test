@@ -9,49 +9,34 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { removeItemFromStorage } from '@/supabase/data/data-service';
-import { deleteMenuItem } from '@/supabase/data/menu-service';
-import { Trash2 } from 'lucide-react';
+import { createMenuItemDuplicate } from '@/supabase/data/menu-service';
+import { Copy } from 'lucide-react';
 import { cloneElement, ReactElement, useState, useTransition } from 'react';
 import { toast } from 'sonner';
 
-type DeleteMenuItemProps = {
+type DuplicateMenuItemProps = {
   menuItemId: number;
   children: ReactElement<{ onClick: (e: MouseEvent) => void }>;
   itemName?: string;
-  redirectBack?: boolean;
 };
 
-function DeleteMenuItemDialog({
+function DuplicateMenuItemDialog({
   menuItemId,
   children,
   itemName = 'this item',
-  redirectBack = false,
-}: DeleteMenuItemProps) {
+}: DuplicateMenuItemProps) {
   const [isLoading, startTransition] = useTransition();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  async function handleDelete() {
+  async function handleDuplicate() {
     startTransition(async () => {
-      const { data, success, error } = await deleteMenuItem(menuItemId);
+      const { success, error } = await createMenuItemDuplicate(menuItemId);
 
-      if (success) {
-        if (data.image_url) {
-          const imagePath = data.image_url.split('/').at(-1);
-          const { error: removeError } = await removeItemFromStorage(
-            imagePath!,
-            'menu_items_pictures',
-          );
+      if (success) toast.success(`${itemName} successfully duplicated`);
 
-          if (removeError) toast.warning(removeError);
-        }
-
-        toast.success('Menu Item Successfully Deleted');
-      }
       if (!success) toast.error(error);
 
       setIsOpen(false);
-      if (redirectBack) window.location.href = '/dashboard/menu';
     });
   }
 
@@ -65,10 +50,11 @@ function DeleteMenuItemDialog({
       })}
       <DialogContent className='!max-w-xs'>
         <DialogHeader>
-          <DialogTitle>Delete {itemName} from menu?</DialogTitle>
+          <DialogTitle>Duplicate {itemName}?</DialogTitle>
           <DialogDescription>
-            This action cannot be undone. The selected menu item will be
-            removed.
+            This will create a copy of the selected menu item with
+            &quot;(Copy)&quot; added to the name. You can edit the duplicate
+            after creation.
           </DialogDescription>
           <div className='flex items-center justify-center gap-2'>
             <Button
@@ -81,12 +67,12 @@ function DeleteMenuItemDialog({
             </Button>
             <Button
               disabled={isLoading}
-              onClick={handleDelete}
-              variant={'destructive'}
-              className='flex-1'
+              onClick={handleDuplicate}
+              variant={'default'}
+              className='bg-warning/10 !text-warning [&_svg]:!text-warning hover:bg-warning/5 flex-1 cursor-pointer'
             >
-              {isLoading ? <Spinner /> : <Trash2 />}
-              {isLoading ? 'Deleting...' : 'Delete'}
+              {isLoading ? <Spinner /> : <Copy />}
+              {isLoading ? 'Duplicating...' : 'Duplicate'}
             </Button>
           </div>
         </DialogHeader>
@@ -95,4 +81,4 @@ function DeleteMenuItemDialog({
   );
 }
 
-export default DeleteMenuItemDialog;
+export default DuplicateMenuItemDialog;
