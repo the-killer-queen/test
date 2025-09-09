@@ -18,7 +18,7 @@ export default function RootLayout({
       <head>
         <meta name='apple-mobile-web-app-title' content='MyWebSite' />
       </head>
-      <body className='min-h-dvh w-full antialiased'>
+      <body className='min-h-dvh w-full overflow-y-scroll antialiased'>
         <main>{children}</main>
         <Toaster position='bottom-right' />
       </body>

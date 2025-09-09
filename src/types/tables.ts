@@ -29,6 +29,10 @@ export type MenuRow = Omit<MenuRowRaw, 'ingredients'> & {
   menu_categories: MenuCategoryRow | null;
 };
 
+export type DeletedMenuRow = Omit<MenuRowRaw, 'ingredients'> & {
+  ingredients: MenuIngredient[] | null;
+};
+
 // Typed insert types
 export type MenuInsert = Omit<Inserts<'menu'>, 'ingredients'> & {
   ingredients?: MenuIngredient[] | null;
@@ -38,8 +42,23 @@ export type MenuInsert = Omit<Inserts<'menu'>, 'ingredients'> & {
 // Typed update types
 export type MenuUpdate = Omit<Updates<'menu'>, 'ingredients'> & {
   ingredients?: MenuIngredient[] | null;
+  image?: File;
 };
 
 // Enum types
 export type OrderStatus = Database['public']['Enums']['order_status'];
 export type StreakGoalTypes = Database['public']['Enums']['streak_goal_types'];
+
+export type MenuItemDetailsRow = {
+  name: string;
+  price: number;
+  category: string | null;
+  created_at: string;
+} | null;
+
+export type MenuItemImageRow = {
+  name: string;
+  image_url: string | null;
+};
+
+export type MenuItemIngredientsRow = MenuIngredient[] | null;
