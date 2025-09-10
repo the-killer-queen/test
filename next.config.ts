@@ -12,10 +12,14 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  typedRoutes: true,
+
   experimental: {
     serverActions: {
       bodySizeLimit: '6mb',
     },
+
+    typedEnv: true,
   },
 };
 
