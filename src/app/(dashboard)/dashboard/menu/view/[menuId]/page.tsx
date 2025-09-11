@@ -23,12 +23,11 @@ export async function generateStaticParams() {
   return ids.map((id) => ({ menuId: id.toString() }));
 }
 
-type MenuItemPageViewProps = { params: Promise<{ menuId: string }> };
-
-async function MenuItemPageView({ params }: MenuItemPageViewProps) {
+async function MenuItemPageView({
+  params,
+}: PageProps<'/dashboard/menu/view/[menuId]'>) {
   const { menuId } = await params;
   const { exists, error } = await checkMenuItemExists(+menuId);
-  const ids = await getAllMenuItemIds();
 
   if (!exists || error) notFound();
 
@@ -53,7 +52,7 @@ async function MenuItemPageView({ params }: MenuItemPageViewProps) {
           </CardHeader>
           <CardContent>
             <div className='grid h-full w-full grid-cols-1 gap-4 lg:grid-cols-2'>
-              <div className='w-full'>
+              <div className='max-h-160 w-full'>
                 <MenuItemImageCard menuId={menuId} />
               </div>
 

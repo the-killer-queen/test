@@ -9,9 +9,8 @@ import MenuActions from '@/features/menu/components/layout/MenuActions';
 import MenuFiltersList from '@/features/menu/components/layout/MenuFiltersList';
 import MenuPageHeader from '@/features/menu/components/layout/MenuPageHeader';
 import MenuTable from '@/features/menu/components/tables/MenuTable';
-import { PageProps } from '@/types';
 
-async function MenuPage({ searchParams }: PageProps) {
+async function MenuPage() {
   return (
     <>
       <MenuPageHeader />
@@ -29,7 +28,7 @@ async function MenuPage({ searchParams }: PageProps) {
           </CardHeader>
 
           <CardContent>
-            <MenuTable searchParams={searchParams} />
+            <MenuTable />
           </CardContent>
         </Card>
       </div>
