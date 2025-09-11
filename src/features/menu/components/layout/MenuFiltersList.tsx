@@ -1,27 +1,22 @@
 'use client';
 
 import { Badge } from '@/components/ui/badge';
-import { useSetSearchParam } from '@/hooks/use-setSearchParam';
 import { X } from 'lucide-react';
+import { useFiltersQuery } from '../../hooks/useFiltersQuery';
 
 function MenuFiltersList() {
-  const { getSearchParam, setSearchParam, removeSearchParam } =
-    useSetSearchParam();
-  const filters = getSearchParam('filter_by');
-  let selectedFilters = filters ? filters.split('%') : [];
+  const { filters, setFilter } = useFiltersQuery();
 
-  if (!(selectedFilters.length > 0)) return null;
+  if (!(filters.length > 0)) return null;
 
   function handleRemoveFilter(value: string) {
-    selectedFilters = selectedFilters?.filter((f) => f !== value);
-    setSearchParam('filter_by', selectedFilters.join('%'));
-
-    if (!(selectedFilters.length > 0)) removeSearchParam('filter_by');
+    if (!(filters.length > 0)) setFilter([]);
+    setFilter(filters.filter((f) => f !== value));
   }
 
   return (
     <div className='flex items-center gap-1'>
-      {selectedFilters.map((filter, i) => (
+      {filters.map((filter, i) => (
         <Badge key={i} variant={'outline'} className='capitalize'>
           {filter}
           <span

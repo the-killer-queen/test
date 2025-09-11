@@ -17,17 +17,19 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { Check, ChevronsUpDown } from 'lucide-react';
+import { Check, ChevronsUpDown, Inbox, Plus } from 'lucide-react';
 import { useState } from 'react';
 import { ControllerRenderProps } from 'react-hook-form';
-import { useGetMenucCategories } from '../../hooks/useGetMenucCategories';
+import { useGetMenuCategories } from '../../hooks/useGetMenuCategories';
 import CreateCategoryDialog from '../Dialog/CreateCategoryDialog';
 import CategorySelectSkeleton from '../skeletons/CategorySelectSkeleton';
 
-type CategorySelectProps = ControllerRenderProps;
-
-function CategorySelect({ ...field }: CategorySelectProps) {
-  const { isPending, categories, error } = useGetMenucCategories();
+function CategorySelect({
+  ...field
+}: ControllerRenderProps & {
+  'aria-invalid'?: boolean;
+}) {
+  const { isPending, categories, error } = useGetMenuCategories();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   if (isPending) return <CategorySelectSkeleton />;
@@ -40,6 +42,7 @@ function CategorySelect({ ...field }: CategorySelectProps) {
       <Popover modal={true} open={isOpen} onOpenChange={setIsOpen}>
         <PopoverTrigger asChild>
           <Button
+            aria-invalid={field?.['aria-invalid'] || false}
             variant='outline'
             role='combobox'
             className='flex-1 justify-between'
@@ -58,7 +61,12 @@ function CategorySelect({ ...field }: CategorySelectProps) {
         <PopoverContent side='bottom' className='max-h-48 w-48 p-0'>
           <Command>
             <CommandInput placeholder='Search categories...' />
-            <CommandEmpty>No category found.</CommandEmpty>
+            <CommandEmpty className='flex justify-center'>
+              <span className='text-muted-foreground flex items-center gap-2 px-2 py-1.5 text-sm font-medium'>
+                <Inbox className='size-4' />
+                No categories available
+              </span>
+            </CommandEmpty>
             <CommandList>
               <CommandGroup>
                 {categories.map((category, i) => (
@@ -84,7 +92,11 @@ function CategorySelect({ ...field }: CategorySelectProps) {
           </Command>
         </PopoverContent>
 
-        <CreateCategoryDialog />
+        <CreateCategoryDialog>
+          <Button variant='outline' size='icon'>
+            <Plus />
+          </Button>
+        </CreateCategoryDialog>
       </Popover>
     </div>
   );

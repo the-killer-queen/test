@@ -1,6 +1,8 @@
+'use client';
+
 import { TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { PageProps } from '@/types';
 import { DollarSign, ListTree, Tag, Utensils } from 'lucide-react';
+import { useExcludedColumnsQuery } from '../../hooks/useExcludedColumnsQuery';
 
 const headers = [
   { value: 'menu_item_picture', label: '' },
@@ -10,11 +12,8 @@ const headers = [
   { value: 'price', label: 'Price', icon: DollarSign },
 ];
 
-async function MenuTableHeader({ searchParams }: PageProps) {
-  const params = await searchParams;
-  const excludedColumns = params?.excluded_columns
-    ? params.excluded_columns.split('%')
-    : [];
+function MenuTableHeader() {
+  const { excludedColumns } = useExcludedColumnsQuery();
 
   return (
     <TableHeader>

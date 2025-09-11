@@ -15,20 +15,17 @@ import { formatNumber } from '@/lib/utils';
 import { MenuRow } from '@/types/tables';
 import { Copy, Ellipsis, Eye, SquarePen, Trash2 } from 'lucide-react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import UpdateMenuItemDialog from '../Dialog/UpdateMenuItemDialog';
+import { useExcludedColumnsQuery } from '../../hooks/useExcludedColumnsQuery';
 import DeleteMenuItemDialog from '../Dialog/DeleteMenuItemDialog';
 import DuplicateMenuItemDialog from '../Dialog/DuplicateMenuItemDialog';
+import UpdateMenuItemDialog from '../Dialog/UpdateMenuItemDialog';
 
 type MenuTableRowProps = {
   menuItem: MenuRow;
 };
 
 function MenuTableRow({ menuItem }: MenuTableRowProps) {
-  const searchParams = useSearchParams();
-  const excludedColumns = searchParams.get('excluded_columns')
-    ? searchParams.get('excluded_columns')!.split('%')
-    : [];
+  const { excludedColumns } = useExcludedColumnsQuery();
 
   return (
     <TableRow>

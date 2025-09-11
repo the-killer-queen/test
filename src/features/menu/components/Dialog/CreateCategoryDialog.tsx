@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -8,21 +7,29 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { Plus } from 'lucide-react';
-import { useState } from 'react';
+import { cloneElement, ReactElement, useState } from 'react';
 import CreateCategoryForm from '../form/CreateCategoryForm';
 
-function CreateCategoryDialog() {
+type CreateCategoryDialogProps = {
+  children: ReactElement<{ onClick: (e: MouseEvent) => void }>;
+};
+
+function CreateCategoryDialog({ children }: CreateCategoryDialogProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant='outline' size='icon'>
-          <Plus className='h-4 w-4' />
-        </Button>
+        {cloneElement(children, {
+          onClick: (e) => {
+            e.preventDefault();
+            setIsOpen(true);
+          },
+        })}
       </DialogTrigger>
-      <DialogContent>
+
+      <DialogTrigger asChild></DialogTrigger>
+      <DialogContent className='!max-w-sm'>
         <DialogHeader>
           <DialogTitle>Create Category</DialogTitle>
         </DialogHeader>

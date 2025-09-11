@@ -6,6 +6,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog';
 import { MenuRow } from '@/types/tables';
 import { cloneElement, ReactElement, useState } from 'react';
@@ -21,12 +22,14 @@ function UpdateMenuItemDialog({ menuItem, children }: EditMenuItemProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      {cloneElement(children, {
-        onClick: (e) => {
-          e.preventDefault();
-          setIsOpen(true);
-        },
-      })}
+      <DialogTrigger asChild>
+        {cloneElement(children, {
+          onClick: (e) => {
+            e.preventDefault();
+            setIsOpen(true);
+          },
+        })}
+      </DialogTrigger>
 
       <DialogContent className='max-h-[90vh] overflow-y-auto'>
         <DialogHeader>

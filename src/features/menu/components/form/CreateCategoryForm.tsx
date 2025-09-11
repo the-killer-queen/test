@@ -11,10 +11,10 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { createCategoryItem } from '@/supabase/data/categories-service';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import { useCreateCategory } from '../../hooks/useCreateCategory';
 import {
   createCategorySchema,
   CreateCategorySchema,
@@ -30,6 +30,8 @@ function CreateCategoryForm({ onClose }: { onClose: () => void }) {
     },
   });
   const isLoading = form.formState.isSubmitting;
+
+  const { createCategoryItem } = useCreateCategory();
 
   async function onSubmit(values: CreateCategorySchema) {
     const { success, error } = await createCategoryItem(values);

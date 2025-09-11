@@ -145,7 +145,7 @@ function UpdateMenuItemForm({
         <Accordion
           type='single'
           collapsible
-          value='item-1'
+          defaultValue='item-1'
           className='!my-2 w-full'
         >
           <AccordionItem value='item-1'>

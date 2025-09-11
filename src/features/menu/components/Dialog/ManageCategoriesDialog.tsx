@@ -8,35 +8,36 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { Plus } from 'lucide-react';
+import { Settings } from 'lucide-react';
 import { useState } from 'react';
-import CreateMenuItemForm from '../form/CreateMenuItemForm';
+import ManageCategoriesContent from '../content/ManageCategoriesContent';
 
-function CreateMenuItemDialog() {
+function ManageCategoriesDialog() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
-    <Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <Button
+        className='[&_span]:hidden md:[&_span]:inline-block'
+        variant='outline'
         onClick={() => setIsOpen(true)}
-        className='[&_span]:hidden sm:[&_span]:inline-block'
       >
-        <Plus />
-        <span>Add New Item</span>
+        <Settings />
+        <span>Manage Categories</span>
       </Button>
 
       <DialogContent className='max-h-[90vh] overflow-y-auto'>
         <DialogHeader>
-          <DialogTitle>Create Menu Item</DialogTitle>
+          <DialogTitle>Manage Categories</DialogTitle>
           <DialogDescription>
-            Fill in the details to add a new menu item
+            Create, update, and delete menu categories to organize your items
           </DialogDescription>
-
-          <CreateMenuItemForm onClose={() => setIsOpen(false)} />
         </DialogHeader>
+
+        <ManageCategoriesContent />
       </DialogContent>
     </Dialog>
   );
 }
 
-export default CreateMenuItemDialog;
+export default ManageCategoriesDialog;

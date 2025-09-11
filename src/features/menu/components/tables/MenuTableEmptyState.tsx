@@ -7,8 +7,8 @@ import Link from 'next/link';
 
 type MenuTableEmptyStateProps = {
   type: 'no-data' | 'no-results' | 'error';
-  searchQuery?: string;
-  filterBy?: string;
+  searchQuery?: string | null;
+  filterBy?: string[] | null;
   onClearFilters?: () => void;
 };
 
@@ -68,7 +68,7 @@ function MenuTableEmptyState({
             'Get started by creating your first menu item to showcase your delicious offerings.',
           action: (
             <Button asChild className='mt-4'>
-              <Link href='/dashboard/menu/create'>
+              <Link href='/dashboard/menu'>
                 <Plus className='mr-2 h-4 w-4' />
                 Add Menu Item
               </Link>

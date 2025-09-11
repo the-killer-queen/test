@@ -5,6 +5,7 @@ import TableColumnFilter from '@/components/shared/TableColumnFilter';
 import { getMenuSelectedCategories } from '@/supabase/data/categories-service';
 import { menuFilterOptions } from '../../lib/utils';
 import CreateMenuItemDialog from '../Dialog/CreateMenuItemDialog';
+import ManageCategoriesDialog from '../Dialog/ManageCategoriesDialog';
 
 async function MenuActions() {
   const { data: selectedCategories, error: selectedCatError } =
@@ -14,7 +15,7 @@ async function MenuActions() {
     return <p>{selectedCatError}!!!</p>;
 
   return (
-    <div className='my-2 flex flex-col-reverse gap-2 lg:flex-row'>
+    <div className='my-2 flex flex-col-reverse gap-2 xl:flex-row'>
       <div className='flex items-center gap-2'>
         <FilterBy options={menuFilterOptions(selectedCategories)} />
         <SortBy
@@ -39,6 +40,7 @@ async function MenuActions() {
 
       <div className='flex w-full items-center gap-2'>
         <Search placeholder='Search menu items...' className='col-span-2' />
+        <ManageCategoriesDialog />
         <CreateMenuItemDialog />
       </div>
     </div>

@@ -8,6 +8,7 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog';
 import { removeItemFromStorage } from '@/supabase/data/data-service';
 import { deleteMenuItem } from '@/supabase/data/menu-service';
@@ -57,12 +58,15 @@ function DeleteMenuItemDialog({
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      {cloneElement(children, {
-        onClick: (e) => {
-          e.preventDefault();
-          setIsOpen(true);
-        },
-      })}
+      <DialogTrigger asChild>
+        {cloneElement(children, {
+          onClick: (e) => {
+            e.preventDefault();
+            setIsOpen(true);
+          },
+        })}
+      </DialogTrigger>
+
       <DialogContent className='!max-w-xs'>
         <DialogHeader>
           <DialogTitle>Delete {itemName} from menu?</DialogTitle>
