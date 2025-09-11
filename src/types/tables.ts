@@ -33,6 +33,9 @@ export type DeletedMenuRow = Omit<MenuRowRaw, 'ingredients'> & {
   ingredients: MenuIngredient[] | null;
 };
 
+export type MenuCategoryRowTyped = MenuCategoryRow;
+export type DeletedMenuCategoryRow = Tables<'menu_categories'>;
+
 // Typed insert types
 export type MenuInsert = Omit<Inserts<'menu'>, 'ingredients'> & {
   ingredients?: MenuIngredient[] | null;

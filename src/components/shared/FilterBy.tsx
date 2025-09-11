@@ -1,8 +1,8 @@
 'use client';
 
-import { useSetSearchParam } from '@/hooks/use-setSearchParam';
+import { useFiltersQuery } from '@/features/menu/hooks/useFiltersQuery';
 import { CommandEmpty } from 'cmdk';
-import { Check, Filter } from 'lucide-react';
+import { Check, Filter, Inbox } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '../ui/button';
 import {
@@ -24,19 +24,15 @@ type FilterByProps = {
 };
 
 function FilterBy({ options }: FilterByProps) {
-  const { setSearchParam, getSearchParam } = useSetSearchParam();
+  const { filters, setFilter } = useFiltersQuery();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  let selectedFilters = getSearchParam('filter_by')
-    ? getSearchParam('filter_by')!.split('%')
-    : [];
-
   function handleUpdateFilter(value: string) {
-    if (selectedFilters.includes(value.toLowerCase())) return setIsOpen(false);
+    if (filters.includes(value.toLowerCase()))
+      setFilter(filters.filter((filter) => filter !== value.toLowerCase()));
+    else setFilter([...new Set([...filters, value.toLowerCase()])]);
 
-    selectedFilters = [...new Set([...selectedFilters, value.toLowerCase()])];
-    setSearchParam('filter_by', selectedFilters.join('%'));
-    setIsOpen(false);
+    setTimeout(() => setIsOpen(false), 10);
   }
 
   return (
@@ -51,11 +47,16 @@ function FilterBy({ options }: FilterByProps) {
       <PopoverContent side='bottom' className='w-full p-0'>
         <Command>
           <CommandInput placeholder='Search...' />
-          <CommandEmpty>No category found</CommandEmpty>
+          <CommandEmpty className='flex justify-center'>
+            <span className='text-muted-foreground flex items-center gap-2 px-2 py-1.5 text-sm font-medium'>
+              <Inbox className='size-4' />
+              No categories available
+            </span>
+          </CommandEmpty>
           <CommandList>
             <CommandGroup>
               {options.map((option, i) => {
-                const selectedFilter = selectedFilters.find(
+                const selectedFilter = filters.find(
                   (f) =>
                     f?.toLocaleLowerCase() === option.value.toLocaleLowerCase(),
                 );

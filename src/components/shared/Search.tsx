@@ -1,10 +1,10 @@
 'use client';
 
-import { useSetSearchParam } from '@/hooks/use-setSearchParam';
+import { cn } from '@/lib/utils';
+import { X } from 'lucide-react';
+import { parseAsString, useQueryState } from 'nuqs';
 import { ComponentProps, FormEvent, useRef } from 'react';
 import { Input } from '../ui/input';
-import { X } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 function Search({
   placeholder = 'Search...',
@@ -13,8 +13,7 @@ function Search({
   ...props
 }: ComponentProps<'input'>) {
   const ref = useRef<HTMLFormElement>(null);
-  const { getSearchParam, setSearchParam, removeSearchParam } =
-    useSetSearchParam();
+  const [query, setQuery] = useQueryState(name, parseAsString);
 
   function handleSearch(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -24,11 +23,11 @@ function Search({
 
     if (!data[name]) return;
 
-    setSearchParam(name, data[name]);
+    setQuery(data[name]);
   }
 
   function handleResetSearch() {
-    removeSearchParam(name);
+    setQuery(null);
     if (ref.current) ref.current.reset();
   }
 
@@ -40,7 +39,7 @@ function Search({
     >
       <Input name={name} placeholder={placeholder} {...props} />
 
-      {getSearchParam(name) && (
+      {query && (
         <X
           onClick={handleResetSearch}
           className='hover:text-destructive absolute right-2 size-4 transition-colors duration-200 hover:cursor-pointer'

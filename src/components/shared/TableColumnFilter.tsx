@@ -6,8 +6,9 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useSetSearchParam } from '@/hooks/use-setSearchParam';
+import { useExcludedColumnsQuery } from '@/features/menu/hooks/useExcludedColumnsQuery';
 import { ChevronDown } from 'lucide-react';
+import { useState } from 'react';
 import { Button } from '../ui/button';
 
 type TableColumnFilterProps = {
@@ -19,51 +20,48 @@ type TableColumnFilterProps = {
 };
 
 function TableColumnFilter({ options }: TableColumnFilterProps) {
-  const { setSearchParam, getSearchParam, removeSearchParam } =
-    useSetSearchParam();
+  const { excludedColumns, setExcludedColumns } = useExcludedColumnsQuery();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const isInitialLoad = !getSearchParam('excluded_columns');
-  const excludedColumns = isInitialLoad
-    ? options.filter((op) => op.defaultVisible === false).map((op) => op.value)
-    : getSearchParam('excluded_columns')?.split('%') || [];
+  const handleColumnToggle = (columnValue: string, event: Event) => {
+    event.preventDefault();
 
-  const handleColumnToggle = (columnValue: string, isChecked: boolean) => {
-    let newExcludedColumns: string[];
+    const isCurrentlyChecked =
+      excludedColumns.length === 0
+        ? options.find((opt) => opt.value === columnValue)?.defaultVisible !==
+          false
+        : !excludedColumns.includes(columnValue);
 
-    if (isChecked)
-      newExcludedColumns = excludedColumns.filter((col) => col !== columnValue);
-    else
-      newExcludedColumns = excludedColumns.includes(columnValue)
-        ? excludedColumns
-        : [...excludedColumns, columnValue];
+    if (isCurrentlyChecked) {
+      if (!excludedColumns.includes(columnValue))
+        setExcludedColumns([...excludedColumns, columnValue]);
+    } else {
+      setExcludedColumns(excludedColumns.filter((col) => col !== columnValue));
+    }
 
-    const columnsParam =
-      newExcludedColumns.length > 0 ? newExcludedColumns.join('%') : null;
-    if (columnsParam) setSearchParam('excluded_columns', columnsParam);
-    else removeSearchParam('excluded_columns');
+    setTimeout(() => setIsOpen(false), 150);
   };
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant='outline' className='ml-auto'>
+        <Button variant='secondary' className='ml-auto'>
           Columns <ChevronDown />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
         {options.map((option) => {
-          const isChecked = isInitialLoad
-            ? option.defaultVisible !== false
-            : !excludedColumns.includes(option.value);
+          const isChecked =
+            excludedColumns.length === 0
+              ? option.defaultVisible !== false
+              : !excludedColumns.includes(option.value);
 
           return (
             <DropdownMenuCheckboxItem
               key={option.value}
               className='capitalize'
               checked={isChecked}
-              onCheckedChange={(checked) =>
-                handleColumnToggle(option.value, checked)
-              }
+              onSelect={(event) => handleColumnToggle(option.value, event)}
             >
               {option.label}
             </DropdownMenuCheckboxItem>

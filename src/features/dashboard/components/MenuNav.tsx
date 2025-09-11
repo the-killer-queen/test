@@ -5,35 +5,50 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { ChartLineIcon, CheersIcon } from '@phosphor-icons/react';
-import { Archive, CalendarCheckIcon, CalendarPlus2Icon } from 'lucide-react';
+import { CheersIcon } from '@phosphor-icons/react';
+import {
+  Archive,
+  CalendarCheckIcon,
+  CalendarPlus2Icon,
+  ChartLine,
+  LucideProps,
+} from 'lucide-react';
+import { Route } from 'next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { ForwardRefExoticComponent, RefAttributes } from 'react';
 
-const navLinks = [
+type NavItem<T extends string = string> = {
+  href: T;
+  label: string;
+  icon: ForwardRefExoticComponent<
+    Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
+  >;
+};
+const navLinks: NavItem<Route>[] = [
   {
-    title: 'Analytics',
-    url: '/dashboard',
-    icon: ChartLineIcon,
+    label: 'Analytics',
+    href: '/dashboard',
+    icon: ChartLine,
   },
   {
-    title: 'Menu',
-    url: '/dashboard/menu',
+    label: 'Menu',
+    href: '/dashboard/menu',
     icon: CheersIcon,
   },
   {
-    title: 'Orders',
-    url: '/dashboard/orders',
+    label: 'Orders',
+    href: '/dashboard/orders',
     icon: CalendarCheckIcon,
   },
   {
-    title: 'New Order',
-    url: '/dashboard/orders/new',
+    label: 'New Order',
+    href: '/dashboard/orders/new',
     icon: CalendarPlus2Icon,
   },
   {
-    title: 'Reports',
-    url: '/dashboard/reports',
+    label: 'Reports',
+    href: '/dashboard/reports',
     icon: Archive,
   },
 ];
@@ -44,11 +59,11 @@ function MenuNav() {
   return (
     <SidebarMenu>
       {navLinks.map((nav) => (
-        <SidebarMenuItem key={nav.url} className='py-0.5'>
-          <SidebarMenuButton asChild isActive={pathanme === nav.url}>
-            <Link href={nav.url}>
+        <SidebarMenuItem key={nav.href} className='py-0.5'>
+          <SidebarMenuButton asChild isActive={pathanme === nav.href}>
+            <Link href={nav.href}>
               <nav.icon />
-              <span>{nav.title}</span>
+              <span>{nav.label}</span>
             </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>

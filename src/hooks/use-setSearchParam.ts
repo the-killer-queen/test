@@ -1,32 +1,22 @@
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { startTransition } from 'react';
+import { Options, useQueryState, UseQueryStateOptions } from 'nuqs';
 
-export function useSetSearchParam() {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const router = useRouter();
+export function useSetSearchParam(
+  name: string,
+  adaptor: Pick<UseQueryStateOptions<string>, keyof Options>,
+) {
+  const [query, setQuery] = useQueryState(name, adaptor);
 
-  function setSearchParam(name: string, value: string) {
-    const search = new URLSearchParams(searchParams);
-    search.set(name, value);
-
-    startTransition(() => {
-      router.replace(`${pathname}?${search.toString()}`);
-    });
+  function setSearchParam(value: string) {
+    setQuery((prev) =>
+      prev?.includes(value) ? prev : [...(prev || []), value],
+    );
   }
 
-  function removeSearchParam(name: string) {
-    const search = new URLSearchParams(searchParams);
-    search.delete(name);
-
-    startTransition(() => {
-      router.replace(`${pathname}?${search.toString()}`);
-    });
+  function removeSearchParam() {
+    setQuery(null);
   }
 
-  function getSearchParam(name: string) {
-    return searchParams.get(name);
-  }
+  const getSearchParam = query;
 
   return { getSearchParam, setSearchParam, removeSearchParam };
 }

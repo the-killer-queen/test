@@ -1,5 +1,6 @@
 'use server';
 
+import { handleImageCompression } from '@/lib/compressImages';
 import { GetActionResult } from '@/types';
 import {
   DeletedMenuRow,
@@ -11,9 +12,9 @@ import {
   MenuUpdate,
 } from '@/types/tables';
 import { revalidatePath } from 'next/cache';
-import { removeItemFromStorage, uploadItemToStorage } from './data-service';
 import { createBuildTimeClient } from '../client';
 import { createClient } from '../server';
+import { removeItemFromStorage, uploadItemToStorage } from './data-service';
 
 //GET METHODS
 export async function getMenu(): Promise<GetActionResult<MenuRow[]>> {
@@ -203,8 +204,16 @@ export async function createMenuItem(
       };
 
     if (image) {
+      const compressedImage = await handleImageCompression(image);
+
+      if (!compressedImage)
+        return {
+          success: false,
+          error: 'Failed to compress image',
+        };
+
       const { error } = await uploadItemToStorage(
-        image,
+        compressedImage,
         imageName!,
         'menu_items_pictures',
       );
@@ -238,12 +247,11 @@ export async function createMenuItemDuplicate(
       .eq('id', originalItemId)
       .single();
 
-    if (fetchError || !originalItem) {
+    if (fetchError || !originalItem)
       return {
         success: false,
         error: fetchError?.message || 'Original menu item not found',
       };
-    }
 
     const { id, created_at, updated_at, image_url, ...duplicateData } =
       originalItem;
@@ -373,8 +381,16 @@ export async function updateMenuItem(
           };
       }
 
+      const compressedImage = await handleImageCompression(image);
+
+      if (!compressedImage)
+        return {
+          success: false,
+          error: 'Failed to compress image',
+        };
+
       const { error: uploadError } = await uploadItemToStorage(
-        image,
+        compressedImage,
         imageName!,
         'menu_items_pictures',
       );

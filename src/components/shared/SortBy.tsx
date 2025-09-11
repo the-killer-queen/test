@@ -8,9 +8,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useSortByQuery } from '@/features/menu/hooks/useSortByQuery';
 import { Check, SortAscIcon } from 'lucide-react';
+import { useState } from 'react';
 import { Button } from '../ui/button';
-import { useSetSearchParam } from '@/hooks/use-setSearchParam';
 
 type SortByProps = {
   options: {
@@ -20,11 +21,19 @@ type SortByProps = {
 };
 
 function SortBy({ options }: SortByProps) {
-  const { setSearchParam, getSearchParam } = useSetSearchParam();
-  const selectedSort = getSearchParam('sort_by');
+  const { sortBy, setSortBy } = useSortByQuery();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleSelect = (value: string, event: Event) => {
+    event.preventDefault();
+
+    if (sortBy !== value) setSortBy(value);
+
+    setTimeout(() => setIsOpen(false), 150);
+  };
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant={'secondary'}>
           <SortAscIcon />
@@ -38,13 +47,10 @@ function SortBy({ options }: SortByProps) {
             <div key={option.value}>
               <DropdownMenuItem
                 className='justify-between'
-                onSelect={() =>
-                  selectedSort !== option.value &&
-                  setSearchParam('sort_by', option.value)
-                }
+                onSelect={(event) => handleSelect(option.value, event)}
               >
                 {option.label}
-                {selectedSort === option.value && <Check />}
+                {sortBy === option.value && <Check />}
               </DropdownMenuItem>
               {i < array.length - 1 && <DropdownMenuSeparator />}
             </div>

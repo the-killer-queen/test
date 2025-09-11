@@ -11,5 +11,5 @@ export type GetActionResult<T = undefined> =
     };
 
 export type PageProps = {
-  searchParams: Promise<{ [key: string]: string | undefined }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
