@@ -33,11 +33,10 @@ export function sortMenuItems(sortBy: string, menu: MenuRow[]) {
   });
 }
 
-export function filterMenuItems(filterBy: string | undefined, menu: MenuRow[]) {
-  const selectedFilters = filterBy?.split('%');
-  return selectedFilters
+export function filterMenuItems(filters: string[], menu: MenuRow[]) {
+  return filters.length > 0
     ? menu.filter((item) =>
-        selectedFilters.find(
+        filters.find(
           (filter) => item.category?.toLowerCase() == filter.toLowerCase(),
         ),
       )
