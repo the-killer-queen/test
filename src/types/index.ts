@@ -9,7 +9,3 @@ export type GetActionResult<T = undefined> =
       error: string;
       data?: never;
     };
-
-export type PageProps = {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-};

@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { removeItemFromStorage } from '@/supabase/data/data-service';
+import { removeItemFromStorage } from '@/supabase/data/global-service';
 import { deleteMenuItem } from '@/supabase/data/menu-service';
 import { Trash2 } from 'lucide-react';
 import { cloneElement, ReactElement, useState, useTransition } from 'react';

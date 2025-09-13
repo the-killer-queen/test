@@ -3,12 +3,8 @@ import { AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
-type AuthErrorPageProps = {
-  searchParams: Promise<{ message: string | undefined }>;
-};
-
-async function AuthErrorPage({ searchParams }: AuthErrorPageProps) {
-  const { message } = await searchParams;
+async function AuthErrorPage({ searchParams }: PageProps<'/auth-error'>) {
+  const { message } = (await searchParams) as { message: string };
 
   const titleMap: Record<string, string> = {
     expired_link: 'Expired Link',

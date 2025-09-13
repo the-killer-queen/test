@@ -1,8 +1,4 @@
-type OrderPageProps = {
-  params: Promise<{ orderId: string }>;
-};
-
-async function OrderPage({ params }: OrderPageProps) {
+async function OrderPage({ params }: PageProps<'/dashboard/orders/[orderId]'>) {
   const { orderId } = await params;
 
   return <div>THIS IS THE ORDER {orderId}</div>;

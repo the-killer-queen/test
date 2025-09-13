@@ -14,7 +14,7 @@ import {
 import { revalidatePath } from 'next/cache';
 import { createBuildTimeClient } from '../client';
 import { createClient } from '../server';
-import { removeItemFromStorage, uploadItemToStorage } from './data-service';
+import { removeItemFromStorage, uploadItemToStorage } from './global-service';
 
 //GET METHODS
 export async function getMenu(): Promise<GetActionResult<MenuRow[]>> {
