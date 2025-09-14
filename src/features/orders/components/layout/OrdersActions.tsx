@@ -1,0 +1,32 @@
+import FilterBy from '@/components/shared/FilterBy';
+import Search from '@/components/shared/Search';
+import SortBy from '@/components/shared/SortBy';
+import TableColumnFilter from '@/components/shared/TableColumnFilter';
+import CreateOrderDialog from '../dialog/CreateOrderDialog';
+import DateRangePicker from '../selects/DateRangePicker';
+import {
+  orderExcludedColumnsOptions,
+  orderFilterOptions,
+  orderSortByOptions,
+} from '../../lib/constant';
+
+async function OrdersActions() {
+  return (
+    <div className='my-2 flex flex-col-reverse gap-2 xl:flex-row'>
+      <div className='flex items-center gap-2'>
+        <FilterBy options={orderFilterOptions} />
+        <SortBy options={orderSortByOptions} />
+
+        <TableColumnFilter options={orderExcludedColumnsOptions} />
+      </div>
+
+      <div className='flex w-full items-center gap-2'>
+        <Search placeholder='Search orders...' className='col-span-2' />
+        <DateRangePicker />
+        <CreateOrderDialog />
+      </div>
+    </div>
+  );
+}
+
+export default OrdersActions;
