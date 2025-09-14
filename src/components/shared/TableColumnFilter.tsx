@@ -6,7 +6,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useExcludedColumnsQuery } from '@/features/menu/hooks/useExcludedColumnsQuery';
+import { useExcludedColumnsQuery } from '@/hooks/useExcludedColumnsQuery';
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '../ui/button';

@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { X } from 'lucide-react';
+import { SearchIcon, X } from 'lucide-react';
 import { parseAsString, useQueryState } from 'nuqs';
 import { ComponentProps, FormEvent, useRef } from 'react';
 import { Input } from '../ui/input';
@@ -37,7 +37,16 @@ function Search({
       onSubmit={handleSearch}
       className={cn('relative flex flex-1 items-center gap-1', className)}
     >
-      <Input name={name} placeholder={placeholder} {...props} />
+      <div className='relative flex-1'>
+        <SearchIcon className='absolute top-2.5 left-3 size-4' />
+        <Input
+          className='pl-9'
+          defaultValue={query || ''}
+          name={name}
+          placeholder={placeholder}
+          {...props}
+        />
+      </div>
 
       {query && (
         <X

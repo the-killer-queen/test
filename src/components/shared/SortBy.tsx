@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useSortByQuery } from '@/features/menu/hooks/useSortByQuery';
+import { useSortByQuery } from '@/hooks/useSortByQuery';
 import { Check, SortAscIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '../ui/button';

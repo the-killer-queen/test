@@ -1,6 +1,6 @@
 'use client';
 
-import { useFiltersQuery } from '@/features/menu/hooks/useFiltersQuery';
+import { useFiltersQuery } from '@/hooks/useFiltersQuery';
 import { CommandEmpty } from 'cmdk';
 import { Check, Filter, Inbox } from 'lucide-react';
 import { useState } from 'react';
