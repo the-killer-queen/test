@@ -2,8 +2,8 @@
 
 import { Button } from '@/components/ui/button';
 import { TableBody, TableCell, TableRow } from '@/components/ui/table';
-import { ChefHat, Plus, Search } from 'lucide-react';
-import Link from 'next/link';
+import { ChefHat, Search } from 'lucide-react';
+import CreateMenuItemDialog from '../dialog/CreateMenuItemDialog';
 
 type MenuTableEmptyStateProps = {
   type: 'no-data' | 'no-results' | 'error';
@@ -66,14 +66,7 @@ function MenuTableEmptyState({
           title: 'No menu items yet',
           description:
             'Get started by creating your first menu item to showcase your delicious offerings.',
-          action: (
-            <Button asChild className='mt-4'>
-              <Link href='/dashboard/menu'>
-                <Plus className='mr-2 h-4 w-4' />
-                Add Menu Item
-              </Link>
-            </Button>
-          ),
+          action: <CreateMenuItemDialog />,
         };
     }
   };
@@ -84,12 +77,12 @@ function MenuTableEmptyState({
     <TableBody>
       <TableRow>
         <TableCell colSpan={6} className='h-96'>
-          <div className='flex flex-col items-center justify-center py-12 text-center'>
+          <div className='flex flex-col items-center justify-center gap-2 py-12 text-center'>
             {content.icon}
-            <h3 className='text-foreground mt-4 text-lg font-semibold'>
+            <h3 className='text-foreground mt-2 text-lg font-semibold'>
               {content.title}
             </h3>
-            <p className='text-muted-foreground mt-2 max-w-md text-sm'>
+            <p className='text-muted-foreground max-w-md text-sm'>
               {content.description}
             </p>
             {content.action}

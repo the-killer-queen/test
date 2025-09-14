@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Copy, Settings, Trash2 } from 'lucide-react';
-import DeleteMenuItemDialog from '../Dialog/DeleteMenuItemDialog';
-import DuplicateMenuItemDialog from '../Dialog/DuplicateMenuItemDialog';
+import DeleteMenuItemDialog from '../dialog/DeleteMenuItemDialog';
+import DuplicateMenuItemDialog from '../dialog/DuplicateMenuItemDialog';
 import UpdateMenuItemAction from '../layout/UpdateMenuItemAction';
 
 async function MenuItemQuickActionsCard({ menuId }: { menuId: string }) {

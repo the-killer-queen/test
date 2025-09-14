@@ -4,8 +4,8 @@ import SortBy from '@/components/shared/SortBy';
 import TableColumnFilter from '@/components/shared/TableColumnFilter';
 import { getMenuSelectedCategories } from '@/supabase/data/categories-service';
 import { menuFilterOptions } from '../../lib/utils';
-import CreateMenuItemDialog from '../Dialog/CreateMenuItemDialog';
-import ManageCategoriesDialog from '../Dialog/ManageCategoriesDialog';
+import CreateMenuItemDialog from '../dialog/CreateMenuItemDialog';
+import ManageCategoriesDialog from '../dialog/ManageCategoriesDialog';
 
 async function MenuActions() {
   const { data: selectedCategories, error: selectedCatError } =

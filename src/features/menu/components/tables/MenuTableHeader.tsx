@@ -2,7 +2,7 @@
 
 import { TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { DollarSign, ListTree, Tag, Utensils } from 'lucide-react';
-import { useExcludedColumnsQuery } from '../../hooks/useExcludedColumnsQuery';
+import { useExcludedColumnsQuery } from '../../../../hooks/useExcludedColumnsQuery';
 
 const headers = [
   { value: 'menu_item_picture', label: '' },

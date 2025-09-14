@@ -3,8 +3,8 @@
 import { TableBody } from '@/components/ui/table';
 import { MenuRow } from '@/types/tables';
 import { useQueryState } from 'nuqs';
-import { useFiltersQuery } from '../../hooks/useFiltersQuery';
-import { useSortByQuery } from '../../hooks/useSortByQuery';
+import { useFiltersQuery } from '../../../../hooks/useFiltersQuery';
+import { useSortByQuery } from '../../../../hooks/useSortByQuery';
 import {
   filterMenuItems,
   searchMenuItems,
@@ -18,9 +18,9 @@ type MenuTableBodyClientProps = {
 };
 
 function MenuTableBodyClient({ menu }: MenuTableBodyClientProps) {
-  const { filters } = useFiltersQuery();
+  const { setFilter, filters } = useFiltersQuery();
   const { sortBy } = useSortByQuery();
-  const [query] = useQueryState('query');
+  const [query, setQuery] = useQueryState('query');
 
   //SEARCH Items
   const searchedMenuItems = query ? searchMenuItems(query, menu) : menu;
@@ -39,6 +39,10 @@ function MenuTableBodyClient({ menu }: MenuTableBodyClientProps) {
         type='no-results'
         searchQuery={query}
         filterBy={filters}
+        onClearFilters={() => {
+          setQuery(null);
+          setFilter([]);
+        }}
       />
     );
 

@@ -15,10 +15,10 @@ import { formatNumber } from '@/lib/utils';
 import { MenuRow } from '@/types/tables';
 import { Copy, Ellipsis, Eye, SquarePen, Trash2 } from 'lucide-react';
 import Link from 'next/link';
-import { useExcludedColumnsQuery } from '../../hooks/useExcludedColumnsQuery';
-import DeleteMenuItemDialog from '../Dialog/DeleteMenuItemDialog';
-import DuplicateMenuItemDialog from '../Dialog/DuplicateMenuItemDialog';
-import UpdateMenuItemDialog from '../Dialog/UpdateMenuItemDialog';
+import { useExcludedColumnsQuery } from '../../../../hooks/useExcludedColumnsQuery';
+import DeleteMenuItemDialog from '../dialog/DeleteMenuItemDialog';
+import DuplicateMenuItemDialog from '../dialog/DuplicateMenuItemDialog';
+import UpdateMenuItemDialog from '../dialog/UpdateMenuItemDialog';
 
 type MenuTableRowProps = {
   menuItem: MenuRow;

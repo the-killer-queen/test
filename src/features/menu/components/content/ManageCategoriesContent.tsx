@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Suspense } from 'react';
 import CategoriesListSkeleton from '../skeletons/CategoriesListSkeleton';
 import CategoriesListContent from './CategoriesListContent';
-import CreateCategoryDialog from '../Dialog/CreateCategoryDialog';
+import CreateCategoryDialog from '../dialog/CreateCategoryDialog';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 

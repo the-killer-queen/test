@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/command';
 import { Trash2 } from 'lucide-react';
 import { useGetMenuCategories } from '../../hooks/useGetMenuCategories';
-import DeleteCategoryDialog from '../Dialog/DeleteCategoryDialog';
+import DeleteCategoryDialog from '../dialog/DeleteCategoryDialog';
 import CategoriesListSkeleton from '../skeletons/CategoriesListSkeleton';
 
 function CategoriesListContent() {

@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { getMenuItemById } from '@/supabase/data/menu-service';
 import { VariantProps } from 'class-variance-authority';
 import { Edit } from 'lucide-react';
-import UpdateMenuItemDialog from '../Dialog/UpdateMenuItemDialog';
+import UpdateMenuItemDialog from '../dialog/UpdateMenuItemDialog';
 
 type UpdateMenuItemActionProps = {
   menuId: string;
