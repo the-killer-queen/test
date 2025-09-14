@@ -18,10 +18,15 @@ export type OrderRow = Tables<'orders'>;
 export type MenuRowRaw = Tables<'menu'>;
 export type MenuCategoryRow = Tables<'menu_categories'>;
 
+// Order types
 export type OrderInsert = Inserts<'orders'>;
+export type OrderUpdate = Updates<'orders'>;
+export type DeletedOrderRow = Tables<'orders'>;
 
+// Menu Category types
 export type MenuCategoryInsert = Inserts<'menu_categories'>;
 export type MenuCategoryUpdate = Updates<'menu_categories'>;
+export type DeletedMenuCategoryRow = Tables<'menu_categories'>;
 
 // Typed table types (with proper JSONB types)
 export type MenuRow = Omit<MenuRowRaw, 'ingredients'> & {
@@ -34,7 +39,6 @@ export type DeletedMenuRow = Omit<MenuRowRaw, 'ingredients'> & {
 };
 
 export type MenuCategoryRowTyped = MenuCategoryRow;
-export type DeletedMenuCategoryRow = Tables<'menu_categories'>;
 
 // Typed insert types
 export type MenuInsert = Omit<Inserts<'menu'>, 'ingredients'> & {
@@ -52,6 +56,7 @@ export type MenuUpdate = Omit<Updates<'menu'>, 'ingredients'> & {
 export type OrderStatus = Database['public']['Enums']['order_status'];
 export type StreakGoalTypes = Database['public']['Enums']['streak_goal_types'];
 
+// Utility types for specific use cases
 export type MenuItemDetailsRow = {
   name: string;
   price: number;
@@ -65,3 +70,27 @@ export type MenuItemImageRow = {
 };
 
 export type MenuItemIngredientsRow = MenuIngredient[] | null;
+
+// Order item type
+export type OrderItem = {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+};
+
+// Order-specific utility types
+export type OrderItemsJson =
+  Database['public']['Tables']['orders']['Row']['items'];
+
+export type OrderWithTypedItems = Omit<OrderRow, 'items'> & {
+  items: OrderItem[];
+};
+
+export type OrderInsertWithTypedItems = Omit<OrderInsert, 'items'> & {
+  items: OrderItem[];
+};
+
+export type OrderUpdateWithTypedItems = Omit<OrderUpdate, 'items'> & {
+  items?: OrderItem[];
+};

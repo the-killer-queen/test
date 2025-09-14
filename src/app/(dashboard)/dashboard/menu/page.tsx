@@ -1,3 +1,4 @@
+import LayoutHeader from '@/components/shared/LayoutHeader';
 import {
   Card,
   CardContent,
@@ -6,14 +7,18 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import MenuActions from '@/features/menu/components/layout/MenuActions';
-import MenuFiltersList from '@/features/menu/components/layout/MenuFiltersList';
-import MenuPageHeader from '@/features/menu/components/layout/MenuPageHeader';
+import MenuFiltersList from '@/components/shared/FiltersList';
 import MenuTable from '@/features/menu/components/tables/MenuTable';
 
 async function MenuPage() {
   return (
     <>
-      <MenuPageHeader />
+      <LayoutHeader
+        title={'Manage Your Menu'}
+        description={
+          'Create, organize, and manage your menu items in one place.'
+        }
+      />
 
       <div className='flex flex-col gap-4 p-4'>
         <Card>

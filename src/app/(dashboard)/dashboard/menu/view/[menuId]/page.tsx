@@ -1,3 +1,5 @@
+import LayoutHeader from '@/components/shared/LayoutHeader';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -10,12 +12,13 @@ import MenuItemDetailsCard from '@/features/menu/components/card/MenuItemDetails
 import MenuItemImageCard from '@/features/menu/components/card/MenuItemImageCard';
 import MenuItemIngredientsCard from '@/features/menu/components/card/MenuItemIngredientsCard';
 import MenuItemQuickActionsCard from '@/features/menu/components/card/MenuItemQuickActionsCard';
-import MenuItemPageHeader from '@/features/menu/components/layout/MenuItemPageHeader';
 import UpdateMenuItemAction from '@/features/menu/components/layout/UpdateMenuItemAction';
 import {
   checkMenuItemExists,
   getAllMenuItemIds,
 } from '@/supabase/data/menu-service';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
@@ -33,7 +36,17 @@ async function MenuItemPageView({
 
   return (
     <>
-      <MenuItemPageHeader />
+      <LayoutHeader
+        title={'Menu Item Preview'}
+        description={'Preview and manage your menu item details.'}
+      >
+        <Button variant='link' size='sm' asChild>
+          <Link href={'/dashboard/menu'}>
+            <ArrowLeft />
+            <span className='hidden sm:block'>Go Back</span>
+          </Link>
+        </Button>
+      </LayoutHeader>
 
       <div className='flex flex-col gap-4 p-4'>
         <Card>

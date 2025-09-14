@@ -2,6 +2,7 @@ import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import './globals.css';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import { ThemeProvider } from '@/components/providers/ThemeProvider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -10,15 +11,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
       <head>
         <meta name='apple-mobile-web-app-title' content='MyWebSite' />
       </head>
       <body className='min-h-dvh w-full antialiased'>
-        <main>
-          <NuqsAdapter>{children}</NuqsAdapter>
-        </main>
-        <Toaster position='bottom-right' />
+        <ThemeProvider attribute={'class'} defaultTheme='system' enableSystem>
+          <main>
+            <NuqsAdapter>{children}</NuqsAdapter>
+          </main>
+          <Toaster position='bottom-right' />
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 'use server';
 
-import { handleImageCompression } from '@/lib/compressImages';
+import { handleImageCompression } from '@/lib/actions';
 import { GetActionResult } from '@/types';
 import {
   DeletedMenuRow,

@@ -5,10 +5,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { CheersIcon } from '@phosphor-icons/react';
+import { CheersIcon, ShoppingCartIcon } from '@phosphor-icons/react';
 import {
   Archive,
-  CalendarCheckIcon,
   CalendarPlus2Icon,
   ChartLine,
   LucideProps,
@@ -39,7 +38,7 @@ const navLinks: NavItem<Route>[] = [
   {
     label: 'Orders',
     href: '/dashboard/orders',
-    icon: CalendarCheckIcon,
+    icon: ShoppingCartIcon,
   },
   {
     label: 'New Order',
