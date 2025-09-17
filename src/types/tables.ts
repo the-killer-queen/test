@@ -1,5 +1,6 @@
 import { MenuIngredient } from '@/features/menu/lib/types';
 import { Database } from './database';
+import { OrderItem } from '@/features/orders/lib/types';
 
 // Utility type for table rows
 export type Tables<T extends keyof Database['public']['Tables']> =
@@ -70,14 +71,6 @@ export type MenuItemImageRow = {
 };
 
 export type MenuItemIngredientsRow = MenuIngredient[] | null;
-
-// Order item type
-export type OrderItem = {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-};
 
 // Order-specific utility types
 export type OrderItemsJson =
