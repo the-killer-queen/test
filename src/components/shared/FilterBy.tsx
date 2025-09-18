@@ -21,10 +21,11 @@ type FilterByProps = {
     label: string;
     iconName?: string;
   }[];
+  filterName?: string;
 };
 
-function FilterBy({ options }: FilterByProps) {
-  const { filters, setFilter } = useFiltersQuery();
+function FilterBy({ options, filterName }: FilterByProps) {
+  const { filters, setFilter } = useFiltersQuery(filterName);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   function handleUpdateFilter(value: string) {
@@ -36,20 +37,23 @@ function FilterBy({ options }: FilterByProps) {
   }
 
   return (
-    <Popover open={isOpen} onOpenChange={setIsOpen}>
+    <Popover open={isOpen} onOpenChange={setIsOpen} modal={true}>
       <PopoverTrigger asChild>
         <Button role='combobox' variant={'secondary'}>
-          <Filter />
-          Apply Filter
+          <Filter className='h-3 w-3 md:h-4 md:w-4' />
+          <span className='hidden sm:inline'>Apply Filter</span>
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent side='bottom' className='w-full p-0'>
+      <PopoverContent side='bottom' className='h-20 w-full p-0 sm:h-full'>
         <Command>
-          <CommandInput placeholder='Search...' />
+          <CommandInput
+            placeholder='Search...'
+            className='h-6 text-xs md:h-8 md:text-sm'
+          />
           <CommandEmpty className='flex justify-center'>
-            <span className='text-muted-foreground flex items-center gap-2 px-2 py-1.5 text-sm font-medium'>
-              <Inbox className='size-4' />
+            <span className='text-muted-foreground flex items-center gap-1 px-1 py-1 text-xs font-medium md:gap-2 md:px-2 md:py-1.5 md:text-sm'>
+              <Inbox className='size-3 md:size-4' />
               No categories available
             </span>
           </CommandEmpty>
@@ -64,14 +68,19 @@ function FilterBy({ options }: FilterByProps) {
                 return (
                   <CommandItem
                     key={i}
-                    className='justify-between border-b'
+                    className='justify-between border-b py-1 text-xs md:py-2 md:text-sm'
                     onSelect={() => handleUpdateFilter(option.value)}
                   >
                     <span className='flex gap-1'>
-                      <DynamicIcon iconName={option.iconName || ''} />
+                      <DynamicIcon
+                        iconName={option.iconName || ''}
+                        className='h-3 w-3 md:h-4 md:w-4'
+                      />
                       {option.label}
                     </span>
-                    {selectedFilter && <Check />}
+                    {selectedFilter && (
+                      <Check className='h-3 w-3 md:h-4 md:w-4' />
+                    )}
                   </CommandItem>
                 );
               })}

@@ -36,21 +36,23 @@ function SortBy({ options }: SortByProps) {
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant={'secondary'}>
-          <SortAscIcon />
-          Sort Items
+          <SortAscIcon className='h-3 w-3 md:h-4 md:w-4' />
+          <span className='hidden sm:inline'>Sort Items</span>
         </Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent side='bottom'>
-        <DropdownMenuGroup className='min-w-44'>
+        <DropdownMenuGroup className='min-w-32 md:min-w-44'>
           {options.map((option, i, array) => (
             <div key={option.value}>
               <DropdownMenuItem
-                className='justify-between'
+                className='justify-between py-1 text-xs md:py-2 md:text-sm'
                 onSelect={(event) => handleSelect(option.value, event)}
               >
                 {option.label}
-                {sortBy === option.value && <Check />}
+                {sortBy === option.value && (
+                  <Check className='h-3 w-3 md:h-4 md:w-4' />
+                )}
               </DropdownMenuItem>
               {i < array.length - 1 && <DropdownMenuSeparator />}
             </div>

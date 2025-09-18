@@ -12,36 +12,26 @@ function Search({
   className,
   ...props
 }: ComponentProps<'input'>) {
-  const ref = useRef<HTMLFormElement>(null);
-  const [query, setQuery] = useQueryState(name, parseAsString);
+  const ref = useRef<HTMLInputElement | null>(null);
+  const [query, setQuery] = useQueryState(name, parseAsString.withDefault(''));
 
-  function handleSearch(e: FormEvent<HTMLFormElement>) {
+  function handleSearch(e: FormEvent<HTMLInputElement>) {
     e.preventDefault();
+    const data = e.currentTarget.value;
 
-    const formData = new FormData(e.currentTarget);
-    const data = Object.fromEntries(formData.entries()) as { [name]: string };
-
-    if (!data[name]) return;
-
-    setQuery(data[name]);
-  }
-
-  function handleResetSearch() {
-    setQuery(null);
-    if (ref.current) ref.current.reset();
+    if (!data) return;
+    setQuery(data);
   }
 
   return (
-    <form
-      ref={ref}
-      onSubmit={handleSearch}
-      className={cn('relative flex flex-1 items-center gap-1', className)}
-    >
+    <div className={cn('relative flex flex-1 items-center gap-1', className)}>
       <div className='relative flex-1'>
-        <SearchIcon className='absolute top-2.5 left-3 size-4' />
+        <SearchIcon className='absolute top-3 left-2 size-3 md:left-3 md:size-4' />
         <Input
-          className='pl-9'
-          defaultValue={query || ''}
+          ref={ref}
+          onKeyDown={(e) => e.key === 'Enter' && handleSearch(e)}
+          className='pl-6 text-xs md:h-8 md:pl-9 md:text-sm'
+          defaultValue={query}
           name={name}
           placeholder={placeholder}
           {...props}
@@ -50,11 +40,14 @@ function Search({
 
       {query && (
         <X
-          onClick={handleResetSearch}
+          onClick={() => {
+            if (ref.current) ref.current.value = '';
+            setQuery(null);
+          }}
           className='hover:text-destructive absolute right-2 size-4 transition-colors duration-200 hover:cursor-pointer'
         />
       )}
-    </form>
+    </div>
   );
 }
 

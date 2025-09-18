@@ -4,8 +4,10 @@ import { Badge } from '@/components/ui/badge';
 import { X } from 'lucide-react';
 import { useFiltersQuery } from '../../hooks/useFiltersQuery';
 
-function FiltersList() {
-  const { filters, setFilter } = useFiltersQuery();
+type FiltersListProps = { filterName?: string };
+
+function FiltersList({ filterName }: FiltersListProps) {
+  const { filters, setFilter } = useFiltersQuery(filterName);
 
   if (!(filters.length > 0)) return null;
 
@@ -15,7 +17,7 @@ function FiltersList() {
   }
 
   return (
-    <div className='flex items-center gap-1'>
+    <div className='flex flex-wrap items-center gap-1'>
       {filters.map((filter, i) => (
         <Badge key={i} variant={'outline'} className='capitalize'>
           {filter}

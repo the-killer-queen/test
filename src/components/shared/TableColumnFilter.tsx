@@ -8,8 +8,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useExcludedColumnsQuery } from '@/hooks/useExcludedColumnsQuery';
 import { ChevronDown } from 'lucide-react';
-import { useState } from 'react';
+import { useOptimistic, useState, useTransition } from 'react';
 import { Button } from '../ui/button';
+import { cn } from '@/lib/utils';
 
 type TableColumnFilterProps = {
   options: {
@@ -22,44 +23,84 @@ type TableColumnFilterProps = {
 function TableColumnFilter({ options }: TableColumnFilterProps) {
   const { excludedColumns, setExcludedColumns } = useExcludedColumnsQuery();
   const [isOpen, setIsOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
+
+  // Optimistic state for immediate UI updates
+  const [optimisticExcludedColumns, setOptimisticExcludedColumns] =
+    useOptimistic(
+      excludedColumns,
+      (currentState: string[], optimisticValue: string[]) => optimisticValue,
+    );
 
   const handleColumnToggle = (columnValue: string, event: Event) => {
     event.preventDefault();
 
+    const currentExcluded = optimisticExcludedColumns;
     const isCurrentlyChecked =
-      excludedColumns.length === 0
+      currentExcluded.length === 0
         ? options.find((opt) => opt.value === columnValue)?.defaultVisible !==
           false
-        : !excludedColumns.includes(columnValue);
+        : !currentExcluded.includes(columnValue);
 
-    if (isCurrentlyChecked) {
-      if (!excludedColumns.includes(columnValue))
-        setExcludedColumns([...excludedColumns, columnValue]);
-    } else {
-      setExcludedColumns(excludedColumns.filter((col) => col !== columnValue));
-    }
+    let newExcludedColumns: string[];
 
-    setTimeout(() => setIsOpen(false), 150);
+    if (isCurrentlyChecked)
+      newExcludedColumns = currentExcluded.includes(columnValue)
+        ? currentExcluded
+        : [...currentExcluded, columnValue];
+    else
+      newExcludedColumns = currentExcluded.filter((col) => col !== columnValue);
+
+    startTransition(() => {
+      setExcludedColumns(newExcludedColumns);
+      setOptimisticExcludedColumns(newExcludedColumns);
+    });
+
+    startTransition(() => {
+      setIsOpen(false);
+    });
   };
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
-        <Button variant='secondary' className='ml-auto'>
-          Columns <ChevronDown />
+        <Button
+          variant='secondary'
+          className={cn(
+            'ml-auto transition-opacity duration-200 [&_span]:hidden sm:[&_span]:block',
+            isPending && 'opacity-70',
+          )}
+          disabled={isPending}
+        >
+          <span>Columns</span>
+          <ChevronDown
+            className={cn(
+              'transition-transform duration-200',
+              isPending && 'animate-pulse',
+            )}
+          />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align='end'>
+      <DropdownMenuContent
+        align='end'
+        className={cn(
+          'transition-all duration-200 ease-out',
+          !isOpen && isPending && 'scale-95 opacity-0',
+        )}
+      >
         {options.map((option) => {
           const isChecked =
-            excludedColumns.length === 0
+            optimisticExcludedColumns.length === 0
               ? option.defaultVisible !== false
-              : !excludedColumns.includes(option.value);
+              : !optimisticExcludedColumns.includes(option.value);
 
           return (
             <DropdownMenuCheckboxItem
               key={option.value}
-              className='capitalize'
+              className={cn(
+                'py-1 text-xs capitalize transition-all duration-150 md:py-2 md:text-sm',
+                isPending && 'pointer-events-none opacity-60',
+              )}
               checked={isChecked}
               onSelect={(event) => handleColumnToggle(option.value, event)}
             >
@@ -71,5 +112,4 @@ function TableColumnFilter({ options }: TableColumnFilterProps) {
     </DropdownMenu>
   );
 }
-
 export default TableColumnFilter;
