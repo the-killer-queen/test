@@ -52,16 +52,20 @@ function CreateCategoryForm({ onClose }: { onClose: () => void }) {
 
   return (
     <Form {...form}>
-      <div className='space-y-4'>
-        <div className='flex items-start gap-2'>
+      <div className='space-y-4 px-2 md:space-y-4 md:px-0'>
+        <div className='flex items-start gap-1 md:gap-2'>
           <FormField
             name='name'
             control={form.control}
             render={({ field }) => (
               <FormItem className='flex-1'>
-                <FormLabel>Name</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>Name</FormLabel>
                 <FormControl>
-                  <Input placeholder='Category name' {...field} />
+                  <Input
+                    placeholder='Category name'
+                    className='text-xs md:text-sm'
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -73,7 +77,7 @@ function CreateCategoryForm({ onClose }: { onClose: () => void }) {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>(Optional)</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>(Optional)</FormLabel>
                 <FormControl>
                   <CategoriesIcons {...field} />
                 </FormControl>
@@ -82,7 +86,7 @@ function CreateCategoryForm({ onClose }: { onClose: () => void }) {
           />
         </div>
 
-        <div className='flex justify-end gap-2'>
+        <div className='flex justify-end gap-1 md:gap-2'>
           <Button
             onClick={onClose}
             disabled={isLoading}

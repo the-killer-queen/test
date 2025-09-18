@@ -1,15 +1,16 @@
 import { Table } from '@/components/ui/table';
 import { Suspense } from 'react';
 
+import TableContentHeader from '@/components/shared/TableContentHeader';
 import MenuTableLoadingSkeleton from '../skeletons/MenuTableLoadingSkeleton';
 import MenuTableBody from './MenuTableBody';
-import MenuTableHeader from './MenuTableHeader';
+import { tableHeaderColumns } from '../../lib/constant';
 
 function MenuTable() {
   return (
     <div className='rounded-md border'>
       <Table>
-        <MenuTableHeader />
+        <TableContentHeader columns={tableHeaderColumns} />
         <Suspense fallback={<MenuTableLoadingSkeleton />}>
           <MenuTableBody />
         </Suspense>

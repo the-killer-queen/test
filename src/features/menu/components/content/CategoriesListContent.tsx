@@ -13,13 +13,36 @@ import { Trash2 } from 'lucide-react';
 import { useGetMenuCategories } from '../../hooks/useGetMenuCategories';
 import DeleteCategoryDialog from '../dialog/DeleteCategoryDialog';
 import CategoriesListSkeleton from '../skeletons/CategoriesListSkeleton';
+import { AlertTriangle, RefreshCw } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+function CategoriesListError() {
+  return (
+    <div className='flex flex-col items-center justify-center py-12'>
+      <AlertTriangle className='text-destructive mb-4 h-12 w-12' />
+      <h3 className='text-foreground mb-2 text-lg font-semibold'>
+        Failed to load categories
+      </h3>
+      <p className='text-muted-foreground mb-4 text-center text-sm'>
+        There was a problem loading the categories. Please try again.
+      </p>
+      <Button
+        variant='outline'
+        onClick={() => window.location.reload()}
+        className='flex items-center gap-2'
+      >
+        <RefreshCw className='h-4 w-4' />
+        Try Again
+      </Button>
+    </div>
+  );
+}
 
 function CategoriesListContent() {
   const { categories, error, isPending } = useGetMenuCategories();
 
   if (isPending) return <CategoriesListSkeleton />;
-  if (error || !categories)
-    return <div className='text-destructive'>Error!!!!</div>;
+  if (error || !categories) return <CategoriesListError />;
 
   return (
     <Command>

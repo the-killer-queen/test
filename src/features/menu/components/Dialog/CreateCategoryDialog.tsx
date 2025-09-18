@@ -29,9 +29,11 @@ function CreateCategoryDialog({ children }: CreateCategoryDialogProps) {
       </DialogTrigger>
 
       <DialogTrigger asChild></DialogTrigger>
-      <DialogContent className='!max-w-sm'>
-        <DialogHeader>
-          <DialogTitle>Create Category</DialogTitle>
+      <DialogContent className='!max-w-xs md:!max-w-sm'>
+        <DialogHeader className='px-2 md:px-0'>
+          <DialogTitle className='text-sm md:text-base'>
+            Create Category
+          </DialogTitle>
         </DialogHeader>
         <CreateCategoryForm onClose={() => setIsOpen(false)} />
       </DialogContent>

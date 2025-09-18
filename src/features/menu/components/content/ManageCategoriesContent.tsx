@@ -17,7 +17,7 @@ function ManageCategoriesContent() {
             <CategoriesListContent />
 
             <CreateCategoryDialog>
-              <Button variant='outline' size='sm' className='mt-2 w-full'>
+              <Button size='sm' className='mt-2 w-full'>
                 <Plus />
                 Add Category
               </Button>

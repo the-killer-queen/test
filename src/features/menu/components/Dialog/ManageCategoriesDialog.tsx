@@ -26,10 +26,12 @@ function ManageCategoriesDialog() {
         <span>Manage Categories</span>
       </Button>
 
-      <DialogContent className='max-h-[90vh] overflow-y-auto'>
-        <DialogHeader>
-          <DialogTitle>Manage Categories</DialogTitle>
-          <DialogDescription>
+      <DialogContent className='max-h-[90vh] max-w-xs overflow-y-auto md:max-w-md'>
+        <DialogHeader className='px-2 md:px-0'>
+          <DialogTitle className='text-sm md:text-base'>
+            Manage Categories
+          </DialogTitle>
+          <DialogDescription className='text-xs md:text-sm'>
             Create, update, and delete menu categories to organize your items
           </DialogDescription>
         </DialogHeader>

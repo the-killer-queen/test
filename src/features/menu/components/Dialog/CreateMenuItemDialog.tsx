@@ -25,10 +25,12 @@ function CreateMenuItemDialog() {
         <span>Add New Item</span>
       </Button>
 
-      <DialogContent className='max-h-[90vh] overflow-y-auto'>
-        <DialogHeader>
-          <DialogTitle>Create Menu Item</DialogTitle>
-          <DialogDescription>
+      <DialogContent className='max-h-[90vh] !w-full overflow-y-auto md:min-w-3xl'>
+        <DialogHeader className='px-2 md:px-0'>
+          <DialogTitle className='text-sm md:text-base'>
+            Create Menu Item
+          </DialogTitle>
+          <DialogDescription className='text-xs md:text-sm'>
             Fill in the details to add a new menu item
           </DialogDescription>
 

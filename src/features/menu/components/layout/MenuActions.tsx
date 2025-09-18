@@ -6,6 +6,10 @@ import { getMenuSelectedCategories } from '@/supabase/data/categories-service';
 import { menuFilterOptions } from '../../lib/utils';
 import CreateMenuItemDialog from '../dialog/CreateMenuItemDialog';
 import ManageCategoriesDialog from '../dialog/ManageCategoriesDialog';
+import {
+  menuExcludedColumnsOptions,
+  menuSortByOptions,
+} from '../../lib/constant';
 
 async function MenuActions() {
   const { data: selectedCategories, error: selectedCatError } =
@@ -16,30 +20,18 @@ async function MenuActions() {
 
   return (
     <div className='my-2 flex flex-col-reverse gap-2 xl:flex-row'>
-      <div className='flex items-center gap-2'>
+      <div className='flex items-center gap-1 md:gap-2'>
         <FilterBy options={menuFilterOptions(selectedCategories)} />
-        <SortBy
-          options={[
-            { value: 'created_at-desc', label: 'Newest first' },
-            { value: 'created_at-asc', label: 'Oldest first' },
-            { value: 'name-asc', label: 'Name (A - Z)' },
-            { value: 'name-desc', label: 'Name (Z - A)' },
-            { value: 'price-desc', label: 'Price (high - low)' },
-            { value: 'price-asc', label: 'Price (low - high)' },
-          ]}
-        />
+        <SortBy options={menuSortByOptions} />
 
-        <TableColumnFilter
-          options={[
-            { value: 'menu_item_picture', label: 'Picture' },
-            { value: 'category', label: 'Category' },
-            { value: 'ingredients', label: 'Ingredients' },
-          ]}
-        />
+        <TableColumnFilter options={menuExcludedColumnsOptions} />
       </div>
 
-      <div className='flex w-full items-center gap-2'>
-        <Search placeholder='Search menu items...' className='col-span-2' />
+      <div className='flex w-full items-center gap-1 md:gap-2'>
+        <Search
+          placeholder='Search menu items...'
+          className='col-span-2 text-xs md:text-sm'
+        />
         <ManageCategoriesDialog />
         <CreateMenuItemDialog />
       </div>

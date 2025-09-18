@@ -16,7 +16,7 @@ function IngredientsList(field: ControllerRenderProps) {
       <CardContent className='flex !flex-wrap items-center gap-2 p-0'>
         {(field.value as IngredientsListProps).map((ing, i) => (
           <Badge variant={'secondary'} key={i}>
-            {ing.name} ({ing?.quantity})
+            {ing.name} {ing.quantity && `(${ing.quantity})`}
             <span
               className='hover:text-destructive transition-colors duration-200 hover:cursor-pointer'
               onClick={() => {

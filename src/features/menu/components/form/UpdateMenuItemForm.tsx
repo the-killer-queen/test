@@ -86,28 +86,35 @@ function UpdateMenuItemForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className='space-y-4 md:space-y-6'
+      >
         <FormField
           name='name'
           control={form.control}
           render={({ field }) => (
             <FormItem className='flex-1'>
-              <FormLabel>Name</FormLabel>
+              <FormLabel className='text-xs md:text-sm'>Name</FormLabel>
               <FormControl>
-                <Input placeholder='Enter menu item name' {...field} />
+                <Input
+                  placeholder='Enter menu item name'
+                  className='text-xs md:text-sm'
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <div className='flex items-start justify-between gap-2'>
+        <div className='flex items-start justify-between gap-1 md:gap-2'>
           <FormField
             name='price'
             control={form.control}
             render={({ field }) => (
               <FormItem className='flex-1'>
-                <FormLabel>Price</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>Price</FormLabel>
                 <FormControl>
                   <Input
                     placeholder='0.00'
@@ -116,6 +123,7 @@ function UpdateMenuItemForm({
                     step={0.01}
                     min={0}
                     max={10_000_000}
+                    className='text-xs md:text-sm'
                     {...field}
                     onChange={(e) =>
                       field.onChange(parseFloat(e.target.value) || 0)
@@ -132,7 +140,9 @@ function UpdateMenuItemForm({
             control={form.control}
             render={({ field }) => (
               <FormItem className='flex-1'>
-                <FormLabel>Category (Optional)</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>
+                  Category (Optional)
+                </FormLabel>
                 <FormControl>
                   <CategorySelect {...field} />
                 </FormControl>
@@ -146,17 +156,21 @@ function UpdateMenuItemForm({
           type='single'
           collapsible
           defaultValue='item-1'
-          className='!my-2 w-full'
+          className='!my-1 w-full md:!my-2'
         >
           <AccordionItem value='item-1'>
-            <AccordionTrigger>Additional Details</AccordionTrigger>
-            <AccordionContent className='mx-1 my-1 space-y-6'>
+            <AccordionTrigger className='text-xs md:text-sm'>
+              Additional Details
+            </AccordionTrigger>
+            <AccordionContent className='mx-0 my-0 space-y-4 md:mx-1 md:my-1 md:space-y-6'>
               <FormField
                 name='ingredients'
                 control={form.control}
                 render={({ field }) => (
                   <FormItem className='flex-1'>
-                    <FormLabel>Ingredients</FormLabel>
+                    <FormLabel className='text-xs md:text-sm'>
+                      Ingredients
+                    </FormLabel>
                     <FormControl>
                       <div className='flex flex-col gap-2'>
                         <CreateIngredientsForm
@@ -186,14 +200,14 @@ function UpdateMenuItemForm({
                 control={form.control}
                 render={({ field }) => (
                   <FormItem className='flex-1'>
-                    <FormLabel className='flex justify-between'>
+                    <FormLabel className='flex justify-between text-xs md:text-sm'>
                       Description
                       <Small>{charLength}/280</Small>
                     </FormLabel>
                     <FormControl>
                       <Textarea
                         maxLength={280}
-                        className='max-h-28'
+                        className='max-h-28 text-xs md:text-sm'
                         autoComplete='on'
                         placeholder='Write a short description of the menu item'
                         {...field}
@@ -228,7 +242,7 @@ function UpdateMenuItemForm({
           )}
         />
 
-        <div className='flex items-center justify-center gap-2'>
+        <div className='flex items-center justify-center gap-1 md:gap-2'>
           <Button
             type='button'
             disabled={isLoading}

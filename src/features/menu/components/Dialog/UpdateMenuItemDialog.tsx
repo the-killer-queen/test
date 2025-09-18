@@ -31,10 +31,12 @@ function UpdateMenuItemDialog({ menuItem, children }: EditMenuItemProps) {
         })}
       </DialogTrigger>
 
-      <DialogContent className='max-h-[90vh] overflow-y-auto'>
+      <DialogContent className='max-h-[90vh] !w-full overflow-y-auto md:min-w-3xl'>
         <DialogHeader>
-          <DialogTitle>Update Menu Item</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className='text-sm md:text-base'>
+            Update Menu Item
+          </DialogTitle>
+          <DialogDescription className='text-xs md:text-sm'>
             Update the details of your menu item
           </DialogDescription>
 

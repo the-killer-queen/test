@@ -37,12 +37,20 @@ function CategoriesIcons({ ...field }: ControllerRenderProps) {
           <ChevronsUpDown />
         </Button>
       </PopoverTrigger>
-      <PopoverContent side={'bottom'} className='h-48 w-48 p-0 px-2'>
+      <PopoverContent
+        side={'bottom'}
+        className='h-32 w-32 p-0 px-1 md:h-48 md:w-48 md:px-2'
+      >
         <Command>
-          <CommandInput placeholder='Search categories...' />
-          <CommandEmpty>No category found.</CommandEmpty>
+          <CommandInput
+            placeholder='Search categories...'
+            className='text-xs md:text-sm'
+          />
+          <CommandEmpty className='text-xs md:text-sm'>
+            No category found.
+          </CommandEmpty>
           <CommandList>
-            <CommandGroup className='[&>*]:!grid [&>*]:!grid-cols-4 [&>*]:!gap-1'>
+            <CommandGroup className='[&>*]:!grid [&>*]:!grid-cols-4 [&>*]:!gap-0.5 md:[&>*]:!gap-1'>
               {icons.map((icon, i) => {
                 return (
                   <CommandItem
@@ -52,7 +60,7 @@ function CategoriesIcons({ ...field }: ControllerRenderProps) {
                     }}
                     key={i}
                     value={icon}
-                    className={`w-min justify-between border ${field.value === icon ? 'bg-accent opacity-100' : 'opacity-80'}`}
+                    className={`w-min justify-between border p-1 md:p-2 ${field.value === icon ? 'bg-accent opacity-100' : 'opacity-80'}`}
                   >
                     <DynamicIcon iconName={icon} />
                   </CommandItem>

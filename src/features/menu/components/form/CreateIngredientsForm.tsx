@@ -38,7 +38,7 @@ function CreateIngredientsForm({ onCreate }: CreateIngredientsFormProps) {
 
   return (
     <Form {...form}>
-      <div className='flex items-start gap-2'>
+      <div className='flex flex-col gap-x-1 gap-y-4 sm:flex-row sm:items-start sm:justify-between md:gap-x-2 md:gap-y-6'>
         <FormField
           name='quantity'
           control={form.control}
@@ -48,6 +48,7 @@ function CreateIngredientsForm({ onCreate }: CreateIngredientsFormProps) {
                 <Input
                   type='text'
                   placeholder='Ingredient quantity'
+                  className='text-xs md:text-sm'
                   {...field}
                 />
               </FormControl>
@@ -61,8 +62,13 @@ function CreateIngredientsForm({ onCreate }: CreateIngredientsFormProps) {
           render={({ field }) => (
             <FormItem className='flex-1'>
               <FormControl>
-                <div className='flex items-center gap-2'>
-                  <Input type='text' placeholder='Ingredient name' {...field} />
+                <div className='flex items-center gap-1 md:gap-2'>
+                  <Input
+                    type='text'
+                    placeholder='Ingredient name'
+                    className='text-xs md:text-sm'
+                    {...field}
+                  />
 
                   <Button
                     variant={'outline'}

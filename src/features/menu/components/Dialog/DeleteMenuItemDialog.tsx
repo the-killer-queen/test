@@ -67,14 +67,16 @@ function DeleteMenuItemDialog({
         })}
       </DialogTrigger>
 
-      <DialogContent className='!max-w-xs'>
-        <DialogHeader>
-          <DialogTitle>Delete {itemName} from menu?</DialogTitle>
-          <DialogDescription>
+      <DialogContent className='max-w-xs md:max-w-md'>
+        <DialogHeader className='px-2 md:px-4'>
+          <DialogTitle className='text-sm md:text-base'>
+            Delete {itemName} from menu?
+          </DialogTitle>
+          <DialogDescription className='text-xs md:text-sm'>
             This action cannot be undone. The selected menu item will be
             removed.
           </DialogDescription>
-          <div className='flex items-center justify-center gap-2'>
+          <div className='flex items-center justify-center gap-2 px-2 md:px-0'>
             <Button
               disabled={isLoading}
               variant={'secondary'}

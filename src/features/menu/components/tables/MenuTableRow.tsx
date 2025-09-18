@@ -31,7 +31,7 @@ function MenuTableRow({ menuItem }: MenuTableRowProps) {
     <TableRow>
       {/* AVATAR */}
       {!excludedColumns.includes('menu_item_picture') && (
-        <TableCell>
+        <TableCell className='px-2 md:px-4'>
           <Avatar>
             <AvatarImage
               src={menuItem.image_url ?? undefined}
@@ -46,16 +46,18 @@ function MenuTableRow({ menuItem }: MenuTableRowProps) {
       )}
 
       {/* NAME */}
-      <TableCell className='font-semibold'>{menuItem.name}</TableCell>
+      <TableCell className='px-2 text-sm font-semibold md:px-4 md:text-base'>
+        {menuItem.name}
+      </TableCell>
 
       {/* CATEGORY */}
       {!excludedColumns.includes('category') && (
-        <TableCell>
-          <div className='flex items-center gap-1 capitalize'>
+        <TableCell className='px-2 md:px-4'>
+          <div className='flex items-center gap-0.5 text-xs capitalize md:gap-2 md:text-sm'>
             {menuItem.menu_categories?.icon_name && (
               <DynamicIcon
                 iconName={menuItem?.menu_categories?.icon_name || ''}
-                className='size-3.5 lg:size-4'
+                className='size-3 md:size-4'
               />
             )}
 
@@ -66,21 +68,23 @@ function MenuTableRow({ menuItem }: MenuTableRowProps) {
 
       {/* INGREDIENTS */}
       {!excludedColumns.includes('ingredients') && (
-        <TableCell className='w-max overflow-hidden text-xs lg:text-base'>
-          {menuItem.ingredients?.length
-            ? menuItem.ingredients.slice(0, 3).map((ing, i) => (
-                <Badge variant={'secondary'} key={i}>
-                  {ing.name}
-                </Badge>
-              ))
-            : '—'}
+        <TableCell className='w-max overflow-hidden text-xs md:text-sm'>
+          <div className='flex items-center gap-1'>
+            {menuItem.ingredients?.length
+              ? menuItem.ingredients.slice(0, 3).map((ing, i) => (
+                  <Badge variant={'secondary'} key={i} className='text-xs'>
+                    {ing.name}
+                  </Badge>
+                ))
+              : '—'}
+          </div>
         </TableCell>
       )}
 
       {/* PRICE */}
-      <TableCell>
+      <TableCell className='px-2 md:px-4'>
         <div className='flex items-center'>
-          <span>
+          <span className='text-sm font-semibold md:text-base'>
             {formatNumber({
               locale: 'en-US',
               number: menuItem.price,
@@ -90,7 +94,7 @@ function MenuTableRow({ menuItem }: MenuTableRowProps) {
       </TableCell>
 
       {/* ACTIONS */}
-      <TableCell className='text-end'>
+      <TableCell className='px-2 text-end md:px-4'>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant='ghost' className='h-0 w-0'>
@@ -98,7 +102,7 @@ function MenuTableRow({ menuItem }: MenuTableRowProps) {
             </Button>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent className='mr-4' side='bottom'>
+          <DropdownMenuContent className='mr-2 md:mr-4' side='bottom'>
             <DeleteMenuItemDialog
               menuItemId={menuItem.id}
               itemName={menuItem.name}

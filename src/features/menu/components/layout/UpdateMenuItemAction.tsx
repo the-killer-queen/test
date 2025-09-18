@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { getMenuItemById } from '@/supabase/data/menu-service';
 import { VariantProps } from 'class-variance-authority';
-import { Edit } from 'lucide-react';
+import { Edit, AlertTriangle } from 'lucide-react';
 import UpdateMenuItemDialog from '../dialog/UpdateMenuItemDialog';
 
 type UpdateMenuItemActionProps = {
@@ -16,7 +16,14 @@ async function UpdateMenuItemAction({
   menuId,
 }: UpdateMenuItemActionProps) {
   const { data: menuItem, error } = await getMenuItemById(+menuId);
-  if (!menuItem || error) return <p>!!!!</p>;
+  if (!menuItem || error) {
+    return (
+      <Button variant={variant} size='sm' className={className} disabled>
+        <AlertTriangle />
+        <span>Error</span>
+      </Button>
+    );
+  }
 
   return (
     <UpdateMenuItemDialog menuItem={menuItem}>

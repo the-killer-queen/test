@@ -1,4 +1,5 @@
 import DynamicIcon from '@/components/shared/DynamicIcon';
+import ErrorState from '@/components/shared/ErrorState';
 import { Badge } from '@/components/ui/badge';
 import { CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -14,7 +15,13 @@ import {
 
 async function MenuItemDetailsContent({ menuId }: { menuId: string }) {
   const { data: details, error } = await getMenuItemDetails(+menuId);
-  if (error || !details) return <p>!!!!</p>;
+  if (error || !details) {
+    return (
+      <CardContent className='flex flex-col items-center justify-center py-8'>
+        <ErrorState message='Failed to load details' iconClassName='h-8 w-8' />
+      </CardContent>
+    );
+  }
 
   return (
     <CardContent className='space-y-2'>
