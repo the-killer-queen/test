@@ -5,7 +5,7 @@ function MenuItemViewLoading() {
   return (
     <>
       {/* Header Skeleton */}
-      <header className='bg-sidebar/95 flex justify-between border-b px-4 py-4 backdrop-blur'>
+      <header className='bg-sidebar/95 flex justify-between border-b px-4 py-[17px] backdrop-blur'>
         <div>
           <Skeleton className='mb-2 h-6 w-48' />
           <Skeleton className='h-4 w-80' />

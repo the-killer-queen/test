@@ -4,6 +4,7 @@ import { createClient } from '@/supabase/server';
 import { GetActionResult } from '@/types';
 import { OrderInsert, OrderRow, OrderUpdate } from '@/types/tables';
 import { revalidatePath } from 'next/cache';
+import { createBuildTimeClient } from '../client';
 
 //GET
 export async function getOrders(): Promise<GetActionResult<OrderRow[]>> {
@@ -109,6 +110,29 @@ export async function getOrdersByDate(
       error:
         error instanceof Error ? error.message : 'An unexpected error occurred',
     };
+  }
+}
+
+export async function getAllOrdersId(): Promise<string[]> {
+  try {
+    const supabase = createBuildTimeClient();
+
+    const { data: ordersId, error } = await supabase
+      .from('orders')
+      .select('id');
+
+    if (error) {
+      console.error('Error fetching menu item IDs:', error.message);
+      return [];
+    }
+
+    return ordersId?.map((item) => item.id) || [];
+  } catch (error) {
+    console.error(
+      'Unexpected error fetching menu item IDs:',
+      error instanceof Error ? error.message : 'Unknown error',
+    );
+    return [];
   }
 }
 

@@ -146,13 +146,18 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
                   key={index}
                   className='flex items-center justify-between text-xs md:text-sm'
                 >
-                  <span>
+                  <Badge variant={'outline'}>
                     {item.quantity}x {item.name}
-                  </span>
+                  </Badge>
                   <span className='font-medium'>
                     {formatNumber({
                       locale: 'en-US',
                       number: item.price * item.quantity,
+                      options: {
+                        style: 'currency',
+                        currency: 'USD',
+                        maximumFractionDigits: 2,
+                      },
                     })}
                   </span>
                 </div>

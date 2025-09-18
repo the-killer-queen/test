@@ -13,20 +13,24 @@ import OrderNotesCard from '@/features/orders/components/card/OrderNotesCard';
 import OrderQuickActionsCard from '@/features/orders/components/card/OrderQuickActionsCard';
 import UpdateOrderAction from '@/features/orders/components/layout/UpdateOrderAction';
 import OrderDetailsCardSkeleton from '@/features/orders/components/skeletons/OrderDetailsCardSkeleton';
-import OrderItemsCardSkeleton from '@/features/orders/components/skeletons/OrderItemsCardSkeleton';
 import OrderNotesCardSkeleton from '@/features/orders/components/skeletons/OrderNotesCardSkeleton';
-import { getOrderById } from '@/supabase/data/orders-service';
+import OrderItemsCardSkeleton from '@/features/orders/components/skeletons/OrderItemsCardSkeleton';
+import { getAllOrdersId, getOrderById } from '@/supabase/data/orders-service';
 import { ArrowLeft, Settings } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
+
+export async function generateStaticParams() {
+  const ordersId = await getAllOrdersId();
+  return ordersId.map((orderId) => ({ orderId }));
+}
 
 async function OrderViewPage({
   params,
 }: PageProps<'/dashboard/orders/view/[orderId]'>) {
   const { orderId } = await params;
 
-  // Check if order exists
   const { data: order, error } = await getOrderById(orderId);
   if (!order || error) notFound();
 
