@@ -1,8 +1,8 @@
 import { parseAsArrayOf, parseAsString, useQueryState } from 'nuqs';
 
-export function useFiltersQuery() {
+export function useFiltersQuery(name?: string) {
   const [filters, setFilter] = useQueryState(
-    'filter_by',
+    name || 'filter_by',
     parseAsArrayOf(parseAsString).withDefault([]),
   );
 
