@@ -1,5 +1,12 @@
+import { SidebarTrigger } from '@/components/ui/sidebar';
+
 function DashboardPage() {
-  return <div>Welcome to dashboard!</div>;
+  return (
+    <div>
+      <SidebarTrigger />
+      Welcome to dashboard!
+    </div>
+  );
 }
 
 export default DashboardPage;

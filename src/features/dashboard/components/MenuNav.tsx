@@ -6,12 +6,7 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { CheersIcon, ShoppingCartIcon } from '@phosphor-icons/react';
-import {
-  Archive,
-  CalendarPlus2Icon,
-  ChartLine,
-  LucideProps,
-} from 'lucide-react';
+import { Archive, ChartLine, LucideProps } from 'lucide-react';
 import { Route } from 'next';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -39,11 +34,6 @@ const navLinks: NavItem<Route>[] = [
     label: 'Orders',
     href: '/dashboard/orders',
     icon: ShoppingCartIcon,
-  },
-  {
-    label: 'New Order',
-    href: '/dashboard/orders/new',
-    icon: CalendarPlus2Icon,
   },
   {
     label: 'Reports',
