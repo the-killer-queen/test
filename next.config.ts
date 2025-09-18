@@ -19,8 +19,6 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '10mb',
     },
 
-    serverComponentsExternalPackages: ['sharp'],
-
     typedEnv: true,
   },
 };
