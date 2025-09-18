@@ -53,7 +53,10 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
   const isLoading = form.formState.isSubmitting;
 
   async function onSubmit(values: UpdateOrderSchema) {
-    const { success, error } = await updateOrder(orderToEdit.id, values);
+    const { success, error } = await updateOrder(orderToEdit.id, {
+      order_name: values.order_name && values.order_name.replaceAll(' ', '-'),
+      ...values,
+    });
 
     onClose();
 
@@ -63,44 +66,17 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
-        <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
-          <FormField
-            name='customer_name'
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Customer Name</FormLabel>
-                <FormControl>
-                  <Input placeholder='Enter customer name' {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            name='customer_contact'
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Contact Info</FormLabel>
-                <FormControl>
-                  <Input placeholder='Phone or email' {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className='space-y-4 md:space-y-6'
+      >
+        <div className='grid grid-cols-1 gap-1 md:grid-cols-2 md:gap-2'>
           <FormField
             name='is_togo'
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Order Type</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>Order Type</FormLabel>
                 <FormControl>
                   <OrderTypeSelect {...field} />
                 </FormControl>
@@ -114,7 +90,7 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Status</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>Status</FormLabel>
                 <FormControl>
                   <OrderStatusSelect {...field} />
                 </FormControl>
@@ -129,7 +105,7 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Order Items</FormLabel>
+              <FormLabel className='text-xs md:text-sm'>Order Items</FormLabel>
               <FormControl>
                 <MenuItemsSelector {...field} />
               </FormControl>
@@ -138,23 +114,68 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
           )}
         />
 
-        <Accordion
-          type='single'
-          collapsible
-          defaultValue='item-1'
-          className='!my-2 w-full'
-        >
+        <Accordion type='single' collapsible className='!my-1 w-full md:!my-2'>
           <AccordionItem value='item-1'>
-            <AccordionTrigger>Additional Details</AccordionTrigger>
-            <AccordionContent className='mx-1 my-1 space-y-6'>
+            <AccordionTrigger className='text-xs md:text-sm'>
+              Additional Details
+            </AccordionTrigger>
+            <AccordionContent className='mx-0 my-0 space-y-4 md:mx-1 md:my-1 md:space-y-6'>
+              <div className='grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-4'>
+                <FormField
+                  name='customer_name'
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className='text-xs md:text-sm'>
+                        Customer Name
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder='Enter customer name'
+                          className='text-xs md:text-sm'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  name='customer_contact'
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className='text-xs md:text-sm'>
+                        Contact Info
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder='Phone or email'
+                          className='text-xs md:text-sm'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
               <FormField
                 name='order_name'
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Order Name (Optional)</FormLabel>
+                    <FormLabel className='text-xs md:text-sm'>
+                      Order Name
+                    </FormLabel>
                     <FormControl>
-                      <Input placeholder='Custom order name' {...field} />
+                      <Input
+                        placeholder='Custom order name'
+                        className='text-xs md:text-sm'
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -166,10 +187,10 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Notes</FormLabel>
+                    <FormLabel className='text-xs md:text-sm'>Notes</FormLabel>
                     <FormControl>
                       <Textarea
-                        className='max-h-28'
+                        className='max-h-28 text-xs md:text-sm'
                         placeholder='Special instructions or notes'
                         {...field}
                       />
@@ -182,7 +203,7 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
           </AccordionItem>
         </Accordion>
 
-        <div className='flex items-center justify-center gap-2'>
+        <div className='flex items-center justify-center gap-1 md:gap-2'>
           <Button
             type='button'
             disabled={isLoading}

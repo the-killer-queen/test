@@ -76,13 +76,13 @@ function OrdersTableEmptyState({
   return (
     <TableBody>
       <TableRow>
-        <TableCell colSpan={8} className='h-96'>
-          <div className='flex flex-col items-center justify-center gap-2 py-12 text-center'>
+        <TableCell colSpan={9} className='h-64 md:h-96'>
+          <div className='flex flex-col items-center justify-center gap-2 px-4 py-8 text-center md:gap-4 md:px-8 md:py-12'>
             {content.icon}
-            <h3 className='text-foreground mt-2 text-lg font-semibold'>
+            <h3 className='text-foreground mt-2 text-base font-semibold md:text-lg'>
               {content.title}
             </h3>
-            <p className='text-muted-foreground max-w-md text-sm'>
+            <p className='text-muted-foreground max-w-xs text-xs md:max-w-md md:text-sm'>
               {content.description}
             </p>
             {content.action}

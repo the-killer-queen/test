@@ -28,6 +28,7 @@ import { createOrderSchema, CreateOrderSchema } from '../../schema/schema';
 import MenuItemsSelector from '../selects/MenuItemsSelector';
 import OrderStatusSelect from '../selects/OrderStatusSelect';
 import OrderTypeSelect from '../selects/OrderTypeSelect';
+import { parseAsString, useQueryStates } from 'nuqs';
 
 function CreateOrderForm({ onClose }: { onClose: () => void }) {
   const form = useForm<CreateOrderSchema>({
@@ -45,10 +46,23 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
   });
   const isLoading = form.formState.isSubmitting;
 
+  const [{ selected_date }, setParam] = useQueryStates({
+    menu_item_filter: parseAsString,
+    menu_item_query: parseAsString,
+    selected_date: parseAsString,
+  });
+
   async function onSubmit(values: CreateOrderSchema) {
-    const { success, error } = await createOrder(values);
+    const { success, error } = await createOrder(
+      {
+        order_name: values.order_name && values.order_name.replaceAll(' ', '-'),
+        ...values,
+      },
+      selected_date,
+    );
 
     onClose();
+    setParam(null);
 
     if (success) toast.success('Order Created Successfully');
     if (!success) toast.error(error);
@@ -56,14 +70,17 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
-        <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className='space-y-4 md:space-y-6'
+      >
+        <div className='grid grid-cols-1 gap-1 md:grid-cols-2 md:gap-2'>
           <FormField
             name='is_togo'
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Order Type</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>Order Type</FormLabel>
                 <FormControl>
                   <OrderTypeSelect {...field} />
                 </FormControl>
@@ -77,7 +94,7 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Status</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>Status</FormLabel>
                 <FormControl>
                   <OrderStatusSelect {...field} />
                 </FormControl>
@@ -92,7 +109,7 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Order Items</FormLabel>
+              <FormLabel className='text-xs md:text-sm'>Order Items</FormLabel>
               <FormControl>
                 <MenuItemsSelector {...field} />
               </FormControl>
@@ -101,19 +118,27 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
           )}
         />
 
-        <Accordion type='single' collapsible className='!my-2 w-full'>
+        <Accordion type='single' collapsible className='!my-1 w-full md:!my-2'>
           <AccordionItem value='item-1'>
-            <AccordionTrigger>Additional Details</AccordionTrigger>
-            <AccordionContent className='mx-1 my-1 space-y-6'>
-              <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+            <AccordionTrigger className='text-xs md:text-sm'>
+              Additional Details
+            </AccordionTrigger>
+            <AccordionContent className='mx-0 my-0 space-y-4 md:mx-1 md:my-1 md:space-y-6'>
+              <div className='grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-4'>
                 <FormField
                   name='customer_name'
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Customer Name</FormLabel>
+                      <FormLabel className='text-xs md:text-sm'>
+                        Customer Name
+                      </FormLabel>
                       <FormControl>
-                        <Input placeholder='Enter customer name' {...field} />
+                        <Input
+                          placeholder='Enter customer name'
+                          className='text-xs md:text-sm'
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -125,9 +150,15 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Contact Info</FormLabel>
+                      <FormLabel className='text-xs md:text-sm'>
+                        Contact Info
+                      </FormLabel>
                       <FormControl>
-                        <Input placeholder='Phone or email' {...field} />
+                        <Input
+                          placeholder='Phone or email'
+                          className='text-xs md:text-sm'
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -140,9 +171,15 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Order Name</FormLabel>
+                    <FormLabel className='text-xs md:text-sm'>
+                      Order Name
+                    </FormLabel>
                     <FormControl>
-                      <Input placeholder='Custom order name' {...field} />
+                      <Input
+                        placeholder='Custom order name'
+                        className='text-xs md:text-sm'
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -154,10 +191,10 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Notes</FormLabel>
+                    <FormLabel className='text-xs md:text-sm'>Notes</FormLabel>
                     <FormControl>
                       <Textarea
-                        className='max-h-28'
+                        className='max-h-28 text-xs md:text-sm'
                         placeholder='Special instructions or notes'
                         {...field}
                       />
@@ -170,7 +207,7 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
           </AccordionItem>
         </Accordion>
 
-        <div className='flex items-center justify-center gap-2'>
+        <div className='flex items-center justify-center gap-1 md:gap-2'>
           <Button disabled={isLoading} variant={'secondary'} onClick={onClose}>
             Cancel
           </Button>

@@ -52,18 +52,20 @@ function DeleteOrderDialog({
         })}
       </DialogTrigger>
 
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Delete &quot;{orderName}&quot;?</DialogTitle>
-          <DialogDescription>
+      <DialogContent className='max-w-xs md:max-w-md'>
+        <DialogHeader className='px-2 md:px-4'>
+          <DialogTitle className='text-sm md:text-base'>
+            Delete &quot;{orderName}&quot;?
+          </DialogTitle>
+          <DialogDescription className='text-xs md:text-sm'>
             This action cannot be undone. The selected order will be removed
             permanently.
           </DialogDescription>
-          <div className='flex items-center justify-center gap-2'>
+          <div className='flex items-center justify-center gap-2 px-2 md:px-0'>
             <Button
               disabled={isLoading}
               variant={'secondary'}
-              className='flex-1'
+              className='flex-1 text-xs md:text-sm'
               onClick={() => setIsOpen(false)}
             >
               Cancel
@@ -72,7 +74,7 @@ function DeleteOrderDialog({
               disabled={isLoading}
               onClick={handleDelete}
               variant={'destructive'}
-              className='flex-1'
+              className='flex-1 text-xs md:text-sm'
             >
               {isLoading ? <Spinner /> : <Trash2 />}
               {isLoading ? 'Deleting...' : 'Delete'}

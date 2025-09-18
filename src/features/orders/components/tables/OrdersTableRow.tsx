@@ -1,6 +1,5 @@
 'use client';
 
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -13,21 +12,14 @@ import { useExcludedColumnsQuery } from '@/hooks/useExcludedColumnsQuery';
 import { formatNumber } from '@/lib/utils';
 import { OrderRow } from '@/types/tables';
 import { format } from 'date-fns';
-import {
-  Clock,
-  CreditCard,
-  Ellipsis,
-  Eye,
-  MapPin,
-  ShoppingBag,
-  SquarePen,
-  Trash2,
-} from 'lucide-react';
+import { Ellipsis, Eye, SquarePen, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import DeleteOrderDialog from '../dialog/DeleteOrderDialog';
 import EditOrderDialog from '../dialog/EditOrderDialog';
 import OrderPreviewDialog from '../dialog/OrderPreviewDialog';
+import OrderIsPaidSelector from '../selects/OrderIsPaidSelector';
+import OrderIsToGoSelector from '../selects/OrderIsToGoSelector';
 
 type OrdersTableRowProps = {
   order: OrderRow;
@@ -36,34 +28,38 @@ type OrdersTableRowProps = {
 function OrdersTableRow({ order }: OrdersTableRowProps) {
   const { excludedColumns } = useExcludedColumnsQuery();
 
-  const StatusIcon = order.status === 'paid' ? CreditCard : Clock;
-  const TypeIcon = order.is_togo ? ShoppingBag : MapPin;
-
   return (
     <OrderPreviewDialog order={order}>
       <TableRow className='cursor-pointer'>
         {/* ORDER ID */}
-        <TableCell className='font-semibold'>
+        <TableCell className='px-2 font-semibold'>
           <Button
             variant={'outline'}
             onClick={(e) => {
               e.stopPropagation();
-              navigator.clipboard.writeText(order.id);
-              toast.success('Copied to clipboard successfully');
+              if ('clipboard' in navigator)
+                navigator.clipboard
+                  .writeText(order.order_name ? order.order_name : order.id)
+                  .then(() => {
+                    toast.info('Copied to clipboard successfully');
+                  });
             }}
           >
-            #{order.id}
+            #
+            {order.order_name
+              ? order.order_name.replaceAll('-', ' ')
+              : order.id}
           </Button>
         </TableCell>
 
         {/* CUSTOMER NAME */}
-        <TableCell className='font-medium'>
+        <TableCell className='px-2 text-sm font-medium'>
           {order.customer_name || 'Walk-in Customer'}
         </TableCell>
 
         {/* CUSTOMER CONTACT */}
         {!excludedColumns.includes('customer_contact') && (
-          <TableCell className='text-muted-foreground'>
+          <TableCell className='text-muted-foreground px-2 text-xs'>
             {order.customer_contact || '—'}
           </TableCell>
         )}
@@ -71,17 +67,14 @@ function OrdersTableRow({ order }: OrdersTableRowProps) {
         {/* ORDER TYPE */}
         {!excludedColumns.includes('order_type') && (
           <TableCell>
-            <Badge variant={order.is_togo ? 'default' : 'secondary'}>
-              <TypeIcon className='mr-1 h-3 w-3' />
-              {order.is_togo ? 'To Go' : 'Dine In'}
-            </Badge>
+            <OrderIsToGoSelector order={order} />
           </TableCell>
         )}
 
         {/* ITEMS COUNT */}
         {!excludedColumns.includes('items_count') && (
           <TableCell>
-            <span className='text-muted-foreground text-sm'>
+            <span className='text-muted-foreground text-xs'>
               {order.items?.length || 0} items
             </span>
           </TableCell>
@@ -90,31 +83,30 @@ function OrdersTableRow({ order }: OrdersTableRowProps) {
         {/* STATUS */}
         {!excludedColumns.includes('status') && (
           <TableCell>
-            <Badge
-              variant={order.status === 'paid' ? 'default' : 'outline'}
-              className={`${order.status === 'unpaid' ? 'border-warning text-warning' : ''} capitalize`}
-            >
-              <StatusIcon className='mr-1 h-3 w-3' />
-              {order.status}
-            </Badge>
+            <OrderIsPaidSelector order={order} />
           </TableCell>
         )}
 
         {/* TOTAL PRICE */}
-        <TableCell className='font-semibold'>
+        <TableCell className='px-2 text-sm font-semibold'>
           {formatNumber({
             locale: 'en-US',
             number: order.total_price,
+            options: {
+              style: 'currency',
+              currency: 'USD',
+              maximumFractionDigits: 3,
+            },
           })}
         </TableCell>
 
         {/* CREATED AT */}
-        <TableCell className='text-muted-foreground text-sm'>
+        <TableCell className='text-muted-foreground px-2 text-xs'>
           {format(new Date(order.created_at), 'MMM dd, HH:mm')}
         </TableCell>
 
         {/* ACTIONS */}
-        <TableCell className='text-end'>
+        <TableCell className='px-2 text-end'>
           <DropdownMenu>
             <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
               <Button variant='ghost' className='h-0 w-0'>
@@ -123,7 +115,6 @@ function OrdersTableRow({ order }: OrdersTableRowProps) {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent
-              className='mr-4'
               side='bottom'
               onClick={(e) => e.stopPropagation()}
             >

@@ -31,7 +31,7 @@ function EditOrderDialog({ order, children }: EditOrderProps) {
         })}
       </DialogTrigger>
 
-      <DialogContent className='max-h-[90vh] overflow-y-auto'>
+      <DialogContent className='max-h-[90vh] !w-full overflow-y-auto md:min-w-3xl lg:md:min-w-4xl xl:min-w-6xl'>
         <DialogHeader>
           <DialogTitle>Edit Order</DialogTitle>
           <DialogDescription>Update order details and items</DialogDescription>

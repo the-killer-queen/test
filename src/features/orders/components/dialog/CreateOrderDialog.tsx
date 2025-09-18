@@ -11,12 +11,23 @@ import {
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import CreateOrderForm from '../form/CreateOrderForm';
+import { parseAsString, useQueryStates } from 'nuqs';
 
 function CreateOrderDialog() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [, setParam] = useQueryStates({
+    menu_item_filter: parseAsString,
+    menu_item_query: parseAsString,
+  });
 
   return (
-    <Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={() => {
+        setParam(null);
+        setIsOpen(false);
+      }}
+    >
       <Button
         onClick={() => setIsOpen(true)}
         className='[&_span]:hidden sm:[&_span]:inline-block'
@@ -25,7 +36,7 @@ function CreateOrderDialog() {
         <span>New Order</span>
       </Button>
 
-      <DialogContent className='max-h-[90vh] !w-full min-w-4xl overflow-y-auto'>
+      <DialogContent className='max-h-[90vh] !w-full overflow-y-auto md:min-w-3xl'>
         <DialogHeader>
           <DialogTitle>Create New Order</DialogTitle>
           <DialogDescription>

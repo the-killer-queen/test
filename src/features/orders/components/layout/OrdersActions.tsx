@@ -12,11 +12,10 @@ import {
 
 async function OrdersActions() {
   return (
-    <div className='my-2 flex flex-col-reverse gap-2 xl:flex-row'>
-      <div className='flex items-center gap-2'>
+    <div className='my-1 flex flex-col-reverse gap-2 md:my-2 xl:flex-row'>
+      <div className='flex items-center gap-1 md:gap-2'>
         <FilterBy options={orderFilterOptions} />
         <SortBy options={orderSortByOptions} />
-
         <TableColumnFilter options={orderExcludedColumnsOptions} />
       </div>
 

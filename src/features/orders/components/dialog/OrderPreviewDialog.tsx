@@ -14,11 +14,13 @@ import { OrderRow } from '@/types/tables';
 import { format } from 'date-fns';
 import {
   Calendar,
+  Clock,
+  CreditCard,
+  DollarSign,
   MapPin,
   Phone,
   ShoppingBag,
   User,
-  DollarSign,
 } from 'lucide-react';
 import { cloneElement, ReactElement, useState } from 'react';
 
@@ -39,24 +41,25 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
         },
       })}
 
-      <DialogContent className='max-w-md'>
+      <DialogContent className='max-w-xs md:max-w-md'>
         <DialogHeader>
-          <DialogTitle className='flex items-center gap-2'>
-            <ShoppingBag className='h-5 w-5' />
-            Order #{order.id}
+          <DialogTitle className='text-sm md:text-base'>
+            #{order?.order_name || order.id}
           </DialogTitle>
-          <DialogDescription>Quick preview of order details</DialogDescription>
+          <DialogDescription className='text-xs md:text-sm'>
+            Quick preview of order details
+          </DialogDescription>
         </DialogHeader>
 
-        <div className='space-y-4'>
+        <div className='space-y-2 px-2 md:space-y-4 md:px-4'>
           {/* Customer Info */}
           <div className='space-y-2'>
             <div className='flex items-center justify-between'>
-              <span className='text-muted-foreground flex items-center gap-1 text-sm'>
-                <User className='size-4' />
+              <span className='text-muted-foreground flex items-center gap-1 text-xs md:text-sm'>
+                <User className='size-3 md:size-4' />
                 Customer
               </span>
-              <span className='text-sm font-medium'>
+              <span className='text-xs font-medium md:text-sm'>
                 {order.customer_name || 'Walk-in Customer'}
               </span>
             </div>
@@ -65,47 +68,70 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
               <>
                 <Separator />
                 <div className='flex items-center justify-between'>
-                  <span className='text-muted-foreground flex items-center gap-1 text-sm'>
-                    <Phone className='size-4' />
+                  <span className='text-muted-foreground flex items-center gap-1 text-xs md:text-sm'>
+                    <Phone className='size-3 md:size-4' />
                     Contact
                   </span>
-                  <span className='text-sm'>{order.customer_contact}</span>
+                  <span className='text-xs md:text-sm'>
+                    {order.customer_contact}
+                  </span>
                 </div>
               </>
             )}
 
             <Separator />
             <div className='flex items-center justify-between'>
-              <span className='text-muted-foreground flex items-center gap-1 text-sm'>
-                <MapPin className='size-4' />
+              <span className='text-muted-foreground flex items-center gap-1 text-xs md:text-sm'>
+                <MapPin className='size-3 md:size-4' />
                 Type
               </span>
-              <Badge variant={order.is_togo ? 'default' : 'secondary'}>
+              <Badge className='w-18' variant={'outline'}>
+                {order.is_togo ? <ShoppingBag /> : <MapPin />}
                 {order.is_togo ? 'To Go' : 'Dine In'}
               </Badge>
             </div>
 
             <Separator />
             <div className='flex items-center justify-between'>
-              <span className='text-muted-foreground flex items-center gap-1 text-sm'>
-                <DollarSign className='size-4' />
+              <span className='text-muted-foreground flex items-center gap-1 text-xs md:text-sm'>
+                <MapPin className='size-3 md:size-4' />
+                Status
+              </span>
+              <Badge
+                variant={'outline'}
+                className={`${order.status !== 'paid' ? 'border-warning text-warning' : ''} w-18 capitalize`}
+              >
+                {order.status === 'paid' ? <CreditCard /> : <Clock />}
+                {order.status}
+              </Badge>
+            </div>
+
+            <Separator />
+            <div className='flex items-center justify-between'>
+              <span className='text-muted-foreground flex items-center gap-1 text-xs md:text-sm'>
+                <DollarSign className='size-3 md:size-4' />
                 Total
               </span>
-              <span className='text-sm font-semibold'>
+              <span className='text-xs font-semibold md:text-sm'>
                 {formatNumber({
                   locale: 'en-US',
                   number: order.total_price,
+                  options: {
+                    style: 'currency',
+                    currency: 'USD',
+                    maximumFractionDigits: 4,
+                  },
                 })}
               </span>
             </div>
 
             <Separator />
             <div className='flex items-center justify-between'>
-              <span className='text-muted-foreground flex items-center gap-1 text-sm'>
-                <Calendar className='size-4' />
+              <span className='text-muted-foreground flex items-center gap-1 text-xs md:text-sm'>
+                <Calendar className='size-3 md:size-4' />
                 Created
               </span>
-              <span className='text-sm'>
+              <span className='text-xs md:text-sm'>
                 {format(new Date(order.created_at), 'MMM dd, yyyy HH:mm')}
               </span>
             </div>
@@ -113,12 +139,12 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
 
           {/* Order Items */}
           <div className='space-y-2'>
-            <h4 className='text-sm font-medium'>Order Items</h4>
-            <div className='bg-muted/50 max-h-32 space-y-1 overflow-y-auto rounded-md p-2'>
+            <h4 className='text-xs font-medium md:text-sm'>Order Items</h4>
+            <div className='bg-muted/50 max-h-24 space-y-1 overflow-y-auto rounded-md p-2 md:max-h-48'>
               {order.items?.map((item, index) => (
                 <div
                   key={index}
-                  className='flex items-center justify-between text-sm'
+                  className='flex items-center justify-between text-xs md:text-sm'
                 >
                   <span>
                     {item.quantity}x {item.name}
@@ -137,8 +163,8 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
           {/* Notes */}
           {order.notes && (
             <div className='space-y-2'>
-              <h4 className='text-sm font-medium'>Notes</h4>
-              <p className='bg-muted/50 rounded-md p-2 text-sm'>
+              <h4 className='text-xs font-medium md:text-sm'>Notes</h4>
+              <p className='bg-muted/50 rounded-md p-2 text-xs md:text-sm'>
                 {order.notes}
               </p>
             </div>
