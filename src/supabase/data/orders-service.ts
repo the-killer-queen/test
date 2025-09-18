@@ -2,12 +2,7 @@
 
 import { createClient } from '@/supabase/server';
 import { GetActionResult } from '@/types';
-import {
-  DeletedOrderRow,
-  OrderInsert,
-  OrderRow,
-  OrderUpdate,
-} from '@/types/tables';
+import { OrderInsert, OrderRow, OrderUpdate } from '@/types/tables';
 import { revalidatePath } from 'next/cache';
 
 //GET
@@ -49,62 +44,6 @@ export async function getOrdersDate(): Promise<GetActionResult<string[]>> {
       };
 
     return { success: true, data: orders.map((order) => order.created_at) };
-  } catch (error) {
-    return {
-      success: false,
-      error:
-        error instanceof Error ? error.message : 'An unexpected error occurred',
-    };
-  }
-}
-
-export async function getOrdersByStatus(
-  status: 'paid' | 'unpaid',
-): Promise<GetActionResult<OrderRow[]>> {
-  try {
-    const supabase = await createClient();
-    const { data: orders, error: ordersError } = await supabase
-      .from('orders')
-      .select('*')
-      .eq('status', status)
-      .order('created_at', { ascending: false });
-
-    if (ordersError)
-      return {
-        success: false,
-        error: ordersError.message,
-      };
-
-    return { success: true, data: orders };
-  } catch (error) {
-    return {
-      success: false,
-      error:
-        error instanceof Error ? error.message : 'An unexpected error occurred',
-    };
-  }
-}
-
-export async function getOrdersByDateRange(
-  startDate: string,
-  endDate: string,
-): Promise<GetActionResult<OrderRow[]>> {
-  try {
-    const supabase = await createClient();
-    const { data: orders, error: ordersError } = await supabase
-      .from('orders')
-      .select('*')
-      .gte('created_at', startDate)
-      .lte('created_at', endDate)
-      .order('created_at', { ascending: false });
-
-    if (ordersError)
-      return {
-        success: false,
-        error: ordersError.message,
-      };
-
-    return { success: true, data: orders };
   } catch (error) {
     return {
       success: false,
@@ -176,12 +115,24 @@ export async function getOrdersByDate(
 //CREATE
 export async function createOrder(
   newOrder: OrderInsert,
+  createdAt?: string | null,
 ): Promise<GetActionResult<OrderRow>> {
   try {
     const supabase = await createClient();
     const { data: order, error: orderError } = await supabase
       .from('orders')
-      .insert(newOrder)
+      .insert({
+        ...newOrder,
+
+        created_at: createdAt
+          ? new Date(createdAt).toISOString()
+          : new Date().toISOString(),
+
+        total_price: newOrder.items!.reduce(
+          (acc, item) => acc + item.price * item.quantity,
+          0,
+        ),
+      })
       .select()
       .single();
 
@@ -211,7 +162,46 @@ export async function updateOrder(
     const supabase = await createClient();
     const { data: order, error: orderError } = await supabase
       .from('orders')
-      .update(orderUpdate)
+      .update({
+        ...orderUpdate,
+
+        total_price:
+          orderUpdate.items &&
+          orderUpdate.items.reduce(
+            (acc, item) => acc + item.price * item.quantity,
+            0,
+          ),
+      })
+      .eq('id', orderId)
+      .select()
+      .single();
+
+    if (orderError || !order)
+      return {
+        success: false,
+        error: orderError.message,
+      };
+
+    revalidatePath('/dashboard/orders');
+    return { success: true, data: order };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : 'An unexpected error occurred',
+    };
+  }
+}
+
+export async function updateOrderIsToGo(
+  orderId: string,
+  is_togo: boolean,
+): Promise<GetActionResult<OrderRow>> {
+  try {
+    const supabase = await createClient();
+    const { data: order, error: orderError } = await supabase
+      .from('orders')
+      .update({ is_togo })
       .eq('id', orderId)
       .select()
       .single();
@@ -264,16 +254,14 @@ export async function updateOrderStatus(
 }
 
 //DELETE
-export async function deleteOrder(
-  orderId: string,
-): Promise<GetActionResult<DeletedOrderRow>> {
+export async function deleteOrder(orderId: string): Promise<GetActionResult> {
   try {
     const supabase = await createClient();
     const { data: deletedOrder, error: deleteOrderError } = await supabase
       .from('orders')
       .delete()
       .eq('id', orderId)
-      .select('*')
+      .select('')
       .single();
 
     if (deleteOrderError)
@@ -283,7 +271,7 @@ export async function deleteOrder(
       };
 
     revalidatePath('/dashboard/orders');
-    return { success: true, data: deletedOrder };
+    return { success: true, data: undefined };
   } catch (error) {
     return {
       success: false,

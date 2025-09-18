@@ -176,6 +176,27 @@ export async function getMenuItemDescription(
   }
 }
 
+export async function getAllMenuItemIds(): Promise<number[]> {
+  try {
+    const supabase = createBuildTimeClient();
+
+    const { data: menuItems, error } = await supabase.from('menu').select('id');
+
+    if (error) {
+      console.error('Error fetching menu item IDs:', error.message);
+      return [];
+    }
+
+    return menuItems?.map((item) => item.id) || [];
+  } catch (error) {
+    console.error(
+      'Unexpected error fetching menu item IDs:',
+      error instanceof Error ? error.message : 'Unknown error',
+    );
+    return [];
+  }
+}
+
 //CREATE METHODS
 export async function createMenuItem(
   newMenuItem: MenuInsert,
@@ -314,27 +335,6 @@ export async function createMenuItemDuplicate(
   }
 }
 
-export async function getAllMenuItemIds(): Promise<number[]> {
-  try {
-    const supabase = createBuildTimeClient();
-
-    const { data: menuItems, error } = await supabase.from('menu').select('id');
-
-    if (error) {
-      console.error('Error fetching menu item IDs:', error.message);
-      return [];
-    }
-
-    return menuItems?.map((item) => item.id) || [];
-  } catch (error) {
-    console.error(
-      'Unexpected error fetching menu item IDs:',
-      error instanceof Error ? error.message : 'Unknown error',
-    );
-    return [];
-  }
-}
-
 // UPDATE METHODS
 export async function updateMenuItem(
   menuToUpdate: MenuUpdate,
@@ -450,7 +450,7 @@ export async function checkMenuItemExists(
   try {
     const supabase = await createClient();
 
-    const { data, error } = await supabase
+    const { error } = await supabase
       .from('menu')
       .select('id')
       .eq('id', id)

@@ -35,7 +35,7 @@ export async function getMenuCategories(): Promise<
 }
 
 export async function getMenuSelectedCategories(): Promise<
-  GetActionResult<{ name: string; icon_name: string | null }[]>
+  GetActionResult<MenuCategoryRow[]>
 > {
   try {
     const supabase = await createClient();
@@ -52,7 +52,7 @@ export async function getMenuSelectedCategories(): Promise<
 
     const { data: menu_categories, error: categoriesError } = await supabase
       .from('menu_categories')
-      .select('name, icon_name');
+      .select('*');
 
     if (categoriesError)
       return {
