@@ -179,7 +179,6 @@ export async function getMenuItemDescription(
 export async function getAllMenuItemIds(): Promise<number[]> {
   try {
     const supabase = createBuildTimeClient();
-
     const { data: menuItems, error } = await supabase.from('menu').select('id');
 
     if (error) {

@@ -23,7 +23,7 @@ import { Suspense } from 'react';
 
 export async function generateStaticParams() {
   const ordersId = await getAllOrdersId();
-  return ordersId.map((orderId) => ({ orderId }));
+  return ordersId.map((id) => ({ orderId: id.toString() }));
 }
 
 async function OrderViewPage({

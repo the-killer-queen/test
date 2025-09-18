@@ -116,7 +116,6 @@ export async function getOrdersByDate(
 export async function getAllOrdersId(): Promise<string[]> {
   try {
     const supabase = createBuildTimeClient();
-
     const { data: ordersId, error } = await supabase
       .from('orders')
       .select('id');
@@ -126,7 +125,7 @@ export async function getAllOrdersId(): Promise<string[]> {
       return [];
     }
 
-    return ordersId?.map((item) => item.id) || [];
+    return ordersId.map((item) => item.id);
   } catch (error) {
     console.error(
       'Unexpected error fetching menu item IDs:',
