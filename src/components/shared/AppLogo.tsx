@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { H4 } from '../typography/H4';
 import { Muted } from '../typography/Muted';
 import { DrumstickIcon } from 'lucide-react';

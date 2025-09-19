@@ -9,11 +9,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useExcludedColumnsQuery } from '@/hooks/useExcludedColumnsQuery';
+import { Link } from '@/i18n/navigation';
 import { formatNumber } from '@/lib/utils';
 import { OrderRow } from '@/types/tables';
 import { format } from 'date-fns';
 import { Ellipsis, Eye, SquarePen, Trash2 } from 'lucide-react';
-import Link from 'next/link';
 import { toast } from 'sonner';
 import DeleteOrderDialog from '../dialog/DeleteOrderDialog';
 import EditOrderDialog from '../dialog/EditOrderDialog';

@@ -5,21 +5,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { Link } from '@/i18n/navigation';
 import { CheersIcon, ShoppingCartIcon } from '@phosphor-icons/react';
-import { Archive, ChartLine, LucideProps } from 'lucide-react';
-import { Route } from 'next';
-import Link from 'next/link';
+import { Archive, ChartLine } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import { ForwardRefExoticComponent, RefAttributes } from 'react';
 
-type NavItem<T extends string = string> = {
-  href: T;
-  label: string;
-  icon: ForwardRefExoticComponent<
-    Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
-  >;
-};
-const navLinks: NavItem<Route>[] = [
+const navLinks = [
   {
     label: 'Analytics',
     href: '/dashboard',

@@ -17,7 +17,7 @@ import { login } from '../../actions/login';
 import SigninCTA from './SigninCTA';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 
 function SigninForm() {
   const router = useRouter();

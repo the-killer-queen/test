@@ -1,16 +1,8 @@
-import { User2, Settings, LucideProps } from 'lucide-react';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
-import Link from 'next/link';
-import { Route } from 'next';
-import { ForwardRefExoticComponent, RefAttributes } from 'react';
+import { Link } from '@/i18n/navigation';
+import { Settings, User2 } from 'lucide-react';
 
-export const navLinks: {
-  title: string;
-  url: Route;
-  icon: ForwardRefExoticComponent<
-    Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
-  >;
-}[] = [
+export const navLinks = [
   {
     title: 'Profile',
     url: '/dashboard/profile',

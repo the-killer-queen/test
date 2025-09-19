@@ -11,10 +11,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { TableCell, TableRow } from '@/components/ui/table';
+import { Link } from '@/i18n/navigation';
 import { formatNumber } from '@/lib/utils';
 import { MenuRow } from '@/types/tables';
 import { Copy, Ellipsis, Eye, SquarePen, Trash2 } from 'lucide-react';
-import Link from 'next/link';
 import { useExcludedColumnsQuery } from '../../../../hooks/useExcludedColumnsQuery';
 import DeleteMenuItemDialog from '../dialog/DeleteMenuItemDialog';
 import DuplicateMenuItemDialog from '../dialog/DuplicateMenuItemDialog';

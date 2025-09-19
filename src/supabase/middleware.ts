@@ -2,8 +2,10 @@ import { isAuthRoute, isProtectedRoute } from '@/features/auth/lib/utils';
 import { createServerClient } from '@supabase/ssr';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function updateSession(request: NextRequest) {
-  let supabaseRes = NextResponse.next({ request });
+export async function updateSession(
+  request: NextRequest,
+  resposne: NextResponse,
+) {
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -17,9 +19,9 @@ export async function updateSession(request: NextRequest) {
           cookieToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value),
           );
-          supabaseRes = NextResponse.next({ request });
+          resposne = NextResponse.next({ request });
           cookieToSet.forEach(({ name, value, options }) =>
-            supabaseRes.cookies.set(name, value, options),
+            resposne.cookies.set(name, value, options),
           );
         },
       },
@@ -31,7 +33,7 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
   const { pathname } = request.nextUrl;
 
-  if (pathname === '/auth-error') return supabaseRes;
+  if (pathname === '/auth-error') return resposne;
 
   const isPasswordResetPending =
     user?.user_metadata?.password_reset_verified === true;
@@ -43,10 +45,10 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(new URL('/sign-in', request.url));
 
   if (pathname.startsWith('/reset-password') && isPasswordResetPending)
-    return supabaseRes;
+    return resposne;
 
   if (isAuthRoute(pathname) && user)
     return NextResponse.redirect(new URL('/', request.url));
 
-  return supabaseRes;
+  return resposne;
 }
