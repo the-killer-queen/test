@@ -35,6 +35,10 @@ async function DashboardFooter() {
               <div className='flex flex-1 items-center gap-2'>
                 <div className='relative'>
                   <Avatar>
+                    <AvatarImage
+                      src={user.user_metadata?.picture}
+                      alt={'User profile'}
+                    />
                     <AvatarFallback className='bg-primary/5 text-primary text-xs font-semibold'>
                       {userInitials}
                     </AvatarFallback>

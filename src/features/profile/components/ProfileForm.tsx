@@ -28,11 +28,12 @@ type ProfileFormProps = {
 };
 
 function ProfileForm({ user }: ProfileFormProps) {
+  const [firstName, ...lastName] = user.user_metadata?.full_name?.split(' ');
   const form = useForm<UpdateProfileSchema>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
-      first_name: user.user_metadata?.full_name.split(' ').at(0) || '',
-      last_name: user.user_metadata?.full_name.split(' ').at(1) || '',
+      first_name: firstName || '',
+      last_name: lastName?.join(' ') || '',
       phone: user.user_metadata?.phone || '',
       avatar: undefined,
     },

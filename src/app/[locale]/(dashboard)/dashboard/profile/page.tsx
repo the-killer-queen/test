@@ -11,7 +11,7 @@ function ProfilePage() {
         description='Manage your personal information and account settings.'
       />
 
-      <div className='mx-auto flex max-w-3xl flex-col gap-4 p-4'>
+      <div className='flex flex-col justify-center gap-4 p-4'>
         <Suspense fallback={<ProfilePageLoading />}>
           <ProfileContent />
         </Suspense>

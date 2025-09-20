@@ -10,31 +10,27 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { updateUserPasword } from '@/supabase/data/user-service';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { User } from '@supabase/supabase-js';
+import { Send } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
-import { requestPasswordChange } from '../actions/changePassword';
 import { changePasswordSchema, ChangePasswordSchema } from '../schema';
-import { Send } from 'lucide-react';
 
-type ChangePasswordFormProps = {
-  user: User;
-};
-
-function ChangePasswordForm({ user }: ChangePasswordFormProps) {
+function ChangePasswordForm() {
   const form = useForm<ChangePasswordSchema>({
     resolver: zodResolver(changePasswordSchema),
     defaultValues: {
-      email: user.email || '',
+      password: '',
+      confirmPassword: '',
     },
   });
 
   async function onSubmit(values: ChangePasswordSchema) {
-    const { success, error } = await requestPasswordChange(values);
+    const { success, error } = await updateUserPasword(values.password);
 
     if (success) {
-      toast.success('Password reset link sent to your email!');
+      toast.success('Password changed successfully!');
       form.reset();
     }
 
@@ -45,16 +41,33 @@ function ChangePasswordForm({ user }: ChangePasswordFormProps) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
         <FormField
-          name='email'
+          name='password'
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email Address</FormLabel>
+              <FormLabel>New Password</FormLabel>
               <FormControl>
                 <Input
-                  placeholder='Enter your email address'
-                  type='email'
-                  disabled
+                  placeholder='Enter your new password'
+                  type='password'
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name='confirmPassword'
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm New Password</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder='Confirm your new password'
+                  type='password'
                   {...field}
                 />
               </FormControl>
@@ -67,8 +80,8 @@ function ChangePasswordForm({ user }: ChangePasswordFormProps) {
           <SubmitButton
             className='w-min'
             icon={<Send />}
-            label='Send Password Reset Link'
-            loadinglabel='Sending...'
+            label='Change Password'
+            loadinglabel='Changing...'
             isLoading={form.formState.isSubmitting}
           />
         </div>

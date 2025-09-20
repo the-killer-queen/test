@@ -2,17 +2,32 @@
 
 import sharp from 'sharp';
 
-export async function handleImageCompression(file: File) {
+export async function handleImageCompression(
+  file: File,
+  width: number = 1920,
+  height: number = 1920,
+  isAvatar: boolean = false,
+) {
   try {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    const compressedBuffer = await sharp(buffer)
-      .resize(1920, 1920, {
+    let sharpInstance = sharp(buffer);
+
+    if (isAvatar) {
+      const size = Math.min(width, height);
+      sharpInstance = sharpInstance.resize(size, size, {
+        fit: 'cover',
+        position: 'center',
+      });
+    } else
+      sharpInstance = sharpInstance.resize(width, height, {
         fit: 'inside',
         withoutEnlargement: true,
-      })
-      .webp({ quality: 90 })
+      });
+
+    const compressedBuffer = await sharpInstance
+      .webp({ quality: isAvatar ? 85 : 90 })
       .toBuffer();
 
     const compressedFile = new File(

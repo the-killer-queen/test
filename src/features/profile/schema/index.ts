@@ -37,9 +37,18 @@ export const updateProfileSchema = z.object({
     .optional(),
 });
 
-export const changePasswordSchema = z.object({
-  email: z.email('Enter a valid email').min(1, 'Email is required'),
-});
+export const changePasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .min(1, 'Password is required')
+      .min(8, 'At least 8 characters'),
+    confirmPassword: z.string().min(1, 'Confirm your password'),
+  })
+  .refine((data) => data.confirmPassword === data.password, {
+    error: 'Passwords do not match',
+    path: ['confirmPassword'],
+  });
 
 export type UpdateProfileSchema = z.infer<typeof updateProfileSchema>;
 export type ChangePasswordSchema = z.infer<typeof changePasswordSchema>;
