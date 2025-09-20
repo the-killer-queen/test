@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { ResetPasswordFormSchema, resetPasswordSchema } from '../../schema';
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/navigation';
 import { oneTimeResetPassword } from '../../actions/forgotPassword';
 
 function ResetPasswordForm() {

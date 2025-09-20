@@ -10,13 +10,13 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useRouter } from '@/i18n/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { signup } from '../../actions/signup';
 import { type SignupFormSchema, signupSchema } from '../../schema';
-import { useRouter } from 'next/navigation';
 
 function SignupForm() {
   const router = useRouter();
