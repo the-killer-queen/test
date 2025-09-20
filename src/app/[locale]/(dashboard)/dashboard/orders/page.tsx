@@ -6,12 +6,16 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import OrdersActions from '@/features/orders/components/layout/OrdersActions';
-import OrdersFiltersList from '@/features/orders/components/layout/OrdersFiltersList';
-import OrdersTable from '@/features/orders/components/tables/OrdersTable';
+import {
+  OrdersActions,
+  OrdersFiltersList,
+  OrdersTable,
+} from '@/features/orders';
 import { searchParamsCache } from '@/lib/searchParamsCache';
 
-async function OrdersPage({ searchParams }: PageProps<'/dashboard/orders'>) {
+async function OrdersPage({
+  searchParams,
+}: PageProps<'/[locale]/dashboard/orders'>) {
   const params = await searchParams;
   searchParamsCache.parse(params);
 

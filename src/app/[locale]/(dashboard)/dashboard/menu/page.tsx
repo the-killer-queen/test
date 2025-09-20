@@ -6,9 +6,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import MenuActions from '@/features/menu/components/layout/MenuActions';
+import { MenuActions, MenuTable } from '@/features/menu';
 import MenuFiltersList from '@/components/shared/FiltersList';
-import MenuTable from '@/features/menu/components/tables/MenuTable';
 
 async function MenuPage() {
   return (

@@ -1,11 +1,15 @@
 import { type EmailOtpType } from '@supabase/supabase-js';
 import { createClient } from '@/supabase/server';
-import { redirect } from 'next/navigation';
+import { redirect } from '@/i18n/navigation';
 
-export async function GET(reuqest: Request) {
-  const { searchParams } = new URL(reuqest.url);
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
   const token_hash = searchParams.get('token');
   const type = searchParams.get('type') as EmailOtpType | null;
+
+  const pathname = new URL(request.url).pathname;
+  const locale = pathname.split('/')[1] || 'en';
+
   const next = '/';
 
   if (token_hash && type) {
@@ -15,18 +19,18 @@ export async function GET(reuqest: Request) {
       type,
     });
 
-    if (!error) redirect(next);
+    if (!error) redirect({ href: next, locale });
 
     if (error) {
       if (error.message.includes('expired')) {
-        redirect('/auth-error?message=expired_link');
+        redirect({ href: '/auth-error?message=expired_link', locale });
       } else if (error.message.includes('used')) {
-        redirect('/auth-error?message=already_used');
+        redirect({ href: '/auth-error?message=already_used', locale });
       } else {
-        redirect('/auth-error?message=verification_failed');
+        redirect({ href: '/auth-error?message=verification_failed', locale });
       }
     }
   }
 
-  redirect('/auth-error?message=invalid_or_missing_token');
+  redirect({ href: '/auth-error?message=invalid_or_missing_token', locale });
 }

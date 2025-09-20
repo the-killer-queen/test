@@ -1,6 +1,6 @@
 import ReactQueryProvider from '@/components/providers/ReactQueryClientProvider';
 import { SidebarProvider } from '@/components/ui/sidebar';
-import DashboardSidebar from '@/features/dashboard/components/DashboardSidebar';
+import { DashboardSidebar } from '@/features/dashboard';
 
 function Dashboardlayout({ children }: LayoutProps<'/[locale]'>) {
   return (

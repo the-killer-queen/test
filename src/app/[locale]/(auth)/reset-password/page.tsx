@@ -5,9 +5,10 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import ResetPasswordForm from '@/features/auth/components/forgotPassword/ResetPasswordForm';
+import { ResetPasswordForm } from '@/features/auth';
+import { redirect } from '@/i18n/navigation';
+import { routing } from '@/i18n/routing';
 import { createClient } from '@/supabase/server';
-import { redirect } from 'next/navigation';
 
 async function ResetPasswordPage() {
   const supabase = await createClient();
@@ -15,10 +16,18 @@ async function ResetPasswordPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) redirect('/forgot-password');
+  if (!user)
+    return redirect({
+      href: '/forgot-password',
+      locale: routing.defaultLocale,
+    });
 
   const isVerified = user.user_metadata.password_reset_verified;
-  if (!isVerified) redirect('/forgot-password');
+  if (!isVerified)
+    return redirect({
+      href: '/forgot-password',
+      locale: routing.defaultLocale,
+    });
 
   return (
     <Card className='w-full max-w-sm'>

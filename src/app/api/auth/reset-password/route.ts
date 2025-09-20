@@ -1,10 +1,13 @@
 import { createClient } from '@/supabase/server';
-import { redirect } from 'next/navigation';
+import { redirect } from '@/i18n/navigation';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get('code');
   const next = searchParams.get('next') || '/reset-password';
+
+  const pathname = new URL(request.url).pathname;
+  const locale = pathname.split('/')[1] || 'en';
 
   if (code) {
     const supabase = await createClient();
@@ -16,19 +19,26 @@ export async function GET(request: Request) {
           password_reset_verified: true,
         },
       });
-      redirect(next);
+
+      const localizedNext = next.startsWith(`/${locale}`)
+        ? next
+        : `/${locale}${next === '/' ? '' : next}`;
+      redirect({ href: localizedNext, locale });
     }
 
     if (error) {
       if (error.message.includes('expired')) {
-        redirect('/auth-error?message=expired_link');
+        redirect({ href: '/auth-error?message=expired_link', locale });
       } else if (error.message.includes('used')) {
-        redirect('/auth-error?message=already_used');
+        redirect({ href: '/auth-error?message=already_used', locale });
       } else {
-        redirect('/auth-error?message=exchange_failed');
+        redirect({ href: '/auth-error?message=exchange_failed', locale });
       }
     }
   }
 
-  redirect('/auth-error?message=Invalid_or_expired_reset_link');
+  redirect({
+    href: '/auth-error?message=Invalid_or_expired_reset_link',
+    locale,
+  });
 }

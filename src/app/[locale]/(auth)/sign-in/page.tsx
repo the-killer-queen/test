@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import SigninForm from '@/features/auth/components/signin/SigninForm';
+import { SigninForm } from '@/features/auth';
 import { Link } from '@/i18n/navigation';
 
 function SigninPage() {

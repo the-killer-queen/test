@@ -7,18 +7,20 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import MenuItemDescriptonCard from '@/features/menu/components/card/MenuItemDescriptonCard';
-import MenuItemDetailsCard from '@/features/menu/components/card/MenuItemDetailsCard';
-import MenuItemImageCard from '@/features/menu/components/card/MenuItemImageCard';
-import MenuItemIngredientsCard from '@/features/menu/components/card/MenuItemIngredientsCard';
-import MenuItemQuickActionsCard from '@/features/menu/components/card/MenuItemQuickActionsCard';
-import UpdateMenuItemAction from '@/features/menu/components/layout/UpdateMenuItemAction';
+import {
+  MenuItemDescriptonCard,
+  MenuItemDetailsCard,
+  MenuItemImageCard,
+  MenuItemIngredientsCard,
+  MenuItemQuickActionsCard,
+  UpdateMenuItemAction,
+} from '@/features/menu';
+import { Link } from '@/i18n/navigation';
 import {
   checkMenuItemExists,
   getAllMenuItemIds,
 } from '@/supabase/data/menu-service';
 import { ArrowLeft } from 'lucide-react';
-import { Link } from '@/i18n/navigation';
 import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {

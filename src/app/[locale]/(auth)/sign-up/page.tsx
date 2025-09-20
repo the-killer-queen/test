@@ -7,9 +7,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import LoginWithGoogleButton from '@/features/auth/components/shared/LoginWithGoogleButton';
-
-import SignupForm from '@/features/auth/components/signup/SignupForm';
+import { LoginWithGoogleButton, SignupForm } from '@/features/auth';
 import { Link } from '@/i18n/navigation';
 
 function SignupPage() {

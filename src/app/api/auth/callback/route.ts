@@ -6,6 +6,9 @@ export async function GET(request: Request) {
   const code = searchParams.get('code');
   const next = searchParams.get('next') ?? '/';
 
+  const pathname = new URL(request.url).pathname;
+  const locale = pathname.split('/')[1] || 'en';
+
   if (code) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
@@ -14,14 +17,20 @@ export async function GET(request: Request) {
       const isLocalEnv = process.env.NODE_ENV === 'development';
       const forwardedHost = request.headers.get('x-forwarded-host');
 
-      if (isLocalEnv) return NextResponse.redirect(`${origin}${next}`);
+      const localizedNext = next.startsWith(`/${locale}`)
+        ? next
+        : `/${locale}${next}`;
+
+      if (isLocalEnv) return NextResponse.redirect(`${origin}${localizedNext}`);
       else if (forwardedHost)
-        return NextResponse.redirect(`https://${forwardedHost}${next}`);
-      else return NextResponse.redirect(`${origin}${next}`);
+        return NextResponse.redirect(
+          `https://${forwardedHost}${localizedNext}`,
+        );
+      else return NextResponse.redirect(`${origin}${localizedNext}`);
     }
   }
 
   return NextResponse.redirect(
-    `${origin}/auth-error?message=invalid_or_missing_code`,
+    `${origin}/${locale}/auth-error?message=invalid_or_missing_code`,
   );
 }

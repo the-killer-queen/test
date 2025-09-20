@@ -7,14 +7,16 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import OrderDetailsCard from '@/features/orders/components/card/OrderDetailsCard';
-import OrderItemsCard from '@/features/orders/components/card/OrderItemsCard';
-import OrderNotesCard from '@/features/orders/components/card/OrderNotesCard';
-import OrderQuickActionsCard from '@/features/orders/components/card/OrderQuickActionsCard';
-import UpdateOrderAction from '@/features/orders/components/layout/UpdateOrderAction';
-import OrderDetailsCardSkeleton from '@/features/orders/components/skeletons/OrderDetailsCardSkeleton';
-import OrderNotesCardSkeleton from '@/features/orders/components/skeletons/OrderNotesCardSkeleton';
-import OrderItemsCardSkeleton from '@/features/orders/components/skeletons/OrderItemsCardSkeleton';
+import {
+  OrderDetailsCard,
+  OrderItemsCard,
+  OrderNotesCard,
+  OrderQuickActionsCard,
+  UpdateOrderAction,
+  OrderDetailsCardSkeleton,
+  OrderNotesCardSkeleton,
+  OrderItemsCardSkeleton,
+} from '@/features/orders';
 import { getAllOrdersId, getOrderById } from '@/supabase/data/orders-service';
 import { ArrowLeft, Settings } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
