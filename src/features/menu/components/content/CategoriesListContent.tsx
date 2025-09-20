@@ -10,7 +10,7 @@ import {
   CommandList,
 } from '@/components/ui/command';
 import { Trash2 } from 'lucide-react';
-import { useGetMenuCategories } from '../../hooks/useGetMenuCategories';
+import { useGetMenuCategories } from '../../../../hooks/useGetMenuCategories';
 import DeleteCategoryDialog from '../dialog/DeleteCategoryDialog';
 import CategoriesListSkeleton from '../skeletons/CategoriesListSkeleton';
 import { AlertTriangle, RefreshCw } from 'lucide-react';

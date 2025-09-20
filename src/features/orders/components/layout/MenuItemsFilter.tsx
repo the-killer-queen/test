@@ -1,9 +1,9 @@
 'use client';
 
 import FilterBy from '@/components/shared/FilterBy';
-import { useGetMenuCategories } from '@/features/menu/hooks/useGetMenuCategories';
 import MenuItemsSelectorError from '../error/MenuItemsSelectorError';
 import MenuItemsSelectorSkeleton from '../skeletons/MenuItemsSelectorSkeleton';
+import { useGetMenuCategories } from '@/hooks/useGetMenuCategories';
 
 function MenuItemsFilter() {
   const {

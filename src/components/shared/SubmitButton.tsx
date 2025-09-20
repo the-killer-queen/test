@@ -1,6 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { SpinnerIcon } from '@phosphor-icons/react';
 import { ReactNode } from 'react';
 
@@ -9,17 +10,24 @@ type SubmitButtonProps = {
   loadinglabel?: string;
   isLoading: boolean;
   icon?: ReactNode;
+  className?: string;
 };
 
 function SubmitButton({
   label,
   loadinglabel = 'loading...',
   isLoading,
+  icon,
+  className,
 }: SubmitButtonProps) {
   return (
-    <Button type='submit' className='w-full' disabled={isLoading}>
+    <Button
+      type='submit'
+      className={cn('w-full', className)}
+      disabled={isLoading}
+    >
+      {isLoading ? <SpinnerIcon className='animate-spin' /> : icon}
       {isLoading ? loadinglabel : label}
-      {isLoading ? <SpinnerIcon className='animate-spin' /> : null}
     </Button>
   );
 }

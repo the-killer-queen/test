@@ -21,7 +21,7 @@ import {
 import { Check, ChevronsUpDown, Inbox, Plus } from 'lucide-react';
 import { useState } from 'react';
 import { ControllerRenderProps } from 'react-hook-form';
-import { useGetMenuCategories } from '../../hooks/useGetMenuCategories';
+import { useGetMenuCategories } from '../../../../hooks/useGetMenuCategories';
 import CreateCategoryDialog from '../dialog/CreateCategoryDialog';
 import CategorySelectSkeleton from '../skeletons/CategorySelectSkeleton';
 

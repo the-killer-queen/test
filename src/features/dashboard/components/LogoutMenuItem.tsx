@@ -1,7 +1,8 @@
 'use client';
 
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
-import { logout } from '@/features/auth/actions/logout';
+import { logout } from '@/features/auth';
+
 import { SignOutIcon } from '@phosphor-icons/react';
 import { useTransition } from 'react';
 import { toast } from 'sonner';

@@ -9,15 +9,14 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { type LoginFormSchema, loginSchema } from '@/features/auth/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { login } from '../../actions/login';
 import SigninCTA from './SigninCTA';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Link } from '@/i18n/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
+import { LoginFormSchema, loginSchema } from '../../schema';
 
 function SigninForm() {
   const router = useRouter();
