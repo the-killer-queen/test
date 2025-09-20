@@ -21,6 +21,29 @@ const eslintConfig = [
       'src/types/database.ts',
     ],
   },
+  {
+    files: ['**/*.{js,jsx,ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: ['@/features/*/*'],
+        },
+      ],
+      'import/no-cycle': 'error',
+    },
+  },
+  {
+    // Disable for the directories that have legitimate cycles
+    files: [
+      'src/features/**/*.{ts,tsx}',
+      'src/types/**/*.ts',
+      'src/supabase/**/*.ts',
+    ],
+    rules: {
+      'import/no-cycle': 'off',
+    },
+  },
 ];
 
 export default eslintConfig;
