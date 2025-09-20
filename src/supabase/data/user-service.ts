@@ -2,7 +2,6 @@
 
 import { GetActionResult } from '@/types';
 import { createClient } from '../server';
-import { UpdateProfileSchema } from '@/features/profile/schema';
 import { removeItemFromStorage, uploadItemToStorage } from './global-service';
 import { handleImageCompression } from '@/lib/actions';
 import { revalidatePath } from 'next/cache';
@@ -24,7 +23,8 @@ export async function getUser() {
 }
 
 export async function updateProfile(
-  formData: UpdateProfileSchema,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  formData: any,
 ): Promise<GetActionResult> {
   try {
     const supabase = await createClient();

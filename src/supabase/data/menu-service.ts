@@ -273,6 +273,7 @@ export async function createMenuItemDuplicate(
         error: fetchError?.message || 'Original menu item not found',
       };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, created_at, updated_at, image_url, ...duplicateData } =
       originalItem;
 

@@ -1,6 +1,6 @@
-import { MenuIngredient } from '@/features/menu/lib/types';
+import { type MenuIngredient } from '@/features/menu';
+import { type OrderItem } from '@/features/orders';
 import { Database } from './database';
-import { OrderItem } from '@/features/orders/lib/types';
 
 // Utility type for table rows
 export type Tables<T extends keyof Database['public']['Tables']> =

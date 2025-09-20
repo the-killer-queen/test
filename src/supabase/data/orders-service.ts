@@ -280,7 +280,7 @@ export async function updateOrderStatus(
 export async function deleteOrder(orderId: string): Promise<GetActionResult> {
   try {
     const supabase = await createClient();
-    const { data: deletedOrder, error: deleteOrderError } = await supabase
+    const { error: deleteOrderError } = await supabase
       .from('orders')
       .delete()
       .eq('id', orderId)
