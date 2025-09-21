@@ -25,7 +25,7 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) notFound();
 
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <meta name='apple-mobile-web-app-title' content='MyWebSite' />
       </head>
