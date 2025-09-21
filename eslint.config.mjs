@@ -1,3 +1,6 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from 'eslint-plugin-storybook';
+
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
@@ -34,7 +37,6 @@ const eslintConfig = [
     },
   },
   {
-    // Disable for the directories that have legitimate cycles
     files: [
       'src/features/**/*.{ts,tsx}',
       'src/types/**/*.ts',
@@ -44,6 +46,7 @@ const eslintConfig = [
       'import/no-cycle': 'off',
     },
   },
+  ...storybook.configs['flat/recommended'],
 ];
 
 export default eslintConfig;
