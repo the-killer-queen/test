@@ -1,23 +1,27 @@
 import { type MenuIngredient } from '@/features/menu';
 import { type OrderItem } from '@/features/orders';
-import { Database } from './database';
+import {
+  Database,
+  Tables as DatabaseTables,
+  TablesInsert,
+  TablesUpdate,
+  Enums,
+} from './database';
 
-// Utility type for table rows
+// Re-export the utility types from database.ts for consistency
 export type Tables<T extends keyof Database['public']['Tables']> =
-  Database['public']['Tables'][T]['Row'];
-
-// Utility type for inserts
+  DatabaseTables<T>;
 export type Inserts<T extends keyof Database['public']['Tables']> =
-  Database['public']['Tables'][T]['Insert'];
-
-// Utility type for updates
+  TablesInsert<T>;
 export type Updates<T extends keyof Database['public']['Tables']> =
-  Database['public']['Tables'][T]['Update'];
+  TablesUpdate<T>;
 
-// Specific table types
+// Specific table types using the database utility types
 export type OrderRow = Tables<'orders'>;
 export type MenuRowRaw = Tables<'menu'>;
 export type MenuCategoryRow = Tables<'menu_categories'>;
+export type AdditionalChargesRow = Tables<'additional_charges'>;
+export type OrderItemRow = Tables<'order_items'>;
 
 // Order types
 export type OrderInsert = Inserts<'orders'>;
@@ -29,10 +33,18 @@ export type MenuCategoryInsert = Inserts<'menu_categories'>;
 export type MenuCategoryUpdate = Updates<'menu_categories'>;
 export type DeletedMenuCategoryRow = Tables<'menu_categories'>;
 
+// Additional Charges types
+export type AdditionalChargesInsert = Inserts<'additional_charges'>;
+export type AdditionalChargesUpdate = Updates<'additional_charges'>;
+
+// Order Items types
+export type OrderItemInsert = Inserts<'order_items'>;
+export type OrderItemUpdate = Updates<'order_items'>;
+
 // Typed table types (with proper JSONB types)
 export type MenuRow = Omit<MenuRowRaw, 'ingredients'> & {
   ingredients: MenuIngredient[] | null;
-  menu_categories: MenuCategoryRow | null;
+  menu_categories?: MenuCategoryRow | null;
 };
 
 export type DeletedMenuRow = Omit<MenuRowRaw, 'ingredients'> & {
@@ -53,9 +65,13 @@ export type MenuUpdate = Omit<Updates<'menu'>, 'ingredients'> & {
   image?: File;
 };
 
-// Enum types
-export type OrderStatus = Database['public']['Enums']['order_status'];
-export type StreakGoalTypes = Database['public']['Enums']['streak_goal_types'];
+// Enum types using the database utility
+export type OrderStatus = Enums<'order_status'>;
+export type StreakGoalTypes = Enums<'streak_goal_types'>;
+
+// View types
+export type MenuWithTotalsRow =
+  Database['public']['Views']['menu_with_totals']['Row'];
 
 // Utility types for specific use cases
 export type MenuItemDetailsRow = {
