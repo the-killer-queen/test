@@ -11,7 +11,6 @@ import ProfileForm from './ProfileForm';
 
 async function ProfileContent() {
   const user = await getUser();
-  console.log(user);
   if (!user) throw new Error('User not found');
 
   return (

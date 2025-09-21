@@ -14,7 +14,7 @@ import { formatNumber } from '@/lib/utils';
 import { OrderRow } from '@/types/tables';
 import { format } from 'date-fns';
 import { Ellipsis, Eye, SquarePen, Trash2 } from 'lucide-react';
-import { toast } from 'sonner';
+import { handleCopyOrderId } from '../../lib/utils';
 import DeleteOrderDialog from '../dialog/DeleteOrderDialog';
 import EditOrderDialog from '../dialog/EditOrderDialog';
 import OrderPreviewDialog from '../dialog/OrderPreviewDialog';
@@ -35,15 +35,7 @@ function OrdersTableRow({ order }: OrdersTableRowProps) {
         <TableCell className='px-2 font-semibold'>
           <Button
             variant={'outline'}
-            onClick={(e) => {
-              e.stopPropagation();
-              if ('clipboard' in navigator)
-                navigator.clipboard
-                  .writeText(order.order_name ? order.order_name : order.id)
-                  .then(() => {
-                    toast.info('Copied to clipboard successfully');
-                  });
-            }}
+            onClick={(e) => handleCopyOrderId(e, order)}
           >
             #
             {order.order_name

@@ -1,4 +1,7 @@
 import { OrderRow } from '@/types/tables';
+import { MouseEvent } from 'react';
+import { toast } from 'sonner';
+import { OrderSortField, SortDirection } from './types';
 
 export function searchOrders(query: string | null, orders: OrderRow[]) {
   return query
@@ -60,6 +63,12 @@ export function filterOrders(filters: string[], orders: OrderRow[]) {
     : orders;
 }
 
-// Type definitions (add these to your types file)
-type OrderSortField = 'created_at' | 'customer_name' | 'total_price';
-type SortDirection = 'asc' | 'desc';
+export function handleCopyOrderId(e: MouseEvent, order: OrderRow) {
+  e.stopPropagation();
+
+  const orderIdentifier = order.order_name || order.id;
+  if ('clipboard' in navigator)
+    navigator.clipboard.writeText(orderIdentifier.toString()).then(() => {
+      toast.success('Order ID copied to clipboard');
+    });
+}

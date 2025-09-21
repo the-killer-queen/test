@@ -7,6 +7,7 @@ import { toast } from 'sonner';
 import DeleteOrderDialog from '../dialog/DeleteOrderDialog';
 import EditOrderDialog from '../dialog/EditOrderDialog';
 import { OrderRow } from '@/types/tables';
+import { handleCopyOrderId } from '../../lib/utils';
 
 type OrderQuickActionsCardProps = {
   order: OrderRow;
@@ -17,14 +18,6 @@ function OrderQuickActionsCard({ order }: OrderQuickActionsCardProps) {
     toast.info('Print preview would open here', {
       description: 'This is a mock action for demonstration purposes',
     });
-  }
-
-  function handleCopyOrderId() {
-    const orderIdentifier = order.order_name || order.id;
-    if ('clipboard' in navigator)
-      navigator.clipboard.writeText(orderIdentifier.toString()).then(() => {
-        toast.success('Order ID copied to clipboard');
-      });
   }
 
   return (
@@ -57,7 +50,7 @@ function OrderQuickActionsCard({ order }: OrderQuickActionsCardProps) {
           variant='ghost'
           size='sm'
           className='w-full justify-start'
-          onClick={handleCopyOrderId}
+          onClick={(e) => handleCopyOrderId(e, order)}
         >
           <Copy className='h-4 w-4' />
           Copy Order ID
