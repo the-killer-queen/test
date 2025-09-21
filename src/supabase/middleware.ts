@@ -15,13 +15,11 @@ export async function updateSession(
         getAll() {
           return request.cookies.getAll();
         },
-
-        setAll(cookieToSet) {
-          cookieToSet.forEach(({ name, value }) =>
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value),
           );
-          response = NextResponse.next({ request });
-          cookieToSet.forEach(({ name, value, options }) =>
+          cookiesToSet.forEach(({ name, value, options }) =>
             response.cookies.set(name, value, options),
           );
         },
@@ -35,7 +33,6 @@ export async function updateSession(
 
   const { pathname } = request.nextUrl;
   const pathSegments = pathname.split('/').filter(Boolean);
-
   const locale = pathSegments[0] || routing.defaultLocale;
 
   if (pathname === `/${locale}/auth-error`) return response;
@@ -51,10 +48,9 @@ export async function updateSession(
       new URL(`/${locale}/reset-password`, request.url),
     );
 
+  // Check for protected routes
   if (
-    (isProtectedRoute(pathname, locale) ||
-      pathname === `/${locale}` ||
-      pathname === '/') &&
+    (isProtectedRoute(pathname, locale) || pathname === `/${locale}`) &&
     !user
   )
     return NextResponse.redirect(new URL(`/${locale}/sign-in`, request.url));
@@ -65,6 +61,7 @@ export async function updateSession(
   )
     return response;
 
+  // Redirect authenticated users away from auth routes
   if (isAuthRoute(pathname, locale) && user)
     return NextResponse.redirect(new URL(`/${locale}`, request.url));
 
