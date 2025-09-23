@@ -9,7 +9,7 @@ import {
 import { MenuActions, MenuTable } from '@/features/menu';
 import MenuFiltersList from '@/components/shared/FiltersList';
 
-async function MenuPage() {
+function MenuPage() {
   return (
     <>
       <LayoutHeader

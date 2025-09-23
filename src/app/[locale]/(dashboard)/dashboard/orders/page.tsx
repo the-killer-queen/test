@@ -11,7 +11,7 @@ import {
   OrdersFiltersList,
   OrdersTable,
 } from '@/features/orders';
-import { searchParamsCache } from '@/lib/searchParamsCache';
+import { searchParamsCache } from '@/lib/utils';
 
 async function OrdersPage({
   searchParams,
