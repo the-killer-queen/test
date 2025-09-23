@@ -1,23 +1,14 @@
-import ErrorState from '@/components/shared/ErrorState';
 import { P } from '@/components/typography/P';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getOrderById } from '@/supabase/data/orders-service';
 import { MessageSquare } from 'lucide-react';
+import CardError from '../error/CardError';
 
 async function OrderNotesCard({ orderId }: { orderId: string }) {
   const { data: order, error } = await getOrderById(orderId);
 
   if (error || !order)
-    return (
-      <Card>
-        <CardContent className='flex flex-col items-center justify-center py-8'>
-          <ErrorState
-            message='Failed to load order notes'
-            iconClassName='h-8 w-8'
-          />
-        </CardContent>
-      </Card>
-    );
+    return <CardError message='Failed to load order notes' />;
 
   return (
     <Card className='flex-1'>

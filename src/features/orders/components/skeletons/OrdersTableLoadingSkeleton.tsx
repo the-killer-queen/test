@@ -7,7 +7,7 @@ interface OrdersTableSkeletonProps {
   rows?: number;
 }
 
-function OrdersTableLoadingSkeleton({ rows = 5 }: OrdersTableSkeletonProps) {
+function OrdersTableLoadingSkeleton({ rows = 10 }: OrdersTableSkeletonProps) {
   return (
     <TableBody>
       {Array.from({ length: rows }).map((_, index) => (

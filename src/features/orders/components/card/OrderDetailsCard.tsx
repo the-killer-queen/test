@@ -1,4 +1,3 @@
-import ErrorState from '@/components/shared/ErrorState';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
@@ -16,22 +15,13 @@ import {
   ShoppingBag,
   User,
 } from 'lucide-react';
+import CardError from '../error/CardError';
 
 async function OrderDetailsCard({ orderId }: { orderId: string }) {
   const { data: order, error } = await getOrderById(orderId);
 
-  if (error || !order) {
-    return (
-      <Card>
-        <CardContent className='flex flex-col items-center justify-center py-8'>
-          <ErrorState
-            message='Failed to load order details'
-            iconClassName='h-8 w-8'
-          />
-        </CardContent>
-      </Card>
-    );
-  }
+  if (error || !order)
+    return <CardError message='Failed to load order details' />;
 
   return (
     <Card>

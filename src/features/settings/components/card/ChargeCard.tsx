@@ -7,9 +7,10 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { DollarSign, Plus } from 'lucide-react';
-import CreateChargeDialog from '../dialog/CreateChargeDialog';
-import ChargeContent from '../content/ChargeContent';
 import { Suspense } from 'react';
+import ChargeContent from '../content/ChargeContent';
+import CreateChargeDialog from '../dialog/CreateChargeDialog';
+import ChargeCardSkeleton from '../skeletons/ChargeCardSkeleton';
 
 function ChargeCard() {
   return (
@@ -32,7 +33,7 @@ function ChargeCard() {
         </CardAction>
       </CardHeader>
 
-      <Suspense>
+      <Suspense fallback={<ChargeCardSkeleton />}>
         <ChargeContent />
       </Suspense>
     </Card>

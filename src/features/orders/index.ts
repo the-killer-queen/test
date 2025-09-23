@@ -6,7 +6,6 @@ export { default as OrderQuickActionsCard } from './components/card/OrderQuickAc
 
 // Layout
 export { default as OrdersActions } from './components/layout/OrdersActions';
-export { default as OrdersFiltersList } from './components/layout/OrdersFiltersList';
 export { default as UpdateOrderAction } from './components/layout/UpdateOrderAction';
 
 // Skeletons

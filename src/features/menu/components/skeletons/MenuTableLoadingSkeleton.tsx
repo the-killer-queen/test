@@ -23,24 +23,24 @@ function MenuTableLoadingSkeleton({ rows = 5 }: MenuTableSkeletonProps) {
           </TableCell>
 
           <TableCell className='font-semibold'>
-            <Skeleton className='h-4 w-24 lg:w-32' />
+            <Skeleton className='h-4 w-20 sm:w-24 lg:w-32' />
           </TableCell>
 
           <TableCell>
             <div className='flex items-center gap-1 capitalize'>
               <Skeleton className='h-5 w-5' />
-              <Skeleton className='h-4 w-16 lg:w-20' />
+              <Skeleton className='h-4 w-12 sm:w-16 lg:w-20' />
             </div>
           </TableCell>
 
           <TableCell className='max-w-48 overflow-hidden text-xs lg:text-base'>
-            <Skeleton className='h-3 w-32 lg:h-4 lg:w-40' />
+            <Skeleton className='h-3 w-24 sm:w-32 lg:h-4 lg:w-40' />
           </TableCell>
 
           <TableCell>
             <div className='flex items-center justify-end'>
               <Skeleton className='h-3.5 w-3.5 lg:h-4 lg:w-4' />
-              <Skeleton className='ml-1 h-4 w-12' />
+              <Skeleton className='ml-1 h-4 w-8 sm:w-12' />
             </div>
           </TableCell>
 
