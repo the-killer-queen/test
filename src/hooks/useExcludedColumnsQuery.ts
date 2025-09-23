@@ -1,10 +1,18 @@
-import { parseAsArrayOf, parseAsString, useQueryState } from 'nuqs';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
-export function useExcludedColumnsQuery() {
-  const [excludedColumns, setExcludedColumns] = useQueryState(
-    'excluded_columns',
-    parseAsArrayOf(parseAsString).withDefault([]),
-  );
-
-  return { excludedColumns, setExcludedColumns };
+interface ExcludedColumnsStore {
+  excludedColumns: string[];
+  setExcludedColumns: (columns: string[]) => void;
 }
+
+export const useExcludedColumnsQuery = create<ExcludedColumnsStore>()(
+  persist(
+    (set) => ({
+      excludedColumns: [],
+      setExcludedColumns: (columns: string[]) =>
+        set({ excludedColumns: columns }),
+    }),
+    { name: 'excluded_columns' },
+  ),
+);

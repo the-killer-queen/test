@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { type Dispatch, type SetStateAction, useEffect, useState } from 'react';
 
 function getMenuCount<T>(defaultValue: T, key: string) {
   if (typeof window === 'undefined') return defaultValue;
@@ -7,7 +7,10 @@ function getMenuCount<T>(defaultValue: T, key: string) {
     : defaultValue;
 }
 
-export function useLocalSorage<T>(defaultValue: T, key: string) {
+export function useLocalSorage<T>(
+  defaultValue: T,
+  key: string,
+): [value: T, setValue: Dispatch<SetStateAction<T>>] {
   const [value, setValue] = useState<T>(() =>
     getMenuCount<T>(defaultValue, key),
   );
