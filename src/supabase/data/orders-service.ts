@@ -135,6 +135,35 @@ export async function getAllOrdersId(): Promise<string[]> {
   }
 }
 
+export async function getOrdersCountByDate(date: string): Promise<number> {
+  try {
+    const supabase = await createClient();
+
+    const startOfDay = `${date}T00:00:00.000Z`;
+    const endOfDay = `${date}T23:59:59.999Z`;
+
+    const { count, error } = await supabase
+      .from('orders')
+      .select('', { count: 'exact', head: true })
+      .gte('created_at', startOfDay)
+      .lte('created_at', endOfDay)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Error fetching orders count:', error.message);
+      return 0;
+    }
+
+    return count || 0;
+  } catch (error) {
+    console.error(
+      'Unexpected error fetching orders count:',
+      error instanceof Error ? error.message : 'Unknown error',
+    );
+    return 0;
+  }
+}
+
 //CREATE
 export async function createOrder(
   newOrder: OrderInsert,

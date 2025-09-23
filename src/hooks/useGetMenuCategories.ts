@@ -1,10 +1,10 @@
-import { getMenuCategories } from '@/supabase/data/categories-service';
+import { getMenuSelectedCategories } from '@/supabase/data/categories-service';
 import { useQuery } from '@tanstack/react-query';
 
 export function useGetMenuCategories() {
   const { data, isPending } = useQuery({
     queryKey: ['menu_categories'],
-    queryFn: getMenuCategories,
+    queryFn: getMenuSelectedCategories,
   });
 
   return { categories: data?.data, error: data?.error, isPending };

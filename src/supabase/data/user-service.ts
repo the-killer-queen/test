@@ -1,11 +1,11 @@
 'use server';
 
+import { handleImageCompression } from '@/lib/handleImageCompress';
 import { GetActionResult } from '@/types';
+import { UserMetadata } from '@supabase/supabase-js';
+import { revalidatePath } from 'next/cache';
 import { createClient } from '../server';
 import { removeItemFromStorage, uploadItemToStorage } from './global-service';
-import { handleImageCompression } from '@/lib/actions';
-import { revalidatePath } from 'next/cache';
-import { UserMetadata } from '@supabase/supabase-js';
 
 export async function getUser() {
   try {

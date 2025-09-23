@@ -1,6 +1,6 @@
 'use server';
 
-import { handleImageCompression } from '@/lib/actions';
+import { handleImageCompression } from '@/lib/handleImageCompress';
 import { GetActionResult } from '@/types';
 import {
   DeletedMenuRow,
@@ -29,7 +29,6 @@ export async function getMenu(): Promise<GetActionResult<MenuRow[]>> {
         success: false,
         error: menuError.message,
       };
-
     return { success: true, data: menu };
   } catch (error) {
     return {
@@ -193,6 +192,28 @@ export async function getAllMenuItemIds(): Promise<number[]> {
       error instanceof Error ? error.message : 'Unknown error',
     );
     return [];
+  }
+}
+
+export async function getMenuItemCount(): Promise<number> {
+  try {
+    const supabase = createBuildTimeClient();
+    const { count, error } = await supabase
+      .from('menu')
+      .select('', { count: 'exact', head: true });
+
+    if (error) {
+      console.error('Error fetching menu item count:', error.message);
+      return 0;
+    }
+
+    return count || 0;
+  } catch (error) {
+    console.error(
+      'Unexpected error fetching menu item count:',
+      error instanceof Error ? error.message : 'Unknown error',
+    );
+    return 0;
   }
 }
 
