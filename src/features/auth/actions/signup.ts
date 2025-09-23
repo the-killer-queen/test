@@ -1,11 +1,12 @@
 'use server';
 
 import { createClient } from '@/supabase/server';
-import { ActionResult, SignupFormSchema } from '../schema';
+import { GetActionResult } from '@/types';
+import { SignupFormSchema } from '../schema';
 
 export async function signup(
   formData: SignupFormSchema,
-): Promise<ActionResult> {
+): Promise<GetActionResult> {
   try {
     const supabase = await createClient();
     const { error: signupError } = await supabase.auth.signUp(formData);
@@ -16,7 +17,7 @@ export async function signup(
         error: signupError.message,
       };
 
-    return { success: true };
+    return { success: true, data: undefined };
   } catch (error) {
     return {
       success: false,

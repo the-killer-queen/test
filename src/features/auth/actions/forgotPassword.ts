@@ -2,9 +2,9 @@
 
 import { getURL } from '@/lib/utils';
 import { createClient } from '@/supabase/server';
-import { ActionResult } from '../schema';
+import { GetActionResult } from '@/types';
 
-export async function forgotPassword(email: string): Promise<ActionResult> {
+export async function forgotPassword(email: string): Promise<GetActionResult> {
   try {
     const redirectTo = `${getURL()}api/auth/reset-password`;
 
@@ -19,7 +19,7 @@ export async function forgotPassword(email: string): Promise<ActionResult> {
       };
     }
 
-    return { success: true };
+    return { success: true, data: undefined };
   } catch (error) {
     return {
       success: false,
@@ -31,7 +31,7 @@ export async function forgotPassword(email: string): Promise<ActionResult> {
 
 export async function oneTimeResetPassword(
   newPassword: string,
-): Promise<ActionResult> {
+): Promise<GetActionResult> {
   try {
     const supabase = await createClient();
     const { error: resetPassError } = await supabase.auth.updateUser({
@@ -54,7 +54,7 @@ export async function oneTimeResetPassword(
       };
     }
 
-    return { success: true };
+    return { success: true, data: undefined };
   } catch (error) {
     return {
       success: false,

@@ -1,8 +1,9 @@
 'use client';
 
 import { TableBody } from '@/components/ui/table';
+import { RESULT_PER_PAGE } from '@/config/config';
 import { MenuRow } from '@/types/tables';
-import { useQueryState } from 'nuqs';
+import { parseAsInteger, useQueryState } from 'nuqs';
 import { useFiltersQuery } from '../../../../hooks/useFiltersQuery';
 import { useSortByQuery } from '../../../../hooks/useSortByQuery';
 import {
@@ -21,6 +22,7 @@ function MenuTableBodyClient({ menu }: MenuTableBodyClientProps) {
   const { setFilter, filters } = useFiltersQuery();
   const { sortBy } = useSortByQuery();
   const [query, setQuery] = useQueryState('query');
+  const [page] = useQueryState('page', parseAsInteger.withDefault(1));
 
   //SEARCH Items
   const searchedMenuItems = query ? searchMenuItems(query, menu) : menu;
@@ -31,9 +33,16 @@ function MenuTableBodyClient({ menu }: MenuTableBodyClientProps) {
   //Filter
   const filteredMenuItems = filterMenuItems(filters, sortedMenuItems);
 
-  if (menu.length === 0) return <MenuTableEmptyState type='no-data' />;
+  //RESULT PER PAGE
+  const menuItemsPerPage = filteredMenuItems.slice(
+    (page - 1) * RESULT_PER_PAGE,
+    page * RESULT_PER_PAGE,
+  );
 
-  if (filteredMenuItems.length === 0)
+  if (menuItemsPerPage.length === 0)
+    return <MenuTableEmptyState type='no-data' />;
+
+  if (menuItemsPerPage.length === 0)
     return (
       <MenuTableEmptyState
         type='no-results'
@@ -48,7 +57,7 @@ function MenuTableBodyClient({ menu }: MenuTableBodyClientProps) {
 
   return (
     <TableBody>
-      {filteredMenuItems.map((menuItem) => (
+      {menuItemsPerPage.map((menuItem) => (
         <MenuTableRow key={menuItem.id} menuItem={menuItem} />
       ))}
     </TableBody>

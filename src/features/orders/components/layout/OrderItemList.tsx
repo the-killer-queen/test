@@ -159,7 +159,7 @@ function OrderItemList({ field }: OrderItemListProps) {
                               if (value.length <= 3 && numValue <= 100)
                                 updateQuantity(item.id, numValue);
                             }}
-                            className='!bg-background m-0 h-6 !w-8 text-center text-xs font-medium md:h-8 md:!w-14 md:text-sm'
+                            className='!bg-background m-0 h-6 !w-10 text-center text-xs font-medium md:h-8 md:!w-14 md:text-sm'
                           />
 
                           <Button

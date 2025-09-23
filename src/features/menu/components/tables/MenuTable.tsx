@@ -1,10 +1,11 @@
-import { Table } from '@/components/ui/table';
+import { Table, TableFooter } from '@/components/ui/table';
 import { Suspense } from 'react';
 
 import TableContentHeader from '@/components/shared/TableContentHeader';
+import { tableHeaderColumns } from '../../lib/constant';
 import MenuTableLoadingSkeleton from '../skeletons/MenuTableLoadingSkeleton';
 import MenuTableBody from './MenuTableBody';
-import { tableHeaderColumns } from '../../lib/constant';
+import MenuTableFooterContent from './MenuTableFooterContent';
 
 function MenuTable() {
   return (
@@ -14,6 +15,12 @@ function MenuTable() {
         <Suspense fallback={<MenuTableLoadingSkeleton />}>
           <MenuTableBody />
         </Suspense>
+
+        <TableFooter>
+          <Suspense fallback={null}>
+            <MenuTableFooterContent />
+          </Suspense>
+        </TableFooter>
       </Table>
     </div>
   );

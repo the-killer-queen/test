@@ -1,4 +1,4 @@
-import { searchParamsCache } from '@/lib/searchParamsCache';
+import { searchParamsCache } from '@/lib/utils';
 import { getOrdersByDate } from '@/supabase/data/orders-service';
 import OrdersTableBodyClient from './OrdersTableBodyClient';
 import OrdersTableEmptyState from './OrdersTableEmptyState';

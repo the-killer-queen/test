@@ -1,31 +1,43 @@
 import z from 'zod';
+import { FIELD_LIMITS, VALIDATION_MESSAGES } from '@/config/config';
 
 export const loginSchema = z.object({
-  email: z.email('Enter a valid email').min(1, 'Email is required'),
+  email: z
+    .email(VALIDATION_MESSAGES.VALIDATION.VALID_EMAIL)
+    .min(FIELD_LIMITS.EMAIL_MIN, VALIDATION_MESSAGES.REQUIRED.EMAIL),
   password: z
     .string()
-    .min(1, 'Password is required')
-    .min(8, 'At least 8 characters'),
+    .min(FIELD_LIMITS.EMAIL_MIN, VALIDATION_MESSAGES.REQUIRED.PASSWORD)
+    .min(FIELD_LIMITS.PASSWORD_MIN, VALIDATION_MESSAGES.LENGTH.PASSWORD_MIN),
 });
 
 //SIGNUP
 export const signupSchema = z
   .object({
-    email: z.email('Enter a valid email').min(1, 'Email is required'),
+    email: z
+      .email(VALIDATION_MESSAGES.VALIDATION.VALID_EMAIL)
+      .min(FIELD_LIMITS.EMAIL_MIN, VALIDATION_MESSAGES.REQUIRED.EMAIL),
     password: z
       .string()
-      .min(1, 'Password is required')
-      .min(8, 'At least 8 characters'),
-    confirmPassword: z.string().min(1, 'Confirm your password'),
+      .min(FIELD_LIMITS.EMAIL_MIN, VALIDATION_MESSAGES.REQUIRED.PASSWORD)
+      .min(FIELD_LIMITS.PASSWORD_MIN, VALIDATION_MESSAGES.LENGTH.PASSWORD_MIN),
+    confirmPassword: z
+      .string()
+      .min(
+        FIELD_LIMITS.EMAIL_MIN,
+        VALIDATION_MESSAGES.REQUIRED.CONFIRM_PASSWORD,
+      ),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    error: 'Passwords do not match',
+    error: VALIDATION_MESSAGES.VALIDATION.PASSWORDS_MATCH,
     path: ['confirmPassword'],
   });
 
 //FORGOT-PASSWORD
 export const forgotPasswordSchema = z.object({
-  email: z.email('Enter a valid email').min(1, 'Email is required'),
+  email: z
+    .email(VALIDATION_MESSAGES.VALIDATION.VALID_EMAIL)
+    .min(FIELD_LIMITS.EMAIL_MIN, VALIDATION_MESSAGES.REQUIRED.EMAIL),
 });
 
 //RESET-PASSWORD
@@ -33,12 +45,17 @@ export const resetPasswordSchema = z
   .object({
     password: z
       .string()
-      .min(1, 'Password is required')
-      .min(8, 'At least 8 characters'),
-    confirmPassword: z.string().min(1, 'Confirm your password'),
+      .min(FIELD_LIMITS.EMAIL_MIN, VALIDATION_MESSAGES.REQUIRED.PASSWORD)
+      .min(FIELD_LIMITS.PASSWORD_MIN, VALIDATION_MESSAGES.LENGTH.PASSWORD_MIN),
+    confirmPassword: z
+      .string()
+      .min(
+        FIELD_LIMITS.EMAIL_MIN,
+        VALIDATION_MESSAGES.REQUIRED.CONFIRM_PASSWORD,
+      ),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
+    message: VALIDATION_MESSAGES.VALIDATION.PASSWORDS_MATCH,
     path: ['confirmPassword'],
   });
 

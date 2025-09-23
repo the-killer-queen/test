@@ -1,9 +1,9 @@
 'use server';
 
 import { createClient } from '@/supabase/server';
-import { ActionResult } from '../schema';
+import { GetActionResult } from '@/types';
 
-export async function logout(): Promise<ActionResult> {
+export async function logout(): Promise<GetActionResult> {
   try {
     const supabase = await createClient();
     const { error: logoutError } = await supabase.auth.signOut();
@@ -15,7 +15,7 @@ export async function logout(): Promise<ActionResult> {
       };
     }
 
-    return { success: true };
+    return { success: true, data: undefined };
   } catch (error) {
     return {
       success: false,

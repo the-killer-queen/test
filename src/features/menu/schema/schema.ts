@@ -1,15 +1,21 @@
+import {
+  ACCEPTED_IMAGE_TYPES,
+  MAX_IMAGE_SIZE,
+  FIELD_LIMITS,
+  PRICE_LIMITS,
+  VALIDATION_MESSAGES,
+} from '@/config/config';
 import { z } from 'zod';
-import { ACCEPTED_IMAGE_TYPES, MAX_FILE_SIZE } from '../lib/constant';
 
 export const menuIngredientSchema = z.object({
   name: z
     .string({
-      error: 'Ingredient name is required',
+      error: VALIDATION_MESSAGES.REQUIRED.INGREDIENT_NAME,
     })
-    .min(1, {
-      error: 'Ingredient name cannot be empty',
+    .min(FIELD_LIMITS.MENU_INGREDIENT_NAME_MIN, {
+      error: `Ingredient name ${VALIDATION_MESSAGES.LENGTH.EMPTY}`,
     })
-    .max(16, {
+    .max(FIELD_LIMITS.MENU_INGREDIENT_NAME_MAX, {
       error: 'Ingredient name must be 64 characters or less',
     }),
   quantity: z.string().optional(),
@@ -20,31 +26,31 @@ export type MenuIngredientSchema = z.infer<typeof menuIngredientSchema>;
 export const updateMenuItemSchema = z.object({
   name: z
     .string({
-      error: 'Menu item name is required',
+      error: VALIDATION_MESSAGES.REQUIRED.MENU_ITEM_NAME,
     })
-    .min(1, {
-      error: 'Menu item name cannot be empty',
+    .min(FIELD_LIMITS.MENU_ITEM_NAME_MIN, {
+      error: `Menu item name ${VALIDATION_MESSAGES.LENGTH.EMPTY}`,
     })
-    .max(100, {
-      error: 'Menu item name must be 100 characters or less',
+    .max(FIELD_LIMITS.MENU_ITEM_NAME_MAX, {
+      error: VALIDATION_MESSAGES.LENGTH.MENU_ITEM_NAME_MAX,
     }),
   price: z
     .number({
       error: 'Price must be a valid number',
     })
-    .min(0, {
-      error: 'Price cannot be negative',
+    .min(PRICE_LIMITS.MIN, {
+      error: VALIDATION_MESSAGES.PRICE.NEGATIVE,
     })
-    .max(10_000_000, {
-      error: 'Price cannot exceed 10,000,000',
+    .max(PRICE_LIMITS.MAX, {
+      error: VALIDATION_MESSAGES.PRICE.MAX_EXCEEDED,
     }),
   image: z
     .any()
-    .refine((file) => file?.size < MAX_FILE_SIZE, {
-      error: `Image size must be less than ${MAX_FILE_SIZE / (1024 * 1024)}MB`,
+    .refine((file) => file?.size < MAX_IMAGE_SIZE, {
+      error: VALIDATION_MESSAGES.FILE.IMAGE_SIZE,
     })
     .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file?.type), {
-      error: `Please upload a valid image file (${ACCEPTED_IMAGE_TYPES.join(', ')})`,
+      error: VALIDATION_MESSAGES.FILE.VALID_IMAGE_TYPES,
     })
     .optional(),
   ingredients: z.array(menuIngredientSchema).optional(),
@@ -54,13 +60,13 @@ export const updateMenuItemSchema = z.object({
       icon_name: z.string().nullable().optional(),
     })
     .refine((field) => field.name !== undefined, {
-      error: 'Please select a category',
+      error: VALIDATION_MESSAGES.VALIDATION.CATEGORY_SELECT,
     }),
 
   description: z
     .string()
-    .max(280, {
-      error: 'Description cannot exceed 280 characters',
+    .max(FIELD_LIMITS.DESCRIPTION_MAX, {
+      error: VALIDATION_MESSAGES.LENGTH.DESCRIPTION_MAX,
     })
     .optional(),
 });
@@ -70,31 +76,31 @@ export type UpdateMenuItemSchema = z.infer<typeof updateMenuItemSchema>;
 export const createMenuItemSchema = z.object({
   name: z
     .string({
-      error: 'Menu item name is required',
+      error: VALIDATION_MESSAGES.REQUIRED.MENU_ITEM_NAME,
     })
-    .min(1, {
-      error: 'Menu item name cannot be empty',
+    .min(FIELD_LIMITS.MENU_ITEM_NAME_MIN, {
+      error: `Menu item name ${VALIDATION_MESSAGES.LENGTH.EMPTY}`,
     })
-    .max(16, {
-      error: 'Menu item name must be 100 characters or less',
+    .max(FIELD_LIMITS.MENU_INGREDIENT_NAME_MAX, {
+      error: VALIDATION_MESSAGES.LENGTH.MENU_ITEM_NAME_MAX,
     }),
   price: z
     .number({
       error: 'Price must be a valid number',
     })
-    .min(0.1, {
-      error: 'Price must be at least 0.10',
+    .min(PRICE_LIMITS.MIN_CREATE, {
+      error: VALIDATION_MESSAGES.PRICE.MIN_CREATE,
     })
-    .max(10_000_000, {
-      error: 'Price cannot exceed 10,000,000',
+    .max(PRICE_LIMITS.MAX, {
+      error: VALIDATION_MESSAGES.PRICE.MAX_EXCEEDED,
     }),
   image: z
     .any()
-    .refine((file) => file?.size < MAX_FILE_SIZE, {
-      error: `Image size must be less than ${MAX_FILE_SIZE / (1024 * 1024)}MB`,
+    .refine((file) => file?.size < MAX_IMAGE_SIZE, {
+      error: VALIDATION_MESSAGES.FILE.IMAGE_SIZE,
     })
     .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file?.type), {
-      error: `Please upload a valid image file (${ACCEPTED_IMAGE_TYPES.join(', ')})`,
+      error: VALIDATION_MESSAGES.FILE.VALID_IMAGE_TYPES,
     })
     .optional(),
   ingredients: z.array(menuIngredientSchema).optional(),
@@ -104,13 +110,13 @@ export const createMenuItemSchema = z.object({
       icon_name: z.string().nullable().optional(),
     })
     .refine((field) => field.name !== undefined, {
-      error: 'Please select a category',
+      error: VALIDATION_MESSAGES.VALIDATION.CATEGORY_SELECT,
     }),
 
   description: z
     .string()
-    .max(280, {
-      error: 'Description cannot exceed 280 characters',
+    .max(FIELD_LIMITS.DESCRIPTION_MAX, {
+      error: VALIDATION_MESSAGES.LENGTH.DESCRIPTION_MAX,
     })
     .optional(),
 });
@@ -120,22 +126,22 @@ export type CreateMenuItemSchema = z.infer<typeof createMenuItemSchema>;
 export const createCategorySchema = z.object({
   name: z
     .string({
-      error: 'Category name is required',
+      error: VALIDATION_MESSAGES.REQUIRED.CATEGORY_NAME,
     })
-    .min(3, {
+    .min(FIELD_LIMITS.CATEGORY_NAME_MIN, {
       error: 'Category name must be at least 3 characters',
     })
-    .max(16, {
+    .max(FIELD_LIMITS.CATEGORY_NAME_MAX, {
       error: 'Category name must be 64 characters or less',
     }),
   icon_name: z
     .string({
       error: 'Icon name must be valid text',
     })
-    .min(3, {
+    .min(FIELD_LIMITS.CATEGORY_ICON_NAME_MIN, {
       error: 'Icon name must be at least 3 characters',
     })
-    .max(16, {
+    .max(FIELD_LIMITS.CATEGORY_ICON_NAME_MAX, {
       error: 'Icon name must be 64 characters or less',
     })
     .nullable(),

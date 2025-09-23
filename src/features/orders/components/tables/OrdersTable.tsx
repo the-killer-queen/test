@@ -1,10 +1,11 @@
-import { Table } from '@/components/ui/table';
+import { Table, TableFooter } from '@/components/ui/table';
 import { Suspense } from 'react';
 
 import TableContentHeader from '@/components/shared/TableContentHeader';
 import { tableHeaderColumns } from '../../lib/constant';
 import OrdersTableLoadingSkeleton from '../skeletons/OrdersTableLoadingSkeleton';
 import OrdersTableBody from './OrdersTableBody';
+import OrdersTableFooterContent from './OrdersTableFooterContent';
 
 function OrdersTable() {
   return (
@@ -14,6 +15,12 @@ function OrdersTable() {
         <Suspense fallback={<OrdersTableLoadingSkeleton />}>
           <OrdersTableBody />
         </Suspense>
+
+        <TableFooter>
+          <Suspense fallback={null}>
+            <OrdersTableFooterContent />
+          </Suspense>
+        </TableFooter>
       </Table>
     </div>
   );

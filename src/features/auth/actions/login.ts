@@ -1,10 +1,13 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
 import { createClient } from '@/supabase/server';
-import { ActionResult, LoginFormSchema } from '../schema';
+import { GetActionResult } from '@/types';
+import { revalidatePath } from 'next/cache';
+import { LoginFormSchema } from '../schema';
 
-export async function login(formData: LoginFormSchema): Promise<ActionResult> {
+export async function login(
+  formData: LoginFormSchema,
+): Promise<GetActionResult> {
   try {
     const supabase = await createClient();
     const { error: loginError } =
@@ -17,7 +20,7 @@ export async function login(formData: LoginFormSchema): Promise<ActionResult> {
       };
 
     revalidatePath('/', 'layout');
-    return { success: true };
+    return { success: true, data: undefined };
   } catch (error) {
     return {
       success: false,

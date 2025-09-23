@@ -1,10 +1,14 @@
 import { z } from 'zod';
+import { ORDER_STATUS, VALIDATION_MESSAGES } from '@/config/config';
 
 export const orderItemSchema = z.object({
   id: z.number(),
-  name: z.string().min(1, 'Item name is required'),
-  quantity: z.number().int().min(1, 'Quantity must be at least 1'),
-  price: z.number().nonnegative('Price must be non-negative'),
+  name: z.string().min(1, VALIDATION_MESSAGES.REQUIRED.ITEM_NAME),
+  quantity: z
+    .number()
+    .int()
+    .min(1, VALIDATION_MESSAGES.VALIDATION.MIN_QUANTITY),
+  price: z.number().nonnegative(VALIDATION_MESSAGES.PRICE.NON_NEGATIVE),
 });
 
 export const createOrderSchema = z.object({
@@ -12,10 +16,12 @@ export const createOrderSchema = z.object({
   customer_name: z.string().optional(),
   customer_contact: z.string().optional(),
   is_togo: z.boolean(),
-  status: z.enum(['paid', 'unpaid']),
-  total_price: z.number().nonnegative('Total price must be non-negative'),
+  status: z.enum(ORDER_STATUS),
+  total_price: z.number().nonnegative(VALIDATION_MESSAGES.PRICE.NON_NEGATIVE),
   notes: z.string().optional(),
-  items: z.array(orderItemSchema).min(1, 'At least one item is required'),
+  items: z
+    .array(orderItemSchema)
+    .min(1, VALIDATION_MESSAGES.VALIDATION.MIN_ITEMS),
 });
 
 export const updateOrderSchema = z.object({
@@ -23,10 +29,12 @@ export const updateOrderSchema = z.object({
   customer_name: z.string().optional(),
   customer_contact: z.string().optional(),
   is_togo: z.boolean(),
-  status: z.enum(['paid', 'unpaid']),
-  total_price: z.number().nonnegative('Total price must be non-negative'),
+  status: z.enum(ORDER_STATUS),
+  total_price: z.number().nonnegative(VALIDATION_MESSAGES.PRICE.NON_NEGATIVE),
   notes: z.string().optional(),
-  items: z.array(orderItemSchema).min(1, 'At least one item is required'),
+  items: z
+    .array(orderItemSchema)
+    .min(1, VALIDATION_MESSAGES.VALIDATION.MIN_ITEMS),
 });
 
 export type OrderItemSchema = z.infer<typeof orderItemSchema>;
