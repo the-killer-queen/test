@@ -7,12 +7,12 @@ function OrderViewLoading() {
       {/* Header Skeleton */}
       <header className='bg-sidebar/95 flex justify-between border-b px-4 py-[17px] backdrop-blur'>
         <div>
-          <Skeleton className='mb-2 h-6 w-48' />
-          <Skeleton className='h-4 w-80' />
+          <Skeleton className='mb-2 h-6 w-48 sm:w-56' />
+          <Skeleton className='h-4 w-64 sm:w-80' />
         </div>
 
         <div className='flex items-center'>
-          <Skeleton className='mr-2 h-8 w-20' />
+          <Skeleton className='mr-2 h-8 w-16 sm:w-20' />
           <Skeleton className='h-7 w-7' />
         </div>
       </header>
@@ -24,7 +24,7 @@ function OrderViewLoading() {
               <Skeleton className='h-6 w-48' />
               <Skeleton className='h-9 w-28' />
             </div>
-            <Skeleton className='h-4 w-80' />
+            <Skeleton className='h-4 w-64 sm:w-80' />
           </CardHeader>
 
           <CardContent>
@@ -69,7 +69,7 @@ function OrderViewLoading() {
                 </Card>
               </div>
 
-              <div className='flex w-full flex-col space-y-4'>
+              <div className='flex w-full flex-col space-y-4 sm:flex-row lg:flex-col xl:flex-row'>
                 {/* Order Details Card Skeleton */}
                 <Card>
                   <CardHeader>

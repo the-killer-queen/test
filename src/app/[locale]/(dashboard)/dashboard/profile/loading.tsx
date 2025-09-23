@@ -7,8 +7,8 @@ function ProfilePageLoading() {
       {/* Header Skeleton */}
       <header className='bg-sidebar/95 flex justify-between border-b px-4 py-[17px] backdrop-blur'>
         <div>
-          <Skeleton className='mb-2 h-6 w-48' />
-          <Skeleton className='h-4 w-80' />
+          <Skeleton className='mb-2 h-6 w-48 sm:w-56' />
+          <Skeleton className='h-4 w-64 sm:w-80' />
         </div>
         <Skeleton className='h-7 w-7' />
       </header>
@@ -50,8 +50,8 @@ function ProfilePageLoading() {
           {/* Form Card Skeleton */}
           <Card>
             <CardHeader>
-              <Skeleton className='h-6 w-40' />
-              <Skeleton className='h-4 w-80' />
+              <Skeleton className='h-6 w-32 sm:w-48' />
+              <Skeleton className='h-4 w-64 sm:w-80' />
             </CardHeader>
             <CardContent className='space-y-6'>
               {/* Avatar Upload Skeleton */}
@@ -76,7 +76,7 @@ function ProfilePageLoading() {
 
               {/* Phone Field Skeleton */}
               <div className='space-y-2'>
-                <Skeleton className='h-4 w-32' />
+                <Skeleton className='h-6 w-32 sm:w-40' />
                 <Skeleton className='h-9 w-full' />
               </div>
 

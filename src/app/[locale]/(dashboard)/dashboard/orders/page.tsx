@@ -1,3 +1,4 @@
+import FiltersList from '@/components/shared/FiltersList';
 import LayoutHeader from '@/components/shared/LayoutHeader';
 import {
   Card,
@@ -6,11 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {
-  OrdersActions,
-  OrdersFiltersList,
-  OrdersTable,
-} from '@/features/orders';
+import { OrdersActions, OrdersTable } from '@/features/orders';
 import { searchParamsCache } from '@/lib/utils';
 
 async function OrdersPage({
@@ -35,7 +32,7 @@ async function OrdersPage({
             </CardDescription>
 
             <OrdersActions />
-            <OrdersFiltersList />
+            <FiltersList filterName='menu_item_filter' />
           </CardHeader>
 
           <CardContent>
