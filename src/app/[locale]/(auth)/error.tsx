@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { WarningCircleIcon } from '@phosphor-icons/react';
+import { useTranslations } from 'next-intl';
 
 type AuthErrorProps = {
   error: Error & { digest?: string };
@@ -16,6 +17,8 @@ type AuthErrorProps = {
 };
 
 function AuthError({ error, reset }: AuthErrorProps) {
+  const t = useTranslations('Auth.Error');
+
   return (
     <div className='w-full max-w-sm'>
       <Card>
@@ -23,15 +26,14 @@ function AuthError({ error, reset }: AuthErrorProps) {
           <div className='!bg-destructive/10 mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full'>
             <WarningCircleIcon className='!text-destructive h-6 w-6' />
           </div>
-          <CardTitle>Something went wrong</CardTitle>
+          <CardTitle>{t('title')}</CardTitle>
           <CardDescription>
-            We encountered an error while loading the authentication page.
-            Please try again. {error.message}
+            {t('description')} {error.message}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <Button onClick={reset} className='w-full' variant='outline'>
-            Try Again
+            {t('tryAgainButton')}
           </Button>
         </CardContent>
       </Card>

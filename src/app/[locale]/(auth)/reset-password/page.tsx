@@ -9,8 +9,11 @@ import { ResetPasswordForm } from '@/features/auth';
 import { redirect } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
 import { createClient } from '@/supabase/server';
+import { getTranslations } from 'next-intl/server';
 
 async function ResetPasswordPage() {
+  const t = await getTranslations('Auth.ResetPassword');
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -32,11 +35,8 @@ async function ResetPasswordPage() {
   return (
     <Card className='w-full max-w-sm'>
       <CardHeader>
-        <CardTitle>Reset Your Password</CardTitle>
-        <CardDescription>
-          Enter your email and we&apos;ll send you a reset link to get back into
-          your account.
-        </CardDescription>
+        <CardTitle>{t('title')}</CardTitle>
+        <CardDescription>{t('description')}</CardDescription>
       </CardHeader>
 
       <CardContent>

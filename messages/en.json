@@ -1,5 +1,102 @@
 {
-  "Homepage": {
-    "title": "Hello world!!!"
+  "Auth": {
+    "SignIn": {
+      "title": "Welcome Back",
+      "description": "Sign in to continue tracking your habits and achieving your goals.",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Enter your email address",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "forgotPassword": "Forgot your password?",
+      "signInButton": "Sign In",
+      "signingInButton": "Signing In...",
+      "noAccount": "Don't have an account?",
+      "signUpLink": "Sign up",
+      "successMessage": "Welcome back! You have successfully signed in.",
+      "googleButton": "Google",
+      "connectingButton": "Connecting...",
+      "welcomeBack": "Welcome back!"
+    },
+    "SignUp": {
+      "title": "Create Your Account",
+      "description": "Join us today and start building better habits for a healthier, more productive you.",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Enter your email address",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Create a strong password",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Re-enter your password",
+      "createAccountButton": "Create Account",
+      "creatingAccountButton": "Creating Account...",
+      "haveAccount": "Already have an account?",
+      "signInLink": "Sign in",
+      "successMessage": "Account created successfully! Please check your email to verify your account.",
+      "orSeparator": "OR"
+    },
+    "ForgotPassword": {
+      "title": "Forgot Password",
+      "description": "Enter your email address and we'll send you a link to reset your password.",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Enter your registered email",
+      "sendResetButton": "Send Reset Link",
+      "sendingButton": "Sending...",
+      "successMessage": "Password reset link sent to your email!"
+    },
+    "ResetPassword": {
+      "title": "Reset Your Password",
+      "description": "Enter your email and we'll send you a reset link to get back into your account.",
+      "newPasswordLabel": "New Password",
+      "newPasswordPlaceholder": "Enter your new password",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Re-enter your new password",
+      "resetButton": "Reset Password",
+      "resettingButton": "Resetting...",
+      "successMessage": "Your password has been reset successfully!"
+    },
+    "AuthError": {
+      "title": "Authentication Error",
+      "goBackButton": "Go Back",
+      "errors": {
+        "expired_link": {
+          "title": "Expired Link",
+          "description": "Your reset link has expired. Please request a new one."
+        },
+        "already_used": {
+          "title": "Link Already Used",
+          "description": "This link has already been used. Try requesting a new reset link."
+        },
+        "exchange_failed": {
+          "title": "Session Exchange Failed",
+          "description": "Something went wrong while verifying your session. Please try again."
+        },
+        "verification_failed": {
+          "title": "Verification Failed",
+          "description": "We could not verify your request. Double-check your link."
+        },
+        "invalid_or_missing_token": {
+          "title": "Invalid or Missing Token",
+          "description": "The token is missing or invalid. Please try again."
+        },
+        "invalid_or_missing_code": {
+          "title": "Invalid or Missing Code",
+          "description": "The code is missing or invalid. Please try again."
+        },
+        "default": {
+          "title": "Authentication Error",
+          "description": "An unexpected error occurred."
+        }
+      }
+    },
+    "NotFound": {
+      "title": "Page Not Found",
+      "description": "The authentication page you're looking for doesn't exist or has been moved.",
+      "signInButton": "Go to Sign In",
+      "signUpButton": "Create Account"
+    },
+    "Error": {
+      "title": "Something went wrong",
+      "description": "We encountered an error while loading the authentication page. Please try again.",
+      "tryAgainButton": "Try Again"
+    }
   }
 }

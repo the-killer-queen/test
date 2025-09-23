@@ -9,26 +9,24 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { LoginWithGoogleButton, SignupForm } from '@/features/auth';
 import { Link } from '@/i18n/navigation';
+import { getTranslations } from 'next-intl/server';
 
-function SignupPage() {
+async function SignupPage() {
+  const t = await getTranslations('Auth.SignUp');
+
   return (
     <div className='w-full max-w-sm'>
       <Card>
         <CardHeader>
-          <CardTitle>Create Your Account</CardTitle>
-          <CardDescription>
-            Join us today and start building better habits for a healthier, more
-            productive you.
-          </CardDescription>
+          <CardTitle>{t('title')}</CardTitle>
+          <CardDescription>{t('description')}</CardDescription>
 
-          <div className='my-4 flex gap-3'>
-            <LoginWithGoogleButton />
-          </div>
+          <LoginWithGoogleButton />
 
           <div className='grid grid-cols-7 items-center gap-3'>
             <Separator className='col-span-3' />
             <p className='!text-muted-foreground col-span-1 text-center text-sm'>
-              OR
+              {t('orSeparator')}
             </p>
             <Separator className='col-span-3' />
           </div>
@@ -38,9 +36,9 @@ function SignupPage() {
           <SignupForm />
 
           <p className='!text-muted-foreground mt-4 flex items-center justify-center gap-1 text-sm'>
-            Already have an account?
+            {t('haveAccount')}
             <Button variant='link' className='p-0'>
-              <Link href='/sign-in'>Sign in</Link>
+              <Link href='/sign-in'>{t('signInLink')}</Link>
             </Button>
           </p>
         </CardContent>

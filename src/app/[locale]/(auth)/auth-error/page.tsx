@@ -2,41 +2,23 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from '@/i18n/navigation';
 import { AlertTriangle } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 
 async function AuthErrorPage({
   searchParams,
 }: PageProps<'/[locale]/auth-error'>) {
   const { message } = (await searchParams) as { message: string };
+  const t = await getTranslations('Auth.AuthError');
 
-  const titleMap: Record<string, string> = {
-    expired_link: 'Expired Link',
-    already_used: 'Link Already Used',
-    exchange_failed: 'Session Exchange Failed',
-    verification_failed: 'Verification Failed',
-    invalid_or_missing_token: 'Invalid or Missing Token',
-    invalid_or_missing_code: 'Invalid or Missing Code',
-  };
+  const title =
+    message && t.has(`errors.${message}.title`)
+      ? t(`errors.${message}.title`)
+      : t('errors.default.title');
 
-  const descriptionMap: Record<string, string> = {
-    expired_link: 'Your reset link has expired. Please request a new one.',
-    already_used:
-      'This link has already been used. Try requesting a new reset link.',
-    exchange_failed:
-      'Something went wrong while verifying your session. Please try again.',
-    verification_failed:
-      'We could not verify your request. Double-check your link.',
-    invalid_or_missing_token:
-      'The token is missing or invalid. Please try again.',
-    invalid_or_missing_code:
-      'The code is missing or invalid. Please try again.',
-  };
-
-  const title = message
-    ? (titleMap[message] ?? 'Authentication Error')
-    : 'Authentication Error';
-  const description = message
-    ? (descriptionMap[message] ?? 'An unexpected error occurred.')
-    : 'An unexpected error occurred.';
+  const description =
+    message && t.has(`errors.${message}.description`)
+      ? t(`errors.${message}.description`)
+      : t('errors.default.description');
 
   return (
     <Card className='!border-destructive w-full max-w-sm border-2 text-center'>
@@ -52,7 +34,7 @@ async function AuthErrorPage({
 
         <Link href='/'>
           <Button variant='destructive' className='w-full'>
-            Go Back
+            {t('goBackButton')}
           </Button>
         </Link>
       </CardContent>

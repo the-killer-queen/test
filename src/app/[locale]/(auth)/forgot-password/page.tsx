@@ -6,16 +6,16 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { ForgotPasswordForm } from '@/features/auth';
+import { getTranslations } from 'next-intl/server';
 
-function ForgotPasswordPage() {
+async function ForgotPasswordPage() {
+  const t = await getTranslations('Auth.ForgotPassword');
+
   return (
     <Card className='w-full max-w-sm'>
       <CardHeader>
-        <CardTitle>Forgot Password</CardTitle>
-        <CardDescription>
-          Enter your email address and we&apos;ll send you a link to reset your
-          password.
-        </CardDescription>
+        <CardTitle>{t('title')}</CardTitle>
+        <CardDescription>{t('description')}</CardDescription>
       </CardHeader>
 
       <CardContent>
