@@ -32,7 +32,7 @@ function OrdersTableRow({ order }: OrdersTableRowProps) {
     <OrderPreviewDialog order={order}>
       <TableRow className='cursor-pointer'>
         {/* ORDER ID */}
-        <TableCell className='px-2 font-semibold'>
+        <TableCell className='px-2 font-semibold md:px-4'>
           <Button
             variant={'outline'}
             onClick={(e) => handleCopyOrderId(e, order)}
@@ -45,27 +45,27 @@ function OrdersTableRow({ order }: OrdersTableRowProps) {
         </TableCell>
 
         {/* CUSTOMER NAME */}
-        <TableCell className='px-2 text-sm font-medium'>
+        <TableCell className='px-2 text-sm font-medium md:px-4'>
           {order.customer_name || 'Walk-in Customer'}
         </TableCell>
 
         {/* CUSTOMER CONTACT */}
         {!excludedColumns.includes('customer_contact') && (
-          <TableCell className='text-muted-foreground px-2 text-xs'>
+          <TableCell className='text-muted-foreground px-2 text-xs md:px-4'>
             {order.customer_contact || '—'}
           </TableCell>
         )}
 
         {/* ORDER TYPE */}
         {!excludedColumns.includes('order_type') && (
-          <TableCell>
+          <TableCell className='px-2 md:px-4'>
             <OrderIsToGoSelector order={order} />
           </TableCell>
         )}
 
         {/* ITEMS COUNT */}
         {!excludedColumns.includes('items_count') && (
-          <TableCell>
+          <TableCell className='px-2 md:px-4'>
             <span className='text-muted-foreground text-xs'>
               {order.items?.length || 0} items
             </span>
@@ -74,13 +74,13 @@ function OrdersTableRow({ order }: OrdersTableRowProps) {
 
         {/* STATUS */}
         {!excludedColumns.includes('status') && (
-          <TableCell>
+          <TableCell className='px-2 md:px-4'>
             <OrderIsPaidSelector order={order} />
           </TableCell>
         )}
 
         {/* TOTAL PRICE */}
-        <TableCell className='px-2 text-sm font-semibold'>
+        <TableCell className='px-2 text-sm font-semibold md:px-4'>
           {formatNumber({
             locale: 'en-US',
             number: order.total_price,
@@ -93,12 +93,12 @@ function OrdersTableRow({ order }: OrdersTableRowProps) {
         </TableCell>
 
         {/* CREATED AT */}
-        <TableCell className='text-muted-foreground px-2 text-xs'>
+        <TableCell className='text-muted-foreground px-2 text-xs md:px-4'>
           {format(new Date(order.created_at), 'MMM dd, HH:mm')}
         </TableCell>
 
         {/* ACTIONS */}
-        <TableCell className='px-2 text-end'>
+        <TableCell className='px-2 text-end md:px-4'>
           <DropdownMenu>
             <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
               <Button variant='ghost' className='h-0 w-0'>

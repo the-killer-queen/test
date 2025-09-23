@@ -7,10 +7,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useExcludedColumnsQuery } from '@/hooks/useExcludedColumnsQuery';
+import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
 import { useOptimistic, useState, useTransition } from 'react';
 import { Button } from '../ui/button';
-import { cn } from '@/lib/utils';
 
 type TableColumnFilterProps = {
   options: {
