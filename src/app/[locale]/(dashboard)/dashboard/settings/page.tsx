@@ -1,12 +1,15 @@
 import LayoutHeader from '@/components/shared/LayoutHeader';
 import { ChargeCard, LanguageCard, ThemeCard } from '@/features/settings';
+import { getTranslations } from 'next-intl/server';
 
-function SettingsPage() {
+async function SettingsPage() {
+  const t = await getTranslations('settings');
+
   return (
     <>
       <LayoutHeader
-        title='Settings'
-        description='Customize your dashboard preferences and manage additional charges.'
+        title={t('page.title')}
+        description={t('page.description')}
       />
 
       <div className='flex flex-col gap-4 p-4'>

@@ -6,12 +6,14 @@ import { AdditionalChargesRow } from '@/types/tables';
 import { Check, X } from 'lucide-react';
 import { useOptimistic, useTransition } from 'react';
 import { toast } from 'sonner';
+import { useTranslations } from 'next-intl';
 
 type ChargeToggleSwitchProps = {
   charge: AdditionalChargesRow;
 };
 
 function ChargeToggleSwitch({ charge }: ChargeToggleSwitchProps) {
+  const t = useTranslations('settings');
   const [, startTransition] = useTransition();
   const [optimisticCharge, setOptimisticCharge] = useOptimistic(
     charge,
@@ -28,7 +30,8 @@ function ChargeToggleSwitch({ charge }: ChargeToggleSwitchProps) {
         !charge.is_active,
       );
 
-      if (!success) toast.error(error || 'Failed to update charge status');
+      if (!success)
+        toast.error(error || t('charges.messages.error.updateStatus'));
     });
     setOptimisticCharge(!charge.is_active);
   }

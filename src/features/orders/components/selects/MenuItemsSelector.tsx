@@ -5,8 +5,11 @@ import { ControllerRenderProps } from 'react-hook-form';
 import MenuItemsFilter from '../layout/MenuItemsFilter';
 import OrderSummary from '../layout/OrderSummary';
 import OrderItemList from '../layout/OrderItemList';
+import { useTranslations } from 'next-intl';
 
 function MenuItemsSelector(field: ControllerRenderProps) {
+  const t = useTranslations('orders');
+
   return (
     <div className='space-y-4'>
       <Card className='flex flex-col gap-2 bg-transparent'>
@@ -15,7 +18,7 @@ function MenuItemsSelector(field: ControllerRenderProps) {
             <MenuItemsFilter />
             <Search
               className='flex-1'
-              placeholder='Search menu items...'
+              placeholder={t('menuSelector.searchPlaceholder')}
               name={'menu_item_query'}
             />
           </div>

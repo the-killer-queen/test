@@ -1,3 +1,43 @@
+import { useTranslations } from 'next-intl';
+
+// Hooks for translated options
+export function useMenuSortByOptions() {
+  const t = useTranslations('menu');
+  return [
+    { value: 'created_at-desc', label: t('sort.newestFirst') },
+    { value: 'created_at-asc', label: t('sort.oldestFirst') },
+    { value: 'name-asc', label: t('sort.nameAZ') },
+    { value: 'name-desc', label: t('sort.nameZA') },
+    { value: 'price-desc', label: t('sort.priceHighLow') },
+    { value: 'price-asc', label: t('sort.priceLowHigh') },
+  ];
+}
+
+export function useMenuExcludedColumnsOptions() {
+  const t = useTranslations('menu');
+  return [
+    { value: 'menu_item_picture', label: t('table.headers.picture') },
+    { value: 'category', label: t('table.headers.category') },
+    { value: 'ingredients', label: t('table.headers.ingredients') },
+  ];
+}
+
+export function useMenuTableHeaderColumns() {
+  const t = useTranslations('menu');
+  return [
+    { value: 'menu_item_picture', label: '' },
+    { value: 'name', label: t('table.headers.name'), icon: 'Tag' },
+    { value: 'category', label: t('table.headers.category'), icon: 'ListTree' },
+    {
+      value: 'ingredients',
+      label: t('table.headers.ingredients'),
+      icon: 'Utensils',
+    },
+    { value: 'price', label: t('table.headers.price'), icon: 'DollarSign' },
+  ];
+}
+
+// Keep original exports for backward compatibility
 export const icons = [
   'Apple',
   'Banana',

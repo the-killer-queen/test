@@ -11,8 +11,10 @@ import {
 import { Settings } from 'lucide-react';
 import { useState } from 'react';
 import ManageCategoriesContent from '../content/ManageCategoriesContent';
+import { useTranslations } from 'next-intl';
 
 function ManageCategoriesDialog() {
+  const t = useTranslations('menu');
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
@@ -23,16 +25,16 @@ function ManageCategoriesDialog() {
         onClick={() => setIsOpen(true)}
       >
         <Settings />
-        <span>Manage Categories</span>
+        <span>{t('ctaActions.manageCategories')}</span>
       </Button>
 
       <DialogContent className='max-h-[90vh] max-w-xs overflow-y-auto md:max-w-md'>
         <DialogHeader className='px-2 md:px-0'>
           <DialogTitle className='text-sm md:text-base'>
-            Manage Categories
+            {t('categories.manage.title')}
           </DialogTitle>
           <DialogDescription className='text-xs md:text-sm'>
-            Create, update, and delete menu categories to organize your items
+            {t('categories.manage.description')}
           </DialogDescription>
         </DialogHeader>
 

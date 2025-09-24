@@ -12,8 +12,10 @@ import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import CreateOrderForm from '../form/CreateOrderForm';
 import { parseAsString, useQueryStates } from 'nuqs';
+import { useTranslations } from 'next-intl';
 
 function CreateOrderDialog() {
+  const t = useTranslations('orders');
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [, setParam] = useQueryStates({
     menu_item_filter: parseAsString,
@@ -33,15 +35,13 @@ function CreateOrderDialog() {
         className='[&_span]:hidden sm:[&_span]:inline-block'
       >
         <Plus />
-        <span>New Order</span>
+        <span>{t('actions.newOrder')}</span>
       </Button>
 
       <DialogContent className='max-h-[90vh] !w-full overflow-y-auto md:min-w-3xl'>
         <DialogHeader>
-          <DialogTitle>Create New Order</DialogTitle>
-          <DialogDescription>
-            Add menu items and customer details to create a new order
-          </DialogDescription>
+          <DialogTitle>{t('form.create.title')}</DialogTitle>
+          <DialogDescription>{t('form.create.description')}</DialogDescription>
 
           <CreateOrderForm onClose={() => setIsOpen(false)} />
         </DialogHeader>

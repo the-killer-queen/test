@@ -19,8 +19,10 @@ import { ChevronsUpDown } from 'lucide-react';
 import { useState } from 'react';
 import { ControllerRenderProps } from 'react-hook-form';
 import { icons } from '../../constant/constant';
+import { useTranslations } from 'next-intl';
 
 function ChargeIconsSelector({ ...field }: ControllerRenderProps) {
+  const t = useTranslations('settings');
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
@@ -33,7 +35,9 @@ function ChargeIconsSelector({ ...field }: ControllerRenderProps) {
         >
           <div className='flex items-center gap-2'>
             <DynamicIcon iconName={field.value || 'DollarSign'} />
-            <span className='text-sm'>{field.value || 'Select icon'}</span>
+            <span className='text-sm'>
+              {field.value || t('charges.form.fields.iconPlaceholder')}
+            </span>
           </div>
           <ChevronsUpDown className='h-4 w-4' />
         </Button>

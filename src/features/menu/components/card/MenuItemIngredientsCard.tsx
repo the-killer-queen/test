@@ -9,18 +9,19 @@ import { ChefHat } from 'lucide-react';
 import { Suspense } from 'react';
 import MenuItemIngredientsContentSkeleton from '../skeletons/MenuItemIngredientsContentSkeleton';
 import MenuItemIngredientsContent from '../content/MenuItemIngredientsContent';
+import { getTranslations } from 'next-intl/server';
 
-function MenuItemIngredientsCard({ menuId }: { menuId: string }) {
+async function MenuItemIngredientsCard({ menuId }: { menuId: string }) {
+  const t = await getTranslations('menu');
+
   return (
     <Card>
       <CardHeader>
         <CardTitle className='flex items-center gap-2 text-base font-semibold'>
           <ChefHat className='h-4 w-4' />
-          Ingredients
+          {t('cards.ingredients.title')}
         </CardTitle>
-        <CardDescription>
-          Complete list of ingredients and quantities
-        </CardDescription>
+        <CardDescription>{t('cards.ingredients.description')}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className='flex flex-wrap gap-2'>

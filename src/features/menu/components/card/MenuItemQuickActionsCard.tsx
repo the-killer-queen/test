@@ -4,14 +4,17 @@ import { Copy, Settings, Trash2 } from 'lucide-react';
 import DeleteMenuItemDialog from '../dialog/DeleteMenuItemDialog';
 import DuplicateMenuItemDialog from '../dialog/DuplicateMenuItemDialog';
 import UpdateMenuItemAction from '../layout/UpdateMenuItemAction';
+import { getTranslations } from 'next-intl/server';
 
 async function MenuItemQuickActionsCard({ menuId }: { menuId: string }) {
+  const t = await getTranslations('menu');
+
   return (
     <Card className='flex-1'>
       <CardHeader>
         <CardTitle className='flex items-center gap-2 text-base font-semibold'>
           <Settings className='h-4 w-4' />
-          Quick Actions
+          {t('cards.quickActions.title')}
         </CardTitle>
       </CardHeader>
       <CardContent className='space-y-2'>
@@ -24,7 +27,7 @@ async function MenuItemQuickActionsCard({ menuId }: { menuId: string }) {
         <DuplicateMenuItemDialog menuItemId={+menuId}>
           <Button variant='ghost' size='sm' className='w-full justify-start'>
             <Copy />
-            Duplicate Item
+            {t('cards.quickActions.duplicateItem')}
           </Button>
         </DuplicateMenuItemDialog>
 
@@ -35,7 +38,7 @@ async function MenuItemQuickActionsCard({ menuId }: { menuId: string }) {
             className='w-full justify-start'
           >
             <Trash2 />
-            Delete Item
+            {t('cards.quickActions.deleteItem')}
           </Button>
         </DeleteMenuItemDialog>
       </CardContent>

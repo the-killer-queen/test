@@ -8,10 +8,13 @@ import { formatNumber } from '@/lib/utils';
 import { X } from 'lucide-react';
 import { ControllerRenderProps } from 'react-hook-form';
 import { OrderItem } from '../../lib/types';
+import { useTranslations } from 'next-intl';
 
 type OrderSummaryProps = { field: ControllerRenderProps };
 
 function OrderSummary({ field }: OrderSummaryProps) {
+  const t = useTranslations('orders');
+
   if (field.value.length === 0) return null;
 
   function removeItem(id: number) {
@@ -45,7 +48,7 @@ function OrderSummary({ field }: OrderSummaryProps) {
             onClick={() => field.onChange([])}
             className='text-destructive hover:text-destructive h-6 px-2 text-xs md:h-8 md:px-3 md:text-sm'
           >
-            Clear All
+            {t('menuSelector.clearAll')}
           </Button>
         </div>
       </CardHeader>
@@ -77,7 +80,7 @@ function OrderSummary({ field }: OrderSummaryProps) {
                         maximumFractionDigits: 2,
                       },
                     })}
-                    each
+                    {t('cards.items.each')}
                   </span>
                 </div>
 

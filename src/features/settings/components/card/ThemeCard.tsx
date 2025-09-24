@@ -6,18 +6,19 @@ import {
 } from '@/components/ui/card';
 import { Palette } from 'lucide-react';
 import ThemeContent from '../content/ThemeContent';
+import { getTranslations } from 'next-intl/server';
 
-function ThemeCard() {
+async function ThemeCard() {
+  const t = await getTranslations('settings');
+
   return (
     <Card>
       <CardHeader>
         <CardTitle className='flex items-center gap-2'>
           <Palette className='h-5 w-5' />
-          Appearance
+          {t('theme.title')}
         </CardTitle>
-        <CardDescription>
-          Customize the look and feel of your dashboard
-        </CardDescription>
+        <CardDescription>{t('theme.description')}</CardDescription>
       </CardHeader>
 
       <ThemeContent />

@@ -20,12 +20,14 @@ import EditOrderDialog from '../dialog/EditOrderDialog';
 import OrderPreviewDialog from '../dialog/OrderPreviewDialog';
 import OrderIsPaidSelector from '../selects/OrderIsPaidSelector';
 import OrderIsToGoSelector from '../selects/OrderIsToGoSelector';
+import { useTranslations } from 'next-intl';
 
 type OrdersTableRowProps = {
   order: OrderRow;
 };
 
 function OrdersTableRow({ order }: OrdersTableRowProps) {
+  const t = useTranslations('orders');
   const { excludedColumns } = useExcludedColumnsQuery();
 
   return (
@@ -35,7 +37,9 @@ function OrdersTableRow({ order }: OrdersTableRowProps) {
         <TableCell className='px-2 font-semibold md:px-4'>
           <Button
             variant={'outline'}
-            onClick={(e) => handleCopyOrderId(e, order)}
+            onClick={(e) =>
+              handleCopyOrderId(e, order, t('messages.success.copied'))
+            }
           >
             #
             {order.order_name
@@ -46,7 +50,7 @@ function OrdersTableRow({ order }: OrdersTableRowProps) {
 
         {/* CUSTOMER NAME */}
         <TableCell className='px-2 text-sm font-medium md:px-4'>
-          {order.customer_name || 'Walk-in Customer'}
+          {order.customer_name || t('cards.details.walkInCustomer')}
         </TableCell>
 
         {/* CUSTOMER CONTACT */}
@@ -67,7 +71,8 @@ function OrdersTableRow({ order }: OrdersTableRowProps) {
         {!excludedColumns.includes('items_count') && (
           <TableCell className='px-2 md:px-4'>
             <span className='text-muted-foreground text-xs'>
-              {order.items?.length || 0} items
+              {order.items?.length || 0}{' '}
+              {t('table.headers.items').toLowerCase()}
             </span>
           </TableCell>
         )}
@@ -116,14 +121,14 @@ function OrdersTableRow({ order }: OrdersTableRowProps) {
                   className='hover:!bg-destructive/5 cursor-pointer'
                 >
                   <Trash2 />
-                  Delete
+                  {t('actions.delete')}
                 </DropdownMenuItem>
               </DeleteOrderDialog>
 
               <EditOrderDialog order={order}>
                 <DropdownMenuItem className='!text-info [&_svg]:!text-info hover:!bg-info/5 cursor-pointer'>
                   <SquarePen />
-                  Edit
+                  {t('actions.edit')}
                 </DropdownMenuItem>
               </EditOrderDialog>
 
@@ -138,7 +143,7 @@ function OrdersTableRow({ order }: OrdersTableRowProps) {
                   className='flex items-center gap-2'
                 >
                   <Eye />
-                  View Details
+                  {t('actions.view')} Details
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>

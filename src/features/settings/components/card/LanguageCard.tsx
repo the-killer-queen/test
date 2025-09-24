@@ -6,18 +6,19 @@ import {
 } from '@/components/ui/card';
 import { Globe } from 'lucide-react';
 import LanguageContent from '../content/LanguageContent';
+import { getTranslations } from 'next-intl/server';
 
-function LanguageCard() {
+async function LanguageCard() {
+  const t = await getTranslations('settings');
+
   return (
     <Card>
       <CardHeader>
         <CardTitle className='flex items-center gap-2'>
           <Globe className='h-5 w-5' />
-          Language & Region
+          {t('language.title')}
         </CardTitle>
-        <CardDescription>
-          Choose your preferred language for the interface
-        </CardDescription>
+        <CardDescription>{t('language.description')}</CardDescription>
       </CardHeader>
 
       <LanguageContent />

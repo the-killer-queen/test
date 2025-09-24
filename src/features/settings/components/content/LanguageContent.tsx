@@ -6,8 +6,10 @@ import { Link } from '@/i18n/navigation';
 import { CircleCheck } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import { languages } from '../../constant/constant';
+import { useTranslations } from 'next-intl';
 
 function LanguageContent() {
+  const t = useTranslations('settings');
   const selectedLocale = useLocale();
 
   return (
@@ -40,7 +42,7 @@ function LanguageContent() {
             </div>
             {selectedLocale === locale.code && (
               <Badge className='absolute -top-1 -right-1' variant='secondary'>
-                Active
+                {t('language.active')}
               </Badge>
             )}
           </Link>

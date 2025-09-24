@@ -63,12 +63,16 @@ export function filterOrders(filters: string[], orders: OrderRow[]) {
     : orders;
 }
 
-export function handleCopyOrderId(e: MouseEvent, order: OrderRow) {
+export function handleCopyOrderId(
+  e: MouseEvent,
+  order: OrderRow,
+  successMessage?: string,
+) {
   e.stopPropagation();
 
   const orderIdentifier = order.order_name || order.id;
   if ('clipboard' in navigator)
     navigator.clipboard.writeText(orderIdentifier.toString()).then(() => {
-      toast.success('Order ID copied to clipboard');
+      toast.success(successMessage || 'Order ID copied to clipboard');
     });
 }

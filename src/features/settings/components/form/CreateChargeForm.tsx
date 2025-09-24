@@ -33,8 +33,10 @@ import { useState } from 'react';
 import { createCharge } from '@/supabase/data/charges-service';
 import { Label } from '@/components/ui/label';
 import ChargeIconsSelector from '../layout/ChargeIconsSelector';
+import { useTranslations } from 'next-intl';
 
 function CreateChargeForm({ onClose }: { onClose: () => void }) {
+  const t = useTranslations('settings');
   const form = useForm<CreateAdditionalChargeSchema>({
     resolver: zodResolver(createAdditionalChargeSchema),
     defaultValues: {
@@ -54,7 +56,7 @@ function CreateChargeForm({ onClose }: { onClose: () => void }) {
 
     onClose();
 
-    if (success) toast.success('Additional charge created successfully');
+    if (success) toast.success(t('charges.messages.success.created'));
     if (!success) toast.error(error);
   }
 
@@ -69,10 +71,12 @@ function CreateChargeForm({ onClose }: { onClose: () => void }) {
           control={form.control}
           render={({ field }) => (
             <FormItem className='flex-1'>
-              <FormLabel className='text-xs md:text-sm'>Name</FormLabel>
+              <FormLabel className='text-xs md:text-sm'>
+                {t('charges.form.fields.name')}
+              </FormLabel>
               <FormControl>
                 <Input
-                  placeholder='Enter charge name (e.g., Service Fee, Tax)'
+                  placeholder={t('charges.form.fields.namePlaceholder')}
                   className='text-xs md:text-sm'
                   {...field}
                 />
@@ -88,10 +92,12 @@ function CreateChargeForm({ onClose }: { onClose: () => void }) {
             control={form.control}
             render={({ field }) => (
               <FormItem className='col-span-2'>
-                <FormLabel className='text-xs md:text-sm'>Amount</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>
+                  {t('charges.form.fields.amount')}
+                </FormLabel>
                 <FormControl>
                   <Input
-                    placeholder='0.00'
+                    placeholder={t('charges.form.fields.amountPlaceholder')}
                     inputMode='numeric'
                     type='number'
                     step={0.01}
@@ -114,7 +120,9 @@ function CreateChargeForm({ onClose }: { onClose: () => void }) {
             control={form.control}
             render={({ field }) => (
               <FormItem className='space-y-2 justify-self-end'>
-                <FormLabel className='text-xs md:text-sm'>Status</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>
+                  {t('charges.form.fields.status')}
+                </FormLabel>
                 <FormControl>
                   <div className='flex w-24 items-center space-x-2'>
                     <Switch
@@ -125,7 +133,9 @@ function CreateChargeForm({ onClose }: { onClose: () => void }) {
                       onCheckedChange={field.onChange}
                     />
                     <Label htmlFor='is-active'>
-                      {field.value ? 'Active' : 'Inactive'}
+                      {field.value
+                        ? t('charges.form.fields.active')
+                        : t('charges.form.fields.inactive')}
                     </Label>
                   </div>
                 </FormControl>
@@ -138,7 +148,7 @@ function CreateChargeForm({ onClose }: { onClose: () => void }) {
         <Accordion type='single' collapsible className='!my-1 w-full md:!my-2'>
           <AccordionItem value='item-1'>
             <AccordionTrigger className='text-xs md:text-sm'>
-              Additional Details
+              {t('charges.form.additionalDetails')}
             </AccordionTrigger>
             <AccordionContent className='mx-0 my-0 space-y-4 md:mx-1 md:my-1 md:space-y-6'>
               <FormField
@@ -146,12 +156,14 @@ function CreateChargeForm({ onClose }: { onClose: () => void }) {
                 control={form.control}
                 render={({ field }) => (
                   <FormItem className='flex-1'>
-                    <FormLabel className='text-xs md:text-sm'>Icon</FormLabel>
+                    <FormLabel className='text-xs md:text-sm'>
+                      {t('charges.form.fields.icon')}
+                    </FormLabel>
                     <FormControl>
                       <ChargeIconsSelector {...field} />
                     </FormControl>
                     <p className='text-muted-foreground text-xs'>
-                      Choose an icon to represent this charge
+                      {t('charges.form.fields.iconDescription')}
                     </p>
                     <FormMessage />
                   </FormItem>
@@ -164,7 +176,7 @@ function CreateChargeForm({ onClose }: { onClose: () => void }) {
                 render={({ field }) => (
                   <FormItem className='flex-1'>
                     <FormLabel className='flex justify-between text-xs md:text-sm'>
-                      Description
+                      {t('charges.form.fields.description')}
                       <Small>{charLength}/280</Small>
                     </FormLabel>
                     <FormControl>
@@ -172,7 +184,9 @@ function CreateChargeForm({ onClose }: { onClose: () => void }) {
                         maxLength={280}
                         className='max-h-28 text-xs md:text-sm'
                         autoComplete='on'
-                        placeholder='Write a short description of this additional charge'
+                        placeholder={t(
+                          'charges.form.fields.descriptionPlaceholder',
+                        )}
                         {...field}
                         onChange={(e) => {
                           setCharLength(e.target.value.length);
@@ -190,11 +204,13 @@ function CreateChargeForm({ onClose }: { onClose: () => void }) {
 
         <div className='flex items-center justify-center gap-1 md:gap-2'>
           <Button disabled={isLoading} variant={'secondary'} onClick={onClose}>
-            Cancel
+            {t('charges.form.create.cancel')}
           </Button>
           <Button variant={'default'} disabled={isLoading} className='flex-1'>
             {isLoading ? <Spinner /> : <Plus />}
-            {isLoading ? 'Creating...' : 'Create Charge'}
+            {isLoading
+              ? t('charges.form.create.submitting')
+              : t('charges.form.create.submit')}
           </Button>
         </div>
       </form>

@@ -19,12 +19,14 @@ import { Copy, Ellipsis, Eye, SquarePen, Trash2 } from 'lucide-react';
 import DeleteMenuItemDialog from '../dialog/DeleteMenuItemDialog';
 import DuplicateMenuItemDialog from '../dialog/DuplicateMenuItemDialog';
 import UpdateMenuItemDialog from '../dialog/UpdateMenuItemDialog';
+import { useTranslations } from 'next-intl';
 
 type MenuTableRowProps = {
   menuItem: MenuRow;
 };
 
 function MenuTableRow({ menuItem }: MenuTableRowProps) {
+  const t = useTranslations('menu');
   const { excludedColumns } = useExcludedColumnsQuery();
 
   return (
@@ -112,13 +114,13 @@ function MenuTableRow({ menuItem }: MenuTableRowProps) {
                 className='hover:!bg-destructive/5 cursor-pointer'
               >
                 <Trash2 />
-                Delete
+                {t('actions.delete')}
               </DropdownMenuItem>
             </DeleteMenuItemDialog>
             <UpdateMenuItemDialog menuItem={menuItem}>
               <DropdownMenuItem className='!text-info [&_svg]:!text-info hover:!bg-info/5 cursor-pointer'>
                 <SquarePen />
-                Edit
+                {t('actions.edit')}
               </DropdownMenuItem>
             </UpdateMenuItemDialog>
 
@@ -128,7 +130,7 @@ function MenuTableRow({ menuItem }: MenuTableRowProps) {
             >
               <DropdownMenuItem className='!text-warning [&_svg]:!text-warning hover:!bg-warning/5 cursor-pointer'>
                 <Copy />
-                Duplicate
+                {t('actions.duplicate')}
               </DropdownMenuItem>
             </DuplicateMenuItemDialog>
 
@@ -142,7 +144,7 @@ function MenuTableRow({ menuItem }: MenuTableRowProps) {
                 className='flex items-center gap-2'
               >
                 <Eye />
-                View
+                {t('actions.view')}
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>

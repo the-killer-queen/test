@@ -1,5 +1,21 @@
 'use client';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { SquarePen } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+
+import Spinner from '@/components/shared/Spinner';
+import UploadImage from '@/components/shared/UploadImage';
+import { Small } from '@/components/typography/Small';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -10,31 +26,17 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { MenuRow } from '@/types/tables';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { SquarePen } from 'lucide-react';
-import { useForm } from 'react-hook-form';
+import { Textarea } from '@/components/ui/textarea';
 
 import { updateMenuItem } from '@/supabase/data/menu-service';
-import Spinner from '@/components/shared/Spinner';
-import UploadImage from '@/components/shared/UploadImage';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion';
-import { toast } from 'sonner';
+import { MenuRow } from '@/types/tables';
 import {
   updateMenuItemSchema,
   UpdateMenuItemSchema,
 } from '../../schema/schema';
+import CategorySelect from '../selects/CategorySelect';
 import IngredientsList from '../selects/IngredientsList';
 import CreateIngredientsForm from './CreateIngredientsForm';
-import CategorySelect from '../selects/CategorySelect';
-import { Small } from '@/components/typography/Small';
-import { Textarea } from '@/components/ui/textarea';
-import { useState } from 'react';
 
 type MenuItemUpdateFormProps = {
   onClose: () => void;
@@ -45,6 +47,8 @@ function UpdateMenuItemForm({
   menuToUpdate,
   onClose,
 }: MenuItemUpdateFormProps) {
+  const t = useTranslations('menu');
+
   const form = useForm<UpdateMenuItemSchema>({
     resolver: zodResolver(updateMenuItemSchema),
     defaultValues: {
@@ -64,9 +68,11 @@ function UpdateMenuItemForm({
           },
     },
   });
-  const isLoading = form.formState.isSubmitting;
 
-  const [charLength, setCharLength] = useState<number>(0);
+  const isLoading = form.formState.isSubmitting;
+  const [charLength, setCharLength] = useState<number>(
+    menuToUpdate?.description?.length || 0,
+  );
 
   async function onSubmit(values: UpdateMenuItemSchema) {
     const { success, error } = await updateMenuItem(
@@ -80,7 +86,7 @@ function UpdateMenuItemForm({
 
     onClose();
 
-    if (success) toast.success('Updated Successfully');
+    if (success) toast.success(t('messages.success.updated'));
     if (!success) toast.error(error);
   }
 
@@ -95,10 +101,12 @@ function UpdateMenuItemForm({
           control={form.control}
           render={({ field }) => (
             <FormItem className='flex-1'>
-              <FormLabel className='text-xs md:text-sm'>Name</FormLabel>
+              <FormLabel className='text-xs md:text-sm'>
+                {t('form.fields.name')}
+              </FormLabel>
               <FormControl>
                 <Input
-                  placeholder='Enter menu item name'
+                  placeholder={t('form.fields.namePlaceholder')}
                   className='text-xs md:text-sm'
                   {...field}
                 />
@@ -114,10 +122,12 @@ function UpdateMenuItemForm({
             control={form.control}
             render={({ field }) => (
               <FormItem className='flex-1'>
-                <FormLabel className='text-xs md:text-sm'>Price</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>
+                  {t('form.fields.price')}
+                </FormLabel>
                 <FormControl>
                   <Input
-                    placeholder='0.00'
+                    placeholder={t('form.fields.pricePlaceholder')}
                     inputMode='numeric'
                     type='number'
                     step={0.01}
@@ -141,7 +151,7 @@ function UpdateMenuItemForm({
             render={({ field }) => (
               <FormItem className='flex-1'>
                 <FormLabel className='text-xs md:text-sm'>
-                  Category (Optional)
+                  {t('form.fields.categoryOptional')}
                 </FormLabel>
                 <FormControl>
                   <CategorySelect {...field} />
@@ -160,7 +170,7 @@ function UpdateMenuItemForm({
         >
           <AccordionItem value='item-1'>
             <AccordionTrigger className='text-xs md:text-sm'>
-              Additional Details
+              {t('form.additionalDetails')}
             </AccordionTrigger>
             <AccordionContent className='mx-0 my-0 space-y-4 md:mx-1 md:my-1 md:space-y-6'>
               <FormField
@@ -169,7 +179,7 @@ function UpdateMenuItemForm({
                 render={({ field }) => (
                   <FormItem className='flex-1'>
                     <FormLabel className='text-xs md:text-sm'>
-                      Ingredients
+                      {t('form.fields.ingredients')}
                     </FormLabel>
                     <FormControl>
                       <div className='flex flex-col gap-2'>
@@ -183,7 +193,10 @@ function UpdateMenuItemForm({
                                 ...(field.value ?? []),
                                 value,
                               ]);
-                            else toast.warning('Ingredient already added');
+                            else
+                              toast.warning(
+                                t('messages.warning.ingredientExists'),
+                              );
                           }}
                         />
 
@@ -201,7 +214,7 @@ function UpdateMenuItemForm({
                 render={({ field }) => (
                   <FormItem className='flex-1'>
                     <FormLabel className='flex justify-between text-xs md:text-sm'>
-                      Description
+                      {t('form.fields.description')}
                       <Small>{charLength}/280</Small>
                     </FormLabel>
                     <FormControl>
@@ -209,7 +222,7 @@ function UpdateMenuItemForm({
                         maxLength={280}
                         className='max-h-28 text-xs md:text-sm'
                         autoComplete='on'
-                        placeholder='Write a short description of the menu item'
+                        placeholder={t('form.fields.descriptionPlaceholder')}
                         {...field}
                         onChange={(e) => {
                           setCharLength(e.target.value.length);
@@ -249,7 +262,7 @@ function UpdateMenuItemForm({
             variant={'secondary'}
             onClick={onClose}
           >
-            Cancel
+            {t('form.update.cancel')}
           </Button>
           <Button
             variant={'default'}
@@ -257,7 +270,7 @@ function UpdateMenuItemForm({
             className='!bg-info/15 !text-info [&_svg]:!text-info hover:!bg-info/10 flex-1'
           >
             {isLoading ? <Spinner /> : <SquarePen />}
-            {isLoading ? 'Updating...' : 'Update Item'}
+            {isLoading ? t('form.update.submitting') : t('form.update.submit')}
           </Button>
         </div>
       </form>

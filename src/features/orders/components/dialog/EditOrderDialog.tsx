@@ -11,6 +11,7 @@ import {
 import { OrderRow } from '@/types/tables';
 import { cloneElement, ReactElement, useState } from 'react';
 import EditOrderForm from '../form/EditOrderForm';
+import { useTranslations } from 'next-intl';
 
 type EditOrderProps = {
   order: OrderRow;
@@ -18,6 +19,7 @@ type EditOrderProps = {
 };
 
 function EditOrderDialog({ order, children }: EditOrderProps) {
+  const t = useTranslations('orders');
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
@@ -33,8 +35,8 @@ function EditOrderDialog({ order, children }: EditOrderProps) {
 
       <DialogContent className='max-h-[90vh] !w-full overflow-y-auto md:min-w-3xl lg:md:min-w-4xl xl:min-w-6xl'>
         <DialogHeader>
-          <DialogTitle>Edit Order</DialogTitle>
-          <DialogDescription>Update order details and items</DialogDescription>
+          <DialogTitle>{t('form.edit.title')}</DialogTitle>
+          <DialogDescription>{t('form.edit.description')}</DialogDescription>
 
           <EditOrderForm orderToEdit={order} onClose={() => setIsOpen(false)} />
         </DialogHeader>

@@ -22,6 +22,7 @@ import {
 } from '@/supabase/data/menu-service';
 import { ArrowLeft } from 'lucide-react';
 import { notFound } from 'next/navigation';
+import { getTranslations } from 'next-intl/server';
 
 export async function generateStaticParams() {
   const ids = await getAllMenuItemIds();
@@ -31,6 +32,7 @@ export async function generateStaticParams() {
 async function MenuItemPageView({
   params,
 }: PageProps<'/[locale]/dashboard/menu/view/[menuId]'>) {
+  const t = await getTranslations('menu');
   const { menuId } = await params;
   const { exists, error } = await checkMenuItemExists(+menuId);
 
@@ -38,14 +40,11 @@ async function MenuItemPageView({
 
   return (
     <>
-      <LayoutHeader
-        title={'Menu Item Preview'}
-        description={'Preview and manage your menu item details.'}
-      >
+      <LayoutHeader title={t('view.title')} description={t('view.description')}>
         <Button variant='link' size='sm' asChild>
           <Link href={'/dashboard/menu'}>
             <ArrowLeft />
-            <span className='hidden sm:block'>Go Back</span>
+            <span className='hidden sm:block'>{t('view.goBack')}</span>
           </Link>
         </Button>
       </LayoutHeader>
@@ -54,16 +53,14 @@ async function MenuItemPageView({
         <Card>
           <CardHeader>
             <CardTitle className='flex items-center justify-between'>
-              <span>Menu Item Details</span>
+              <span>{t('view.details.title')}</span>
               <UpdateMenuItemAction
                 menuId={menuId}
                 variant={'default'}
                 className='[&_span]:hidden sm:[&_span]:inline-block'
               />
             </CardTitle>
-            <CardDescription>
-              View details, ingredients, and quick actions for this item.
-            </CardDescription>
+            <CardDescription>{t('view.details.description')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className='grid h-full w-full grid-cols-1 gap-4 lg:grid-cols-2'>

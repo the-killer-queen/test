@@ -10,8 +10,10 @@ import {
   menuExcludedColumnsOptions,
   menuSortByOptions,
 } from '../../lib/constant';
+import { getTranslations } from 'next-intl/server';
 
 async function MenuActions() {
+  const t = await getTranslations('menu');
   const { data: selectedCategories, error: selectedCatError } =
     await getMenuSelectedCategories();
 
@@ -29,7 +31,7 @@ async function MenuActions() {
 
       <div className='flex w-full items-center gap-1 md:gap-2'>
         <Search
-          placeholder='Search menu items...'
+          placeholder={t('ctaActions.search')}
           className='col-span-2 text-xs md:text-sm'
         />
         <ManageCategoriesDialog />

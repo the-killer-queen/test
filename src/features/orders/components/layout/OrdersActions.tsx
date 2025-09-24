@@ -9,8 +9,11 @@ import {
   orderFilterOptions,
   orderSortByOptions,
 } from '../../lib/constant';
+import { getTranslations } from 'next-intl/server';
 
 async function OrdersActions() {
+  const t = await getTranslations('orders');
+
   return (
     <div className='my-1 flex flex-col-reverse gap-2 md:my-2 xl:flex-row'>
       <div className='flex items-center gap-1 md:gap-2'>
@@ -20,7 +23,7 @@ async function OrdersActions() {
       </div>
 
       <div className='flex w-full items-center gap-2'>
-        <Search placeholder='Search orders...' className='col-span-2' />
+        <Search placeholder={t('actions.search')} className='col-span-2' />
         <DateRangePicker />
         <CreateOrderDialog />
       </div>

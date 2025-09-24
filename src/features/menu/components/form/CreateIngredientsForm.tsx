@@ -16,12 +16,14 @@ import {
   menuIngredientSchema,
   MenuIngredientSchema,
 } from '../../schema/schema';
+import { useTranslations } from 'next-intl';
 
 type CreateIngredientsFormProps = {
   onCreate: (ing: MenuIngredientSchema) => void;
 };
 
 function CreateIngredientsForm({ onCreate }: CreateIngredientsFormProps) {
+  const t = useTranslations('menu');
   const form = useForm<MenuIngredientSchema>({
     resolver: zodResolver(menuIngredientSchema),
     defaultValues: {
@@ -47,7 +49,7 @@ function CreateIngredientsForm({ onCreate }: CreateIngredientsFormProps) {
               <FormControl>
                 <Input
                   type='text'
-                  placeholder='Ingredient quantity'
+                  placeholder={t('form.fields.ingredientQuantity')}
                   className='text-xs md:text-sm'
                   {...field}
                 />
@@ -65,7 +67,7 @@ function CreateIngredientsForm({ onCreate }: CreateIngredientsFormProps) {
                 <div className='flex items-center gap-1 md:gap-2'>
                   <Input
                     type='text'
-                    placeholder='Ingredient name'
+                    placeholder={t('form.fields.ingredientName')}
                     className='text-xs md:text-sm'
                     {...field}
                   />

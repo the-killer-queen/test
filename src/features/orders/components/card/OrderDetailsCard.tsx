@@ -16,29 +16,35 @@ import {
   User,
 } from 'lucide-react';
 import CardError from '../error/CardError';
+import { getTranslations } from 'next-intl/server';
 
 async function OrderDetailsCard({ orderId }: { orderId: string }) {
+  const t = await getTranslations('orders');
   const { data: order, error } = await getOrderById(orderId);
 
   if (error || !order)
-    return <CardError message='Failed to load order details' />;
+    return (
+      <CardError
+        message={t('messages.error.failedToLoad', { item: 'order details' })}
+      />
+    );
 
   return (
     <Card>
       <CardHeader>
         <CardTitle className='flex items-center gap-2 text-base font-semibold'>
           <FileText className='h-4 w-4' />
-          Order Details
+          {t('cards.details.title')}
         </CardTitle>
       </CardHeader>
       <CardContent className='space-y-2'>
         <div className='flex items-center justify-between'>
           <span className='text-muted-foreground flex items-center gap-1 text-sm'>
             <User className='size-4' />
-            Customer
+            {t('cards.details.customer')}
           </span>
           <span className='text-sm font-semibold'>
-            {order.customer_name || 'Walk-in Customer'}
+            {order.customer_name || t('cards.details.walkInCustomer')}
           </span>
         </div>
 
@@ -48,7 +54,7 @@ async function OrderDetailsCard({ orderId }: { orderId: string }) {
             <div className='flex items-center justify-between'>
               <span className='text-muted-foreground flex items-center gap-1 text-sm'>
                 <Phone className='size-4' />
-                Contact
+                {t('cards.details.contact')}
               </span>
               <span className='text-sm'>{order.customer_contact}</span>
             </div>
@@ -59,7 +65,7 @@ async function OrderDetailsCard({ orderId }: { orderId: string }) {
         <div className='flex items-center justify-between'>
           <span className='text-muted-foreground flex items-center gap-1 text-sm'>
             <MapPin className='size-4' />
-            Type
+            {t('cards.details.type')}
           </span>
           <Badge variant='secondary'>
             {order.is_togo ? (
@@ -67,7 +73,7 @@ async function OrderDetailsCard({ orderId }: { orderId: string }) {
             ) : (
               <MapPin className='size-3' />
             )}
-            {order.is_togo ? 'To Go' : 'Dine In'}
+            {order.is_togo ? t('type.togo') : t('type.dinein')}
           </Badge>
         </div>
 
@@ -75,7 +81,7 @@ async function OrderDetailsCard({ orderId }: { orderId: string }) {
         <div className='flex items-center justify-between'>
           <span className='text-muted-foreground flex items-center gap-1 text-sm'>
             <CreditCard className='size-4' />
-            Status
+            {t('cards.details.status')}
           </span>
           <Badge
             variant={order.status === 'paid' ? 'default' : 'outline'}
@@ -88,7 +94,7 @@ async function OrderDetailsCard({ orderId }: { orderId: string }) {
             ) : (
               <Clock className='size-3' />
             )}
-            {order.status}
+            {t(`status.${order.status}`)}
           </Badge>
         </div>
 
@@ -96,7 +102,7 @@ async function OrderDetailsCard({ orderId }: { orderId: string }) {
         <div className='flex items-center justify-between'>
           <span className='text-muted-foreground flex items-center gap-1 text-sm'>
             <DollarSign className='size-4' />
-            Total
+            {t('cards.details.total')}
           </span>
           <span className='text-sm font-semibold'>
             {formatNumber({
@@ -115,7 +121,7 @@ async function OrderDetailsCard({ orderId }: { orderId: string }) {
         <div className='flex items-center justify-between'>
           <span className='text-muted-foreground flex items-center gap-1 text-sm'>
             <Calendar className='size-4' />
-            Created
+            {t('cards.details.created')}
           </span>
           <span className='text-sm'>
             {format(new Date(order.created_at), 'MMM dd, yyyy HH:mm')}

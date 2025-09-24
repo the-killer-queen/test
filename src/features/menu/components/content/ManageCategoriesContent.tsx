@@ -7,8 +7,11 @@ import CategoriesListContent from './CategoriesListContent';
 import CreateCategoryDialog from '../dialog/CreateCategoryDialog';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 function ManageCategoriesContent() {
+  const t = useTranslations('menu');
+
   return (
     <div className='space-y-6'>
       <Card>
@@ -19,7 +22,7 @@ function ManageCategoriesContent() {
             <CreateCategoryDialog>
               <Button size='sm' className='mt-2 w-full'>
                 <Plus />
-                Add Category
+                {t('categories.create.addCategory')}
               </Button>
             </CreateCategoryDialog>
           </Suspense>

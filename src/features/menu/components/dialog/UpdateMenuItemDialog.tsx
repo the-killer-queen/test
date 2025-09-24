@@ -11,6 +11,7 @@ import {
 import { MenuRow } from '@/types/tables';
 import { cloneElement, ReactElement, useState } from 'react';
 import UpdateMenuItemForm from '../form/UpdateMenuItemForm';
+import { useTranslations } from 'next-intl';
 
 type EditMenuItemProps = {
   menuItem: MenuRow;
@@ -18,6 +19,7 @@ type EditMenuItemProps = {
 };
 
 function UpdateMenuItemDialog({ menuItem, children }: EditMenuItemProps) {
+  const t = useTranslations('menu');
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
@@ -34,10 +36,10 @@ function UpdateMenuItemDialog({ menuItem, children }: EditMenuItemProps) {
       <DialogContent className='max-h-[90vh] !w-full overflow-y-auto md:min-w-3xl'>
         <DialogHeader>
           <DialogTitle className='text-sm md:text-base'>
-            Update Menu Item
+            {t('form.update.title')}
           </DialogTitle>
           <DialogDescription className='text-xs md:text-sm'>
-            Update the details of your menu item
+            {t('form.update.description')}
           </DialogDescription>
 
           <UpdateMenuItemForm

@@ -8,24 +8,23 @@ import {
 } from '@/components/ui/card';
 import { MenuActions, MenuTable } from '@/features/menu';
 import MenuFiltersList from '@/components/shared/FiltersList';
+import { getTranslations } from 'next-intl/server';
 
-function MenuPage() {
+async function MenuPage() {
+  const t = await getTranslations('menu');
+
   return (
     <>
       <LayoutHeader
-        title={'Manage Your Menu'}
-        description={
-          'Create, organize, and manage your menu items in one place.'
-        }
+        title={t('page.title')}
+        description={t('page.description')}
       />
 
       <div className='flex flex-col gap-4 p-4'>
         <Card>
           <CardHeader>
-            <CardTitle>Your Menu Items</CardTitle>
-            <CardDescription>
-              Easily manage and update your menu.
-            </CardDescription>
+            <CardTitle>{t('table.title')}</CardTitle>
+            <CardDescription>{t('table.description')}</CardDescription>
 
             <MenuActions />
             <MenuFiltersList />

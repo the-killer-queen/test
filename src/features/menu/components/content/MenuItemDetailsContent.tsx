@@ -12,13 +12,18 @@ import {
   DollarSign,
   TagIcon,
 } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 
 async function MenuItemDetailsContent({ menuId }: { menuId: string }) {
+  const t = await getTranslations('menu');
   const { data: details, error } = await getMenuItemDetails(+menuId);
   if (error || !details) {
     return (
       <CardContent className='flex flex-col items-center justify-center py-8'>
-        <ErrorState message='Failed to load details' iconClassName='h-8 w-8' />
+        <ErrorState
+          message={t('messages.error.failedToLoadDetails')}
+          iconClassName='h-8 w-8'
+        />
       </CardContent>
     );
   }
@@ -28,7 +33,7 @@ async function MenuItemDetailsContent({ menuId }: { menuId: string }) {
       <div className='flex items-center justify-between'>
         <span className='text-muted-foreground flex items-center gap-1 text-sm'>
           <TagIcon className='size-4' />
-          Name
+          {t('cards.details.name')}
         </span>
         <span className='text-sm font-semibold'>{details.name}</span>
       </div>
@@ -38,7 +43,7 @@ async function MenuItemDetailsContent({ menuId }: { menuId: string }) {
       <div className='flex items-center justify-between'>
         <span className='text-muted-foreground flex items-center gap-1 text-sm'>
           <DollarSign className='size-4' />
-          Price
+          {t('cards.details.price')}
         </span>
         <span className='text-sm font-semibold'>
           {formatNumber({
@@ -53,7 +58,7 @@ async function MenuItemDetailsContent({ menuId }: { menuId: string }) {
       <div className='flex items-center justify-between'>
         <span className='text-muted-foreground flex items-center gap-1 text-sm'>
           <ChartColumnStacked className='size-4' />
-          Category
+          {t('cards.details.category')}
         </span>
         <Badge variant={'secondary'}>
           <DynamicIcon iconName='Sandwich' />
@@ -66,7 +71,7 @@ async function MenuItemDetailsContent({ menuId }: { menuId: string }) {
       <div className='flex items-center justify-between'>
         <span className='text-muted-foreground flex items-center gap-1 text-sm'>
           <Calendar className='size-4' />
-          Created
+          {t('cards.details.created')}
         </span>
         <span className='text-sm'>
           {format(details.created_at, 'dd MMM yyyy')}

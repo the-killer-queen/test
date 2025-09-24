@@ -24,16 +24,19 @@ import { ControllerRenderProps } from 'react-hook-form';
 import { useGetMenuCategories } from '../../../../hooks/useGetMenuCategories';
 import CreateCategoryDialog from '../dialog/CreateCategoryDialog';
 import CategorySelectSkeleton from '../skeletons/CategorySelectSkeleton';
+import { useTranslations } from 'next-intl';
 
 function CategorySelect({
   ...field
 }: ControllerRenderProps & {
   'aria-invalid'?: boolean;
 }) {
+  const t = useTranslations('menu');
   const { isPending, categories, error } = useGetMenuCategories();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  if (error) return <ErrorState message='Failed to load categories' />;
+  if (error)
+    return <ErrorState message={t('messages.error.failedToLoadCategories')} />;
 
   if (isPending || !categories) return <CategorySelectSkeleton />;
 
@@ -53,7 +56,7 @@ function CategorySelect({
                 {field.value.name}
               </span>
             ) : (
-              'Select category...'
+              t('form.fields.categoryPlaceholder')
             )}
             <ChevronsUpDown />
           </Button>
@@ -64,13 +67,13 @@ function CategorySelect({
         >
           <Command>
             <CommandInput
-              placeholder='Search categories...'
+              placeholder={t('categories.search')}
               className='text-xs md:text-sm'
             />
             <CommandEmpty className='flex justify-center'>
               <span className='text-muted-foreground flex items-center gap-1 px-2 py-1 text-xs font-medium md:gap-2 md:py-1.5 md:text-sm'>
                 <Inbox className='size-3 md:size-4' />
-                No categories available
+                {t('categories.noCategoriesAvailable')}
               </span>
             </CommandEmpty>
             <CommandList>

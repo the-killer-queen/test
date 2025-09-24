@@ -29,8 +29,10 @@ import MenuItemsSelector from '../selects/MenuItemsSelector';
 import OrderStatusSelect from '../selects/OrderStatusSelect';
 import OrderTypeSelect from '../selects/OrderTypeSelect';
 import { parseAsString, useQueryStates } from 'nuqs';
+import { useTranslations } from 'next-intl';
 
 function CreateOrderForm({ onClose }: { onClose: () => void }) {
+  const t = useTranslations('orders');
   const form = useForm<CreateOrderSchema>({
     resolver: zodResolver(createOrderSchema),
     defaultValues: {
@@ -64,7 +66,7 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
     onClose();
     setParam(null);
 
-    if (success) toast.success('Order Created Successfully');
+    if (success) toast.success(t('messages.success.created'));
     if (!success) toast.error(error);
   }
 
@@ -80,7 +82,9 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='text-xs md:text-sm'>Order Type</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>
+                  {t('form.fields.orderType')}
+                </FormLabel>
                 <FormControl>
                   <OrderTypeSelect {...field} />
                 </FormControl>
@@ -94,7 +98,9 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='text-xs md:text-sm'>Status</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>
+                  {t('form.fields.status')}
+                </FormLabel>
                 <FormControl>
                   <OrderStatusSelect {...field} />
                 </FormControl>
@@ -109,7 +115,9 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='text-xs md:text-sm'>Order Items</FormLabel>
+              <FormLabel className='text-xs md:text-sm'>
+                {t('form.fields.orderItems')}
+              </FormLabel>
               <FormControl>
                 <MenuItemsSelector {...field} />
               </FormControl>
@@ -121,7 +129,7 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
         <Accordion type='single' collapsible className='!my-1 w-full md:!my-2'>
           <AccordionItem value='item-1'>
             <AccordionTrigger className='text-xs md:text-sm'>
-              Additional Details
+              {t('form.additionalDetails')}
             </AccordionTrigger>
             <AccordionContent className='mx-0 my-0 space-y-4 md:mx-1 md:my-1 md:space-y-6'>
               <div className='grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-4'>
@@ -131,11 +139,11 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-xs md:text-sm'>
-                        Customer Name
+                        {t('form.fields.customerName')}
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder='Enter customer name'
+                          placeholder={t('form.fields.customerNamePlaceholder')}
                           className='text-xs md:text-sm'
                           {...field}
                         />
@@ -151,11 +159,11 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-xs md:text-sm'>
-                        Contact Info
+                        {t('form.fields.contactInfo')}
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder='Phone or email'
+                          placeholder={t('form.fields.contactInfoPlaceholder')}
                           className='text-xs md:text-sm'
                           {...field}
                         />
@@ -172,11 +180,11 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className='text-xs md:text-sm'>
-                      Order Name
+                      {t('form.fields.orderName')}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Custom order name'
+                        placeholder={t('form.fields.orderNamePlaceholder')}
                         className='text-xs md:text-sm'
                         {...field}
                       />
@@ -191,11 +199,13 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className='text-xs md:text-sm'>Notes</FormLabel>
+                    <FormLabel className='text-xs md:text-sm'>
+                      {t('form.fields.notes')}
+                    </FormLabel>
                     <FormControl>
                       <Textarea
                         className='max-h-28 text-xs md:text-sm'
-                        placeholder='Special instructions or notes'
+                        placeholder={t('form.fields.notesPlaceholder')}
                         {...field}
                       />
                     </FormControl>
@@ -209,11 +219,11 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
 
         <div className='flex items-center justify-center gap-1 md:gap-2'>
           <Button disabled={isLoading} variant={'secondary'} onClick={onClose}>
-            Cancel
+            {t('form.create.cancel')}
           </Button>
           <Button variant={'default'} disabled={isLoading} className='flex-1'>
             {isLoading ? <Spinner /> : <Plus />}
-            {isLoading ? 'Creating...' : 'Create Order'}
+            {isLoading ? t('form.create.submitting') : t('form.create.submit')}
           </Button>
         </div>
       </form>

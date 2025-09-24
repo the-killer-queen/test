@@ -16,10 +16,12 @@ import { parseAsString, useQueryState } from 'nuqs';
 import { ControllerRenderProps } from 'react-hook-form';
 import { OrderItem } from '../../lib/types';
 import { Input } from '@/components/ui/input';
+import { useTranslations } from 'next-intl';
 
 type OrderItemListProps = { field: ControllerRenderProps };
 
 function OrderItemList({ field }: OrderItemListProps) {
+  const t = useTranslations('orders');
   const [query] = useQueryState(
     'menu_item_query',
     parseAsString.withDefault(''),
@@ -199,7 +201,7 @@ function OrderItemList({ field }: OrderItemListProps) {
                         className='h-6 px-2 text-xs md:h-8 md:px-3 md:text-sm [&_span]:hidden'
                       >
                         <Plus className='h-3 w-3 md:h-4 md:w-4' />
-                        <span>Add to Order</span>
+                        <span>{t('menuSelector.addToOrder')}</span>
                       </Button>
                     )}
                   </div>

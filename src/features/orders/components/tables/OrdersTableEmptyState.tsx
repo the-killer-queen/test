@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { Search, ShoppingCart } from 'lucide-react';
 import CreateOrderDialog from '../dialog/CreateOrderDialog';
+import { useTranslations } from 'next-intl';
 
 type OrdersTableEmptyStateProps = {
   type: 'no-data' | 'no-results' | 'error';
@@ -18,18 +19,20 @@ function OrdersTableEmptyState({
   filterBy,
   onClearFilters,
 }: OrdersTableEmptyStateProps) {
+  const t = useTranslations('orders');
+
   const getEmptyStateContent = () => {
     switch (type) {
       case 'no-results':
         return {
           icon: <Search className='text-muted-foreground h-12 w-12' />,
           title: searchQuery
-            ? `No results for "${searchQuery}"`
-            : 'No orders found',
+            ? t('table.empty.noResults.title', { query: searchQuery })
+            : t('table.empty.noResults.titleNoQuery'),
           description:
             searchQuery || filterBy
-              ? "Try adjusting your search or filters to find what you're looking for."
-              : 'No orders match your current filters.',
+              ? t('table.empty.noResults.description')
+              : t('table.empty.noResults.descriptionNoQuery'),
           action:
             (searchQuery || filterBy) && onClearFilters ? (
               <Button
@@ -37,7 +40,7 @@ function OrdersTableEmptyState({
                 onClick={onClearFilters}
                 className='mt-4'
               >
-                Clear filters
+                {t('table.empty.noResults.clearFilters')}
               </Button>
             ) : null,
         };
@@ -45,16 +48,15 @@ function OrdersTableEmptyState({
       case 'error':
         return {
           icon: <ShoppingCart className='text-muted-foreground h-12 w-12' />,
-          title: 'Unable to load orders',
-          description:
-            'There was a problem loading your orders. Please try again.',
+          title: t('table.empty.error.title'),
+          description: t('table.empty.error.description'),
           action: (
             <Button
               variant='outline'
               onClick={() => window.location.reload()}
               className='mt-4'
             >
-              Try again
+              {t('table.empty.error.tryAgain')}
             </Button>
           ),
         };
@@ -63,9 +65,8 @@ function OrdersTableEmptyState({
       default:
         return {
           icon: <ShoppingCart className='text-muted-foreground h-12 w-12' />,
-          title: 'No orders yet',
-          description:
-            'Get started by creating your first order to track customer purchases.',
+          title: t('table.empty.noData.title'),
+          description: t('table.empty.noData.description'),
           action: <CreateOrderDialog />,
         };
     }

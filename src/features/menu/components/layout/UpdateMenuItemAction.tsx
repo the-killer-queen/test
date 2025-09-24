@@ -3,6 +3,7 @@ import { getMenuItemById } from '@/supabase/data/menu-service';
 import { VariantProps } from 'class-variance-authority';
 import { Edit, AlertTriangle } from 'lucide-react';
 import UpdateMenuItemDialog from '../dialog/UpdateMenuItemDialog';
+import { getTranslations } from 'next-intl/server';
 
 type UpdateMenuItemActionProps = {
   menuId: string;
@@ -15,6 +16,7 @@ async function UpdateMenuItemAction({
   variant,
   menuId,
 }: UpdateMenuItemActionProps) {
+  const t = await getTranslations('menu');
   const { data: menuItem, error } = await getMenuItemById(+menuId);
   if (!menuItem || error) {
     return (
@@ -29,7 +31,7 @@ async function UpdateMenuItemAction({
     <UpdateMenuItemDialog menuItem={menuItem}>
       <Button variant={variant} size='sm' className={className}>
         <Edit />
-        <span>Edit Item</span>
+        <span>{t('cards.quickActions.editItem')}</span>
       </Button>
     </UpdateMenuItemDialog>
   );

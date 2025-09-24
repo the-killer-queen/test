@@ -22,6 +22,7 @@ import { ArrowLeft, Settings } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
+import { getTranslations } from 'next-intl/server';
 
 export async function generateStaticParams() {
   const ordersId = await getAllOrdersId();
@@ -31,6 +32,7 @@ export async function generateStaticParams() {
 async function OrderViewPage({
   params,
 }: PageProps<'/[locale]/dashboard/orders/view/[orderId]'>) {
+  const t = await getTranslations('orders');
   const { orderId } = await params;
 
   const { data: order, error } = await getOrderById(orderId);
@@ -43,13 +45,13 @@ async function OrderViewPage({
   return (
     <>
       <LayoutHeader
-        title={`Order ${orderDisplayName}`}
-        description='View and manage order details, items, and customer information.'
+        title={t('view.title', { orderName: orderDisplayName })}
+        description={t('view.description')}
       >
         <Button variant='link' size='sm' asChild>
           <Link href='/dashboard/orders'>
             <ArrowLeft />
-            <span className='hidden sm:block'>Go Back</span>
+            <span className='hidden sm:block'>{t('view.goBack')}</span>
           </Link>
         </Button>
       </LayoutHeader>
@@ -58,7 +60,7 @@ async function OrderViewPage({
         <Card>
           <CardHeader>
             <CardTitle className='flex items-center justify-between'>
-              <span>Order Overview</span>
+              <span>{t('view.overview.title')}</span>
               <Suspense
                 fallback={
                   <Button variant='default' size='sm' disabled>
@@ -73,10 +75,7 @@ async function OrderViewPage({
                 />
               </Suspense>
             </CardTitle>
-            <CardDescription>
-              Complete order information including items, customer details, and
-              notes.
-            </CardDescription>
+            <CardDescription>{t('view.overview.description')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className='grid h-full w-full grid-cols-1 gap-4 lg:grid-cols-2'>
@@ -100,7 +99,7 @@ async function OrderViewPage({
                         <CardHeader>
                           <CardTitle className='flex items-center gap-2 text-base font-semibold'>
                             <Settings className='h-4 w-4' />
-                            Quick Actions
+                            {t('cards.quickActions.title')}
                           </CardTitle>
                         </CardHeader>
                         <CardContent className='space-y-2'>

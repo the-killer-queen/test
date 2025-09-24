@@ -8,15 +8,18 @@ import DeleteOrderDialog from '../dialog/DeleteOrderDialog';
 import EditOrderDialog from '../dialog/EditOrderDialog';
 import { OrderRow } from '@/types/tables';
 import { handleCopyOrderId } from '../../lib/utils';
+import { useTranslations } from 'next-intl';
 
 type OrderQuickActionsCardProps = {
   order: OrderRow;
 };
 
 function OrderQuickActionsCard({ order }: OrderQuickActionsCardProps) {
+  const t = useTranslations('orders');
+
   function handlePrintOrder() {
-    toast.info('Print preview would open here', {
-      description: 'This is a mock action for demonstration purposes',
+    toast.info(t('messages.info.printPreview'), {
+      description: t('messages.info.printDescription'),
     });
   }
 
@@ -25,14 +28,14 @@ function OrderQuickActionsCard({ order }: OrderQuickActionsCardProps) {
       <CardHeader>
         <CardTitle className='flex items-center gap-2 text-base font-semibold'>
           <Settings className='h-4 w-4' />
-          Quick Actions
+          {t('cards.quickActions.title')}
         </CardTitle>
       </CardHeader>
       <CardContent className='space-y-2'>
         <EditOrderDialog order={order}>
           <Button variant='ghost' size='sm' className='w-full justify-start'>
             <FileText className='h-4 w-4' />
-            Edit Order
+            {t('cards.quickActions.editOrder')}
           </Button>
         </EditOrderDialog>
 
@@ -43,7 +46,7 @@ function OrderQuickActionsCard({ order }: OrderQuickActionsCardProps) {
           onClick={handlePrintOrder}
         >
           <Printer className='h-4 w-4' />
-          Print Order
+          {t('cards.quickActions.printOrder')}
         </Button>
 
         <Button
@@ -53,7 +56,7 @@ function OrderQuickActionsCard({ order }: OrderQuickActionsCardProps) {
           onClick={(e) => handleCopyOrderId(e, order)}
         >
           <Copy className='h-4 w-4' />
-          Copy Order ID
+          {t('cards.quickActions.copyOrderId')}
         </Button>
 
         <DeleteOrderDialog
@@ -66,7 +69,7 @@ function OrderQuickActionsCard({ order }: OrderQuickActionsCardProps) {
             className='w-full justify-start'
           >
             <Trash2 className='h-4 w-4' />
-            Delete Order
+            {t('cards.quickActions.deleteOrder')}
           </Button>
         </DeleteOrderDialog>
       </CardContent>

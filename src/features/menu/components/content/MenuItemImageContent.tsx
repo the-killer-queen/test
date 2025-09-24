@@ -2,13 +2,15 @@ import ErrorState from '@/components/shared/ErrorState';
 import { getMenuItemImage } from '@/supabase/data/menu-service';
 import { ImageOff } from 'lucide-react';
 import Image from 'next/image';
+import { getTranslations } from 'next-intl/server';
 
 async function MenuItemImageContent({ menuId }: { menuId: string }) {
+  const t = await getTranslations('menu');
   const { data: menuItem, error } = await getMenuItemImage(+menuId);
   if (error || !menuItem)
     return (
       <ErrorState
-        message='Failed to load image'
+        message={t('messages.error.failedToLoadImage')}
         containerClassName='bg-muted h-full w-full flex-col justify-center'
         iconClassName='mb-2 h-16 w-16'
       />
@@ -28,7 +30,7 @@ async function MenuItemImageContent({ menuId }: { menuId: string }) {
       ) : (
         <div className='text-muted-foreground flex flex-col items-center gap-2'>
           <ImageOff className='h-16 w-16' />
-          <p className='text-sm'>No image available</p>
+          <p className='text-sm'>{t('cards.image.noImage')}</p>
         </div>
       )}
     </div>

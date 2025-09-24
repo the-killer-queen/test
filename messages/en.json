@@ -124,5 +124,507 @@
         "tryAgainButton": "Try Again"
       }
     }
+  },
+  "orders": {
+    "page": {
+      "title": "Manage Orders",
+      "description": "Track, manage, and process customer orders efficiently."
+    },
+    "table": {
+      "title": "Customer Orders",
+      "description": "Track and manage all customer orders in one place.",
+      "headers": {
+        "orderId": "Order ID",
+        "customer": "Customer",
+        "contact": "Contact",
+        "type": "Type",
+        "items": "Items",
+        "status": "Status",
+        "total": "Total",
+        "date": "Date"
+      },
+      "empty": {
+        "noData": {
+          "title": "No orders yet",
+          "description": "Get started by creating your first order to track customer purchases."
+        },
+        "noResults": {
+          "title": "No results for \"{query}\"",
+          "titleNoQuery": "No orders found",
+          "description": "Try adjusting your search or filters to find what you're looking for.",
+          "descriptionNoQuery": "No orders match your current filters.",
+          "clearFilters": "Clear filters"
+        },
+        "error": {
+          "title": "Unable to load orders",
+          "description": "There was a problem loading your orders. Please try again.",
+          "tryAgain": "Try again"
+        }
+      },
+      "pagination": {
+        "showing": "Showing {start} to {end} of {total} results",
+        "previous": "Previous",
+        "next": "Next"
+      }
+    },
+    "actions": {
+      "newOrder": "New Order",
+      "search": "Search orders...",
+      "filter": "Apply Filter",
+      "sort": "Sort Items",
+      "columns": "Columns"
+    },
+    "filters": {
+      "paid": "Paid",
+      "unpaid": "Unpaid",
+      "togo": "To Go",
+      "dinein": "Dine In"
+    },
+    "sort": {
+      "newestFirst": "Newest first",
+      "oldestFirst": "Oldest first",
+      "customerAZ": "Customer (A - Z)",
+      "customerZA": "Customer (Z - A)",
+      "totalHighLow": "Total (high - low)",
+      "totalLowHigh": "Total (low - high)"
+    },
+    "status": {
+      "paid": "Paid",
+      "unpaid": "Unpaid"
+    },
+    "type": {
+      "togo": "To Go",
+      "dinein": "Dine In"
+    },
+    "form": {
+      "create": {
+        "title": "Create New Order",
+        "description": "Add menu items and customer details to create a new order",
+        "submit": "Create Order",
+        "submitting": "Creating...",
+        "cancel": "Cancel"
+      },
+      "edit": {
+        "title": "Edit Order",
+        "description": "Update order details and items",
+        "submit": "Update Order",
+        "submitting": "Updating...",
+        "cancel": "Cancel"
+      },
+      "fields": {
+        "orderType": "Order Type",
+        "status": "Status",
+        "orderItems": "Order Items",
+        "customerName": "Customer Name",
+        "customerNamePlaceholder": "Enter customer name",
+        "contactInfo": "Contact Info",
+        "contactInfoPlaceholder": "Phone or email",
+        "orderName": "Order Name",
+        "orderNamePlaceholder": "Custom order name",
+        "notes": "Notes",
+        "notesPlaceholder": "Special instructions or notes"
+      },
+      "additionalDetails": "Additional Details"
+    },
+    "view": {
+      "title": "Order {orderName}",
+      "description": "View and manage order details, items, and customer information.",
+      "goBack": "Go Back",
+      "overview": {
+        "title": "Order Overview",
+        "description": "Complete order information including items, customer details, and notes."
+      }
+    },
+    "cards": {
+      "items": {
+        "title": "Order Items ({count})",
+        "noItems": "No items in this order",
+        "total": "Total",
+        "each": "each"
+      },
+      "details": {
+        "title": "Order Details",
+        "customer": "Customer",
+        "contact": "Contact",
+        "type": "Type",
+        "status": "Status",
+        "total": "Total",
+        "created": "Created",
+        "walkInCustomer": "Walk-in Customer"
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "editOrder": "Edit Order",
+        "printOrder": "Print Order",
+        "copyOrderId": "Copy Order ID",
+        "deleteOrder": "Delete Order"
+      },
+      "notes": {
+        "title": "Notes",
+        "noNotes": "No special notes or instructions for this order."
+      }
+    },
+    "dialog": {
+      "delete": {
+        "title": "Delete \"{orderName}\"?",
+        "description": "This action cannot be undone. The selected order will be removed permanently.",
+        "confirm": "Delete",
+        "cancel": "Cancel",
+        "deleting": "Deleting..."
+      },
+      "preview": {
+        "title": "#{orderName}",
+        "description": "Quick preview of order details",
+        "orderItems": "Order Items"
+      }
+    },
+    "menuSelector": {
+      "searchPlaceholder": "Search menu items...",
+      "addToOrder": "Add to Order",
+      "clearAll": "Clear All",
+      "noCategories": "No categories available",
+      "error": {
+        "title": "Failed to load menu items",
+        "description": "There was a problem loading the menu items. Please try again.",
+        "tryAgain": "Try Again"
+      }
+    },
+    "messages": {
+      "success": {
+        "created": "Order Created Successfully",
+        "updated": "Order Updated Successfully",
+        "deleted": "Order Successfully Deleted",
+        "copied": "Order ID copied to clipboard"
+      },
+      "info": {
+        "printPreview": "Print preview would open here",
+        "printDescription": "This is a mock action for demonstration purposes"
+      }
+    },
+    "validation": {
+      "itemName": "Item name is required",
+      "minQuantity": "Quantity must be at least 1",
+      "minItems": "At least one item is required",
+      "nonNegativePrice": "Price must be non-negative"
+    }
+  },
+  "menu": {
+    "page": {
+      "title": "Manage Your Menu",
+      "description": "Create, organize, and manage your menu items in one place."
+    },
+    "table": {
+      "title": "Your Menu Items",
+      "description": "Easily manage and update your menu.",
+      "headers": {
+        "picture": "Picture",
+        "name": "Name",
+        "category": "Category",
+        "ingredients": "Ingredients",
+        "price": "Price"
+      },
+      "empty": {
+        "noData": {
+          "title": "No menu items yet",
+          "description": "Get started by creating your first menu item to showcase your delicious offerings."
+        },
+        "noResults": {
+          "title": "No results for \"{query}\"",
+          "titleNoQuery": "No menu items found",
+          "description": "Try adjusting your search or filters to find what you're looking for.",
+          "descriptionNoQuery": "No menu items match your current filters.",
+          "clearFilters": "Clear filters"
+        },
+        "error": {
+          "title": "Unable to load menu items",
+          "description": "There was a problem loading your menu. Please try again.",
+          "tryAgain": "Try again"
+        }
+      }
+    },
+    "ctaActions": {
+      "addNewItem": "Add New Item",
+      "manageCategories": "Manage Categories",
+      "search": "Search menu items...",
+      "filter": "Apply Filter",
+      "sort": "Sort Items",
+      "columns": "Columns"
+    },
+    "sort": {
+      "newestFirst": "Newest first",
+      "oldestFirst": "Oldest first",
+      "nameAZ": "Name (A - Z)",
+      "nameZA": "Name (Z - A)",
+      "priceHighLow": "Price (high - low)",
+      "priceLowHigh": "Price (low - high)"
+    },
+    "form": {
+      "create": {
+        "title": "Create Menu Item",
+        "description": "Fill in the details to add a new menu item",
+        "submit": "Create Item",
+        "submitting": "Creating...",
+        "cancel": "Cancel"
+      },
+      "update": {
+        "title": "Update Menu Item",
+        "description": "Update the details of your menu item",
+        "submit": "Update Item",
+        "submitting": "Updating...",
+        "cancel": "Cancel"
+      },
+      "fields": {
+        "name": "Name",
+        "namePlaceholder": "Enter menu item name",
+        "price": "Price",
+        "pricePlaceholder": "0.00",
+        "category": "Category",
+        "categoryOptional": "Category (Optional)",
+        "categoryPlaceholder": "Select category...",
+        "ingredients": "Ingredients",
+        "ingredientQuantity": "Ingredient quantity",
+        "ingredientName": "Ingredient name",
+        "description": "Description",
+        "descriptionPlaceholder": "Write a short description of the menu item"
+      },
+      "additionalDetails": "Additional Details"
+    },
+    "view": {
+      "title": "Menu Item Preview",
+      "description": "Preview and manage your menu item details.",
+      "goBack": "Go Back",
+      "details": {
+        "title": "Menu Item Details",
+        "description": "View details, ingredients, and quick actions for this item."
+      }
+    },
+    "cards": {
+      "details": {
+        "title": "Item Details",
+        "name": "Name",
+        "price": "Price",
+        "category": "Category",
+        "created": "Created"
+      },
+      "ingredients": {
+        "title": "Ingredients",
+        "description": "Complete list of ingredients and quantities",
+        "noIngredients": "No Ingredients"
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "editItem": "Edit Item",
+        "duplicateItem": "Duplicate Item",
+        "deleteItem": "Delete Item"
+      },
+      "description": {
+        "title": "Description",
+        "generateAI": "Generate with AI",
+        "placeholder": "Temporary description showcases how your menu item details will appear. Please update with your actual menu item description for a genuine representation of your dish :)"
+      },
+      "image": {
+        "noImage": "No image available"
+      }
+    },
+    "categories": {
+      "manage": {
+        "title": "Manage Categories",
+        "description": "Create, update, and delete menu categories to organize your items"
+      },
+      "create": {
+        "title": "Create Category",
+        "submit": "Create",
+        "submitting": "Creating...",
+        "cancel": "Cancel",
+        "addCategory": "Add Category"
+      },
+      "form": {
+        "name": "Name",
+        "namePlaceholder": "Category name",
+        "iconOptional": "(Optional)"
+      },
+      "search": "Search categories...",
+      "noCategories": "No categories found.",
+      "noCategoriesAvailable": "No categories available"
+    },
+    "dialog": {
+      "delete": {
+        "title": "Delete \"{name}\" from menu?",
+        "description": "This action cannot be undone. The selected menu item will be removed.",
+        "confirm": "Delete",
+        "cancel": "Cancel",
+        "deleting": "Deleting..."
+      },
+      "deleteCategory": {
+        "title": "Delete \"{name}\"?",
+        "description": "This action cannot be undone. The category will be removed from all menu items using it.",
+        "confirm": "Delete",
+        "cancel": "Cancel",
+        "deleting": "Deleting..."
+      },
+      "duplicate": {
+        "title": "Duplicate {name}?",
+        "description": "This will create a copy of the selected menu item with \"(Copy)\" added to the name. You can edit the duplicate after creation.",
+        "confirm": "Duplicate",
+        "cancel": "Cancel",
+        "duplicating": "Duplicating..."
+      }
+    },
+    "actions": {
+      "view": "View",
+      "edit": "Edit",
+      "duplicate": "Duplicate",
+      "delete": "Delete"
+    },
+    "upload": {
+      "title": "Upload",
+      "dragDrop": "Drag & drop an image here, or click to select",
+      "dropping": "Drop the image here...",
+      "uploadAvatar": "Upload Avatar",
+      "size": "Size: {size} MB"
+    },
+    "messages": {
+      "success": {
+        "created": "Successfully Created",
+        "updated": "Updated Successfully",
+        "deleted": "Menu Item Successfully Deleted",
+        "duplicated": "{name} successfully duplicated",
+        "categoryCreated": "Successfully Created",
+        "categoryDeleted": "Category Successfully Deleted"
+      },
+      "warning": {
+        "ingredientExists": "Ingredient already added",
+        "imageRemoveError": "Failed to remove old image"
+      },
+      "error": {
+        "failedToLoad": "Failed to load {item}",
+        "failedToLoadCategories": "Failed to load categories",
+        "failedToLoadDetails": "Failed to load details",
+        "failedToLoadImage": "Failed to load image",
+        "failedToLoadIngredients": "Failed to load ingredients",
+        "failedToLoadDescription": "Failed to load description",
+        "failedToLoadMenuItems": "Failed to load menu items",
+        "compressImage": "Failed to compress image"
+      }
+    },
+    "validation": {
+      "menuItemName": "Menu item name is required",
+      "menuItemNameEmpty": "Menu item name cannot be empty",
+      "menuItemNameMax": "Menu item name must be 100 characters or less",
+      "ingredientName": "Ingredient name is required",
+      "ingredientNameEmpty": "Ingredient name cannot be empty",
+      "ingredientNameMax": "Ingredient name must be 64 characters or less",
+      "categoryName": "Category name is required",
+      "categoryNameMin": "Category name must be at least 3 characters",
+      "categoryNameMax": "Category name must be 64 characters or less",
+      "categorySelect": "Please select a category",
+      "priceNumber": "Price must be a valid number",
+      "priceNegative": "Price cannot be negative",
+      "priceMinCreate": "Price must be at least 0.10",
+      "priceMax": "Price cannot exceed 10,000,000",
+      "descriptionMax": "Description cannot exceed 280 characters",
+      "imageSize": "Image size must be less than 10MB",
+      "imageTypes": "Please upload a valid image file (image/jpeg, image/jpg, image/png, image/webp)",
+      "iconNameMin": "Icon name must be at least 3 characters",
+      "iconNameMax": "Icon name must be 64 characters or less",
+      "iconNameValid": "Icon name must be valid text"
+    }
+  },
+  "settings": {
+    "page": {
+      "title": "Settings",
+      "description": "Customize your dashboard preferences and manage additional charges."
+    },
+    "language": {
+      "title": "Language & Region",
+      "description": "Choose your preferred language for the interface",
+      "active": "Active"
+    },
+    "theme": {
+      "title": "Appearance",
+      "description": "Customize the look and feel of your dashboard",
+      "light": {
+        "name": "Light",
+        "description": "Clean and bright interface"
+      },
+      "dark": {
+        "name": "Dark",
+        "description": "Easy on the eyes"
+      },
+      "system": {
+        "name": "System",
+        "description": "Follows your device settings"
+      },
+      "active": "Active"
+    },
+    "charges": {
+      "title": "Additional Charges",
+      "description": "Manage extra fees and charges for your services",
+      "addNewCharge": "Add new charge",
+      "addFirstCharge": "Add Your First Charge",
+      "active": "Active",
+      "empty": {
+        "title": "No charges configured",
+        "description": "Add additional charges to apply to your orders"
+      },
+      "form": {
+        "create": {
+          "title": "Create Additional Charge",
+          "description": "Fill in the details to add a new additional charge",
+          "submit": "Create Charge",
+          "submitting": "Creating...",
+          "cancel": "Cancel"
+        },
+        "edit": {
+          "title": "Edit Additional Charge",
+          "description": "Update charge details and settings",
+          "submit": "Update Charge",
+          "submitting": "Updating...",
+          "cancel": "Cancel"
+        },
+        "fields": {
+          "name": "Name",
+          "namePlaceholder": "Enter charge name (e.g., Service Fee, Tax)",
+          "amount": "Amount",
+          "amountPlaceholder": "0.00",
+          "status": "Status",
+          "active": "Active",
+          "inactive": "Inactive",
+          "icon": "Icon",
+          "iconDescription": "Choose an icon to represent this charge",
+          "iconPlaceholder": "Select icon",
+          "description": "Description",
+          "descriptionPlaceholder": "Write a short description of this additional charge"
+        },
+        "additionalDetails": "Additional Details"
+      },
+      "dialog": {
+        "delete": {
+          "title": "Delete \"{name}\"?",
+          "description": "This action cannot be undone. The selected additional charge will be removed permanently from your system.",
+          "confirm": "Delete",
+          "cancel": "Cancel",
+          "deleting": "Deleting..."
+        }
+      },
+      "messages": {
+        "success": {
+          "created": "Additional charge created successfully",
+          "updated": "Additional charge updated successfully",
+          "deleted": "Charge Successfully Deleted"
+        },
+        "error": {
+          "updateStatus": "Failed to update charge status"
+        }
+      },
+      "validation": {
+        "nameRequired": "Name is required",
+        "nameMax": "Name must be less than 100 characters",
+        "amountMin": "Amount must be greater than 0",
+        "amountMax": "Amount must be less than 10,000,000",
+        "descriptionMax": "Description must be less than 280 characters",
+        "iconNameMax": "Icon name must be less than 50 characters"
+      }
+    }
   }
 }

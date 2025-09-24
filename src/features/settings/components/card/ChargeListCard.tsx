@@ -7,12 +7,15 @@ import ChargeToggleSwitch from '../layout/ChargeToggleSwitch';
 import DeleteChargeDialog from '../dialog/DeleteChargeDialog';
 import EditAdditionalChargeDialog from '../dialog/EditChargeDialog';
 import { AdditionalChargesRow } from '@/types/tables';
+import { useTranslations } from 'next-intl';
 
 type ChargeListCardProps = {
   charges: AdditionalChargesRow[];
 };
 
 function ChargeListCard({ charges }: ChargeListCardProps) {
+  const t = useTranslations('settings');
+
   return (
     <CardContent className='space-y-4'>
       <div className='space-y-2'>
@@ -44,7 +47,7 @@ function ChargeListCard({ charges }: ChargeListCardProps) {
                   <span className='text-sm font-medium'>{charge.name}</span>
                   {charge.is_active && (
                     <Badge variant='secondary' className='text-xs'>
-                      Active
+                      {t('charges.active')}
                     </Badge>
                   )}
                 </div>

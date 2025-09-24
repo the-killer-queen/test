@@ -11,6 +11,7 @@ import {
 import { AdditionalChargesRow } from '@/types/tables';
 import { cloneElement, ReactElement, useState } from 'react';
 import EditChargeForm from '../form/EditChargeForm';
+import { useTranslations } from 'next-intl';
 
 type EditAdditionalChargeProps = {
   charge: AdditionalChargesRow;
@@ -21,6 +22,7 @@ function EditAdditionalChargeDialog({
   charge,
   children,
 }: EditAdditionalChargeProps) {
+  const t = useTranslations('settings');
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
@@ -37,10 +39,10 @@ function EditAdditionalChargeDialog({
       <DialogContent className='!max-w-xs md:!max-w-sm'>
         <DialogHeader className='px-2 md:px-0'>
           <DialogTitle className='text-sm md:text-base'>
-            Edit Additional Charge
+            {t('charges.form.edit.title')}
           </DialogTitle>
           <DialogDescription className='text-xs md:text-sm'>
-            Update charge details and settings
+            {t('charges.form.edit.description')}
           </DialogDescription>
 
           <EditChargeForm

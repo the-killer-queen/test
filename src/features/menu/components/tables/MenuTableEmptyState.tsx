@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { ChefHat, Search } from 'lucide-react';
 import CreateMenuItemDialog from '../dialog/CreateMenuItemDialog';
+import { useTranslations } from 'next-intl';
 
 type MenuTableEmptyStateProps = {
   type: 'no-data' | 'no-results' | 'error';
@@ -18,18 +19,20 @@ function MenuTableEmptyState({
   filterBy,
   onClearFilters,
 }: MenuTableEmptyStateProps) {
+  const t = useTranslations('menu');
+
   const getEmptyStateContent = () => {
     switch (type) {
       case 'no-results':
         return {
           icon: <Search className='text-muted-foreground h-12 w-12' />,
           title: searchQuery
-            ? `No results for "${searchQuery}"`
-            : 'No menu items found',
+            ? t('table.empty.noResults.title', { query: searchQuery })
+            : t('table.empty.noResults.titleNoQuery'),
           description:
             searchQuery || filterBy
-              ? "Try adjusting your search or filters to find what you're looking for."
-              : 'No menu items match your current filters.',
+              ? t('table.empty.noResults.description')
+              : t('table.empty.noResults.descriptionNoQuery'),
           action:
             (searchQuery || filterBy) && onClearFilters ? (
               <Button
@@ -37,7 +40,7 @@ function MenuTableEmptyState({
                 onClick={onClearFilters}
                 className='mt-4'
               >
-                Clear filters
+                {t('table.empty.noResults.clearFilters')}
               </Button>
             ) : null,
         };
@@ -45,16 +48,15 @@ function MenuTableEmptyState({
       case 'error':
         return {
           icon: <ChefHat className='text-muted-foreground h-12 w-12' />,
-          title: 'Unable to load menu items',
-          description:
-            'There was a problem loading your menu. Please try again.',
+          title: t('table.empty.error.title'),
+          description: t('table.empty.error.description'),
           action: (
             <Button
               variant='outline'
               onClick={() => window.location.reload()}
               className='mt-4'
             >
-              Try again
+              {t('table.empty.error.tryAgain')}
             </Button>
           ),
         };
@@ -63,9 +65,8 @@ function MenuTableEmptyState({
       default:
         return {
           icon: <ChefHat className='text-muted-foreground h-12 w-12' />,
-          title: 'No menu items yet',
-          description:
-            'Get started by creating your first menu item to showcase your delicious offerings.',
+          title: t('table.empty.noData.title'),
+          description: t('table.empty.noData.description'),
           action: <CreateMenuItemDialog />,
         };
     }

@@ -5,8 +5,10 @@ import { CardContent } from '@/components/ui/card';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { themes } from '../../constant/constant';
+import { useTranslations } from 'next-intl';
 
 function ThemeContent() {
+  const t = useTranslations('settings');
   const { theme: selectedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -48,16 +50,16 @@ function ThemeContent() {
                 </div>
 
                 <div>
-                  <h3 className='font-medium'>{theme.name}</h3>
+                  <h3 className='font-medium'>{t(`theme.${theme.id}.name`)}</h3>
                   <p className='text-muted-foreground text-sm'>
-                    {theme.description}
+                    {t(`theme.${theme.id}.description`)}
                   </p>
                 </div>
               </div>
 
               {selectedTheme === theme.id && (
                 <Badge className='absolute -top-1 -right-1' variant='secondary'>
-                  Active
+                  {t('theme.active')}
                 </Badge>
               )}
             </div>

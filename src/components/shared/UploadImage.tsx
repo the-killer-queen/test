@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import Dropzone from 'react-dropzone';
 import { type ControllerRenderProps, type FieldError } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 
 type UploadImageProps = {
   error: FieldError | undefined;
@@ -24,6 +25,7 @@ function UploadImage({
   avatarFallback,
   ...field
 }: UploadImageProps) {
+  const t = useTranslations('menu');
   const [path, setPath] = useState<string | null>(null);
 
   return (
@@ -62,7 +64,7 @@ function UploadImage({
               </AvatarFallback>
               <div className='bg-accent/75 text-muted-foreground absolute bottom-0 z-50 flex h-[60%] w-full translate-y-20 flex-col items-center px-3 py-0.5 text-center text-xs transition-transform group-hover:translate-y-0'>
                 <Upload className='size-4' />
-                Upload Avatar
+                {t('upload.uploadAvatar')}
               </div>
             </Avatar>
           );
@@ -97,17 +99,19 @@ function UploadImage({
                     <div>
                       <P>{field.value.name}</P>
                       <P>
-                        Size: {(field.value.size / 1024 / 1024).toFixed(2)} MB
+                        {t('upload.size', {
+                          size: (field.value.size / 1024 / 1024).toFixed(2),
+                        })}
                       </P>
                     </div>
                   ) : (
                     <div className='flex flex-col items-center gap-0.5'>
                       <Upload className='text-muted-foreground size-6' />
-                      <Lead>Upload</Lead>
+                      <Lead>{t('upload.title')}</Lead>
                       <P>
                         {isDragActive
-                          ? 'Drop the image here...'
-                          : 'Drag & drop an image here, or click to select'}
+                          ? t('upload.dropping')
+                          : t('upload.dragDrop')}
                       </P>
                     </div>
                   )}

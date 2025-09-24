@@ -30,6 +30,7 @@ import OrderTypeSelect from '../selects/OrderTypeSelect';
 import OrderStatusSelect from '../selects/OrderStatusSelect';
 import MenuItemsSelector from '../selects/MenuItemsSelector';
 import { updateOrder } from '@/supabase/data/orders-service';
+import { useTranslations } from 'next-intl';
 
 type EditOrderFormProps = {
   onClose: () => void;
@@ -37,6 +38,7 @@ type EditOrderFormProps = {
 };
 
 function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
+  const t = useTranslations('orders');
   const form = useForm<UpdateOrderSchema>({
     resolver: zodResolver(updateOrderSchema),
     defaultValues: {
@@ -60,7 +62,7 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
 
     onClose();
 
-    if (success) toast.success('Order Updated Successfully');
+    if (success) toast.success(t('messages.success.updated'));
     if (!success) toast.error(error);
   }
 
@@ -76,7 +78,9 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='text-xs md:text-sm'>Order Type</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>
+                  {t('form.fields.orderType')}
+                </FormLabel>
                 <FormControl>
                   <OrderTypeSelect {...field} />
                 </FormControl>
@@ -90,7 +94,9 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='text-xs md:text-sm'>Status</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>
+                  {t('form.fields.status')}
+                </FormLabel>
                 <FormControl>
                   <OrderStatusSelect {...field} />
                 </FormControl>
@@ -105,7 +111,9 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel className='text-xs md:text-sm'>Order Items</FormLabel>
+              <FormLabel className='text-xs md:text-sm'>
+                {t('form.fields.orderItems')}
+              </FormLabel>
               <FormControl>
                 <MenuItemsSelector {...field} />
               </FormControl>
@@ -117,7 +125,7 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
         <Accordion type='single' collapsible className='!my-1 w-full md:!my-2'>
           <AccordionItem value='item-1'>
             <AccordionTrigger className='text-xs md:text-sm'>
-              Additional Details
+              {t('form.additionalDetails')}
             </AccordionTrigger>
             <AccordionContent className='mx-0 my-0 space-y-4 md:mx-1 md:my-1 md:space-y-6'>
               <div className='grid grid-cols-1 gap-2 md:grid-cols-2 md:gap-4'>
@@ -127,11 +135,11 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-xs md:text-sm'>
-                        Customer Name
+                        {t('form.fields.customerName')}
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder='Enter customer name'
+                          placeholder={t('form.fields.customerNamePlaceholder')}
                           className='text-xs md:text-sm'
                           {...field}
                         />
@@ -147,11 +155,11 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className='text-xs md:text-sm'>
-                        Contact Info
+                        {t('form.fields.contactInfo')}
                       </FormLabel>
                       <FormControl>
                         <Input
-                          placeholder='Phone or email'
+                          placeholder={t('form.fields.contactInfoPlaceholder')}
                           className='text-xs md:text-sm'
                           {...field}
                         />
@@ -168,11 +176,11 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className='text-xs md:text-sm'>
-                      Order Name
+                      {t('form.fields.orderName')}
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder='Custom order name'
+                        placeholder={t('form.fields.orderNamePlaceholder')}
                         className='text-xs md:text-sm'
                         {...field}
                       />
@@ -187,11 +195,13 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
                 control={form.control}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className='text-xs md:text-sm'>Notes</FormLabel>
+                    <FormLabel className='text-xs md:text-sm'>
+                      {t('form.fields.notes')}
+                    </FormLabel>
                     <FormControl>
                       <Textarea
                         className='max-h-28 text-xs md:text-sm'
-                        placeholder='Special instructions or notes'
+                        placeholder={t('form.fields.notesPlaceholder')}
                         {...field}
                       />
                     </FormControl>
@@ -210,7 +220,7 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
             variant={'secondary'}
             onClick={onClose}
           >
-            Cancel
+            {t('form.create.cancel')}
           </Button>
           <Button
             variant={'default'}
@@ -218,7 +228,7 @@ function EditOrderForm({ orderToEdit, onClose }: EditOrderFormProps) {
             className='!bg-info/15 !text-info [&_svg]:!text-info hover:!bg-info/10 flex-1'
           >
             {isLoading ? <Spinner /> : <SquarePen />}
-            {isLoading ? 'Updating...' : 'Update Order'}
+            {isLoading ? t('form.create.submitting') : t('form.create.submit')}
           </Button>
         </div>
       </form>

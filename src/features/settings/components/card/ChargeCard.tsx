@@ -11,23 +11,26 @@ import { Suspense } from 'react';
 import ChargeContent from '../content/ChargeContent';
 import CreateChargeDialog from '../dialog/CreateChargeDialog';
 import ChargeCardSkeleton from '../skeletons/ChargeCardSkeleton';
+import { getTranslations } from 'next-intl/server';
 
-function ChargeCard() {
+async function ChargeCard() {
+  const t = await getTranslations('settings');
+
   return (
     <Card>
       <CardHeader>
         <CardTitle className='flex items-center gap-2 text-base'>
           <DollarSign className='h-5 w-5' />
-          Additional Charges
+          {t('charges.title')}
         </CardTitle>
-        <CardDescription>
-          Manage extra fees and charges for your services
-        </CardDescription>
+        <CardDescription>{t('charges.description')}</CardDescription>
         <CardAction>
           <CreateChargeDialog>
             <Button>
               <Plus />
-              <span className='hidden md:inline-block'>Add new charge</span>
+              <span className='hidden md:inline-block'>
+                {t('charges.addNewCharge')}
+              </span>
             </Button>
           </CreateChargeDialog>
         </CardAction>

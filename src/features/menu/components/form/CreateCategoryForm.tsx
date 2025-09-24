@@ -20,8 +20,10 @@ import {
   CreateCategorySchema,
 } from '../../schema/schema';
 import CategoriesIcons from '../selects/CategoriesIcons';
+import { useTranslations } from 'next-intl';
 
 function CreateCategoryForm({ onClose }: { onClose: () => void }) {
+  const t = useTranslations('menu');
   const form = useForm<CreateCategorySchema>({
     resolver: zodResolver(createCategorySchema),
     defaultValues: {
@@ -37,7 +39,7 @@ function CreateCategoryForm({ onClose }: { onClose: () => void }) {
     const { success, error } = await createCategoryItem(values);
 
     if (success)
-      toast.success('Successgully Created', {
+      toast.success(t('messages.success.categoryCreated'), {
         className: 'opacity-100',
         duration: 1_500,
       });
@@ -59,10 +61,12 @@ function CreateCategoryForm({ onClose }: { onClose: () => void }) {
             control={form.control}
             render={({ field }) => (
               <FormItem className='flex-1'>
-                <FormLabel className='text-xs md:text-sm'>Name</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>
+                  {t('categories.form.name')}
+                </FormLabel>
                 <FormControl>
                   <Input
-                    placeholder='Category name'
+                    placeholder={t('categories.form.namePlaceholder')}
                     className='text-xs md:text-sm'
                     {...field}
                   />
@@ -77,7 +81,9 @@ function CreateCategoryForm({ onClose }: { onClose: () => void }) {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel className='text-xs md:text-sm'>(Optional)</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>
+                  {t('categories.form.iconOptional')}
+                </FormLabel>
                 <FormControl>
                   <CategoriesIcons {...field} />
                 </FormControl>
@@ -93,11 +99,13 @@ function CreateCategoryForm({ onClose }: { onClose: () => void }) {
             type='button'
             variant='outline'
           >
-            Cancel
+            {t('categories.create.cancel')}
           </Button>
           <Button disabled={isLoading} onClick={form.handleSubmit(onSubmit)}>
             {isLoading && <Spinner />}
-            {isLoading ? 'Creating...' : 'Create'}
+            {isLoading
+              ? t('categories.create.submitting')
+              : t('categories.create.submit')}
           </Button>
         </div>
       </div>

@@ -5,12 +5,18 @@ import { formatNumber } from '@/lib/utils';
 import { getOrderById } from '@/supabase/data/orders-service';
 import { ShoppingCart } from 'lucide-react';
 import CardError from '../error/CardError';
+import { getTranslations } from 'next-intl/server';
 
 async function OrderItemsCard({ orderId }: { orderId: string }) {
+  const t = await getTranslations('orders');
   const { data: order, error } = await getOrderById(orderId);
 
   if (error || !order)
-    return <CardError message='Failed to load order items' />;
+    return (
+      <CardError
+        message={t('messages.error.failedToLoad', { item: 'order items' })}
+      />
+    );
 
   const items = order.items || [];
 
@@ -19,13 +25,13 @@ async function OrderItemsCard({ orderId }: { orderId: string }) {
       <CardHeader>
         <CardTitle className='flex items-center gap-2 text-base font-semibold'>
           <ShoppingCart className='h-4 w-4' />
-          Order Items ({items.length})
+          {t('cards.items.title', { count: items.length })}
         </CardTitle>
       </CardHeader>
       <CardContent>
         {items.length === 0 ? (
           <div className='text-muted-foreground flex items-center justify-center py-8 text-sm'>
-            No items in this order
+            {t('cards.items.noItems')}
           </div>
         ) : (
           <div className='space-y-3'>
@@ -60,7 +66,7 @@ async function OrderItemsCard({ orderId }: { orderId: string }) {
                           maximumFractionDigits: 2,
                         },
                       })}{' '}
-                      each
+                      {t('cards.items.each')}
                     </span>
                   </div>
                 </div>
@@ -71,7 +77,9 @@ async function OrderItemsCard({ orderId }: { orderId: string }) {
             <Separator className='my-4' />
 
             <div className='flex items-center justify-between'>
-              <span className='text-base font-semibold'>Total</span>
+              <span className='text-base font-semibold'>
+                {t('cards.items.total')}
+              </span>
               <span className='text-lg font-bold'>
                 {formatNumber({
                   locale: 'en-US',

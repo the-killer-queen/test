@@ -14,6 +14,7 @@ import { Trash2 } from 'lucide-react';
 import { cloneElement, ReactElement, useState } from 'react';
 import { toast } from 'sonner';
 import { useDeleteCategory } from '../../hooks/useDeleteCategory';
+import { useTranslations } from 'next-intl';
 
 type DeleteCategoryDialogProps = {
   category: MenuCategoryRow;
@@ -24,6 +25,7 @@ function DeleteCategoryDialog({
   category,
   children,
 }: DeleteCategoryDialogProps) {
+  const t = useTranslations('menu');
   const { deleteCategoryItem, isPending } = useDeleteCategory();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -32,7 +34,7 @@ function DeleteCategoryDialog({
       id: category.id,
       name: category.name,
     });
-    if (success) toast.success('Category Successfully Deleted');
+    if (success) toast.success(t('messages.success.categoryDeleted'));
 
     if (!success) toast.error(error);
 
@@ -50,10 +52,11 @@ function DeleteCategoryDialog({
 
       <DialogContent className='!max-w-xs'>
         <DialogHeader>
-          <DialogTitle>Delete &quot;{category.name}&quot;?</DialogTitle>
+          <DialogTitle>
+            {t('dialog.deleteCategory.title', { name: category.name })}
+          </DialogTitle>
           <DialogDescription>
-            This action cannot be undone. The category will be removed from all
-            menu items using it.
+            {t('dialog.deleteCategory.description')}
           </DialogDescription>
           <div className='flex items-center justify-center gap-2'>
             <Button
@@ -62,7 +65,7 @@ function DeleteCategoryDialog({
               className='flex-1'
               onClick={() => setIsOpen(false)}
             >
-              Cancel
+              {t('dialog.deleteCategory.cancel')}
             </Button>
             <Button
               disabled={isPending}
@@ -71,7 +74,9 @@ function DeleteCategoryDialog({
               className='flex-1'
             >
               {isPending ? <Spinner /> : <Trash2 />}
-              {isPending ? 'Deleting...' : 'Delete'}
+              {isPending
+                ? t('dialog.deleteCategory.deleting')
+                : t('dialog.deleteCategory.confirm')}
             </Button>
           </div>
         </DialogHeader>

@@ -34,8 +34,10 @@ import CategorySelect from '../selects/CategorySelect';
 import IngredientsList from '../selects/IngredientsList';
 import CreateIngredientsForm from './CreateIngredientsForm';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
+  const t = useTranslations('menu');
   const form = useForm<CreateMenuItemSchema>({
     resolver: zodResolver(createMenuItemSchema),
     defaultValues: {
@@ -58,7 +60,7 @@ function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
 
     onClose();
 
-    if (success) toast.success('Successgully Created');
+    if (success) toast.success(t('messages.success.created'));
     if (!success) toast.error(error);
   }
 
@@ -73,10 +75,12 @@ function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
           control={form.control}
           render={({ field }) => (
             <FormItem className='flex-1'>
-              <FormLabel className='text-xs md:text-sm'>Name</FormLabel>
+              <FormLabel className='text-xs md:text-sm'>
+                {t('form.fields.name')}
+              </FormLabel>
               <FormControl>
                 <Input
-                  placeholder='Enter menu item name'
+                  placeholder={t('form.fields.namePlaceholder')}
                   className='text-xs md:text-sm'
                   {...field}
                 />
@@ -92,10 +96,12 @@ function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
             control={form.control}
             render={({ field }) => (
               <FormItem className='flex-1'>
-                <FormLabel className='text-xs md:text-sm'>Price</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>
+                  {t('form.fields.price')}
+                </FormLabel>
                 <FormControl>
                   <Input
-                    placeholder='0.00'
+                    placeholder={t('form.fields.pricePlaceholder')}
                     inputMode='numeric'
                     type='number'
                     step={0.01}
@@ -118,7 +124,9 @@ function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
             control={form.control}
             render={({ field }) => (
               <FormItem className='flex-1'>
-                <FormLabel className='text-xs md:text-sm'>Category</FormLabel>
+                <FormLabel className='text-xs md:text-sm'>
+                  {t('form.fields.category')}
+                </FormLabel>
                 <FormControl>
                   <CategorySelect {...field} />
                 </FormControl>
@@ -131,7 +139,7 @@ function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
         <Accordion type='single' collapsible className='!my-1 w-full md:!my-2'>
           <AccordionItem value='item-1'>
             <AccordionTrigger className='text-xs md:text-sm'>
-              Additional Details
+              {t('form.additionalDetails')}
             </AccordionTrigger>
             <AccordionContent className='mx-0 my-0 space-y-4 md:mx-1 md:my-1 md:space-y-6'>
               <FormField
@@ -140,7 +148,7 @@ function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
                 render={({ field }) => (
                   <FormItem className='flex-1'>
                     <FormLabel className='text-xs md:text-sm'>
-                      Ingredients
+                      {t('form.fields.ingredients')}
                     </FormLabel>
                     <FormControl>
                       <div className='flex flex-col gap-2'>
@@ -154,7 +162,10 @@ function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
                                 ...(field.value ?? []),
                                 value,
                               ]);
-                            else toast.warning('Ingredient already added');
+                            else
+                              toast.warning(
+                                t('messages.warning.ingredientExists'),
+                              );
                           }}
                         />
 
@@ -172,7 +183,7 @@ function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
                 render={({ field }) => (
                   <FormItem className='flex-1'>
                     <FormLabel className='flex justify-between text-xs md:text-sm'>
-                      Description
+                      {t('form.fields.description')}
                       <Small>{charLength}/280</Small>
                     </FormLabel>
                     <FormControl>
@@ -180,7 +191,7 @@ function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
                         maxLength={280}
                         className='max-h-28 text-xs md:text-sm'
                         autoComplete='on'
-                        placeholder='Write a short description of the menu item'
+                        placeholder={t('form.fields.descriptionPlaceholder')}
                         {...field}
                         onChange={(e) => {
                           setCharLength(e.target.value.length);
@@ -211,11 +222,11 @@ function CreateMenuItemForm({ onClose }: { onClose: () => void }) {
 
         <div className='flex items-center justify-center gap-1 md:gap-2'>
           <Button disabled={isLoading} variant={'secondary'} onClick={onClose}>
-            Cancel
+            {t('form.create.cancel')}
           </Button>
           <Button variant={'default'} disabled={isLoading} className='flex-1'>
             {isLoading ? <Spinner /> : <Plus />}
-            {isLoading ? 'Creating...' : 'Create Item'}
+            {isLoading ? t('form.create.submitting') : t('form.create.submit')}
           </Button>
         </div>
       </form>

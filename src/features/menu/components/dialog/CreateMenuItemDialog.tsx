@@ -11,8 +11,10 @@ import {
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 import CreateMenuItemForm from '../form/CreateMenuItemForm';
+import { useTranslations } from 'next-intl';
 
 function CreateMenuItemDialog() {
+  const t = useTranslations('menu');
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
@@ -22,16 +24,16 @@ function CreateMenuItemDialog() {
         className='[&_span]:hidden sm:[&_span]:inline-block'
       >
         <Plus />
-        <span>Add New Item</span>
+        <span>{t('ctaActions.addNewItem')}</span>
       </Button>
 
       <DialogContent className='max-h-[90vh] !w-full overflow-y-auto md:min-w-3xl'>
         <DialogHeader className='px-2 md:px-0'>
           <DialogTitle className='text-sm md:text-base'>
-            Create Menu Item
+            {t('form.create.title')}
           </DialogTitle>
           <DialogDescription className='text-xs md:text-sm'>
-            Fill in the details to add a new menu item
+            {t('form.create.description')}
           </DialogDescription>
 
           <CreateMenuItemForm onClose={() => setIsOpen(false)} />

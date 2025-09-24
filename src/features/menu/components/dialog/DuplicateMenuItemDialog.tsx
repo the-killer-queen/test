@@ -13,6 +13,7 @@ import { createMenuItemDuplicate } from '@/supabase/data/menu-service';
 import { Copy } from 'lucide-react';
 import { cloneElement, ReactElement, useState, useTransition } from 'react';
 import { toast } from 'sonner';
+import { useTranslations } from 'next-intl';
 
 type DuplicateMenuItemProps = {
   menuItemId: number;
@@ -25,6 +26,7 @@ function DuplicateMenuItemDialog({
   children,
   itemName = 'this item',
 }: DuplicateMenuItemProps) {
+  const t = useTranslations('menu');
   const [isLoading, startTransition] = useTransition();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -32,7 +34,8 @@ function DuplicateMenuItemDialog({
     startTransition(async () => {
       const { success, error } = await createMenuItemDuplicate(menuItemId);
 
-      if (success) toast.success(`${itemName} successfully duplicated`);
+      if (success)
+        toast.success(t('messages.success.duplicated', { name: itemName }));
 
       if (!success) toast.error(error);
 
@@ -50,11 +53,11 @@ function DuplicateMenuItemDialog({
       })}
       <DialogContent className='!max-w-xs'>
         <DialogHeader>
-          <DialogTitle>Duplicate {itemName}?</DialogTitle>
+          <DialogTitle>
+            {t('dialog.duplicate.title', { name: itemName })}
+          </DialogTitle>
           <DialogDescription>
-            This will create a copy of the selected menu item with
-            &quot;(Copy)&quot; added to the name. You can edit the duplicate
-            after creation.
+            {t('dialog.duplicate.description')}
           </DialogDescription>
           <div className='flex items-center justify-center gap-2'>
             <Button
@@ -63,7 +66,7 @@ function DuplicateMenuItemDialog({
               className='flex-1'
               onClick={() => setIsOpen(false)}
             >
-              Cancel
+              {t('dialog.duplicate.cancel')}
             </Button>
             <Button
               disabled={isLoading}
@@ -72,7 +75,9 @@ function DuplicateMenuItemDialog({
               className='bg-warning/10 !text-warning [&_svg]:!text-warning hover:bg-warning/5 flex-1 cursor-pointer'
             >
               {isLoading ? <Spinner /> : <Copy />}
-              {isLoading ? 'Duplicating...' : 'Duplicate'}
+              {isLoading
+                ? t('dialog.duplicate.duplicating')
+                : t('dialog.duplicate.confirm')}
             </Button>
           </div>
         </DialogHeader>
