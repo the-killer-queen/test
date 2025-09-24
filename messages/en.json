@@ -170,6 +170,9 @@
     "actions": {
       "newOrder": "New Order",
       "search": "Search orders...",
+      "delete": "Delete",
+      "edit": "Edit",
+      "view": "View",
       "filter": "Apply Filter",
       "sort": "Sort Items",
       "columns": "Columns"
