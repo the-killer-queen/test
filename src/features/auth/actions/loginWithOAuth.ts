@@ -5,6 +5,7 @@ import { GetActionResult } from '@/types';
 export async function loginWithGoogle(): Promise<GetActionResult> {
   try {
     const redirectTo = `${getURL()}api/auth/callback`;
+    console.log('REDIRECT TO:', redirectTo);
 
     const supabase = createClient();
     const { error: oAuthError } = await supabase.auth.signInWithOAuth({

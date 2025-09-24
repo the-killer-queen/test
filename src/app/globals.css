@@ -213,3 +213,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Override react-day-picker/persian font */
+.rdp,
+.rdp *,
+[data-slot='calendar'],
+[data-slot='calendar'] * {
+  font-family: inherit !important;
+}
+
+/* For RTL Persian calendar specifically */
+[dir='rtl'] .rdp,
+[dir='rtl'] .rdp *,
+[dir='rtl'] [data-slot='calendar'],
+[dir='rtl'] [data-slot='calendar'] * {
+  font-family: inherit !important;
+}

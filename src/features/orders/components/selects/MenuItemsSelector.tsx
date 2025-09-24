@@ -2,7 +2,7 @@ import FiltersList from '@/components/shared/FiltersList';
 import Search from '@/components/shared/Search';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { ControllerRenderProps } from 'react-hook-form';
-import MenuItemsFilter from '../layout/MenuItemsFilter';
+import MenuItemsFilter from '../../../../components/shared/MenuItemsFilter';
 import OrderSummary from '../layout/OrderSummary';
 import OrderItemList from '../layout/OrderItemList';
 import { useTranslations } from 'next-intl';
@@ -15,7 +15,10 @@ function MenuItemsSelector(field: ControllerRenderProps) {
       <Card className='flex flex-col gap-2 bg-transparent'>
         <CardHeader className='flex flex-col gap-2'>
           <div className='flex w-full gap-2'>
-            <MenuItemsFilter />
+            <MenuItemsFilter
+              fetchOnlySelected={true}
+              filterName='menu_item_filter'
+            />
             <Search
               className='flex-1'
               placeholder={t('menuSelector.searchPlaceholder')}

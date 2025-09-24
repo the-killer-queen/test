@@ -81,7 +81,7 @@ export const createMenuItemSchema = z.object({
     .min(FIELD_LIMITS.MENU_ITEM_NAME_MIN, {
       error: `Menu item name ${VALIDATION_MESSAGES.LENGTH.EMPTY}`,
     })
-    .max(FIELD_LIMITS.MENU_INGREDIENT_NAME_MAX, {
+    .max(FIELD_LIMITS.MENU_ITEM_NAME_MAX, {
       error: VALIDATION_MESSAGES.LENGTH.MENU_ITEM_NAME_MAX,
     }),
   price: z
