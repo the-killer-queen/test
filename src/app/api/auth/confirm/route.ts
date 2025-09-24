@@ -1,14 +1,13 @@
 import { type EmailOtpType } from '@supabase/supabase-js';
 import { createClient } from '@/supabase/server';
 import { redirect } from '@/i18n/navigation';
+import { getLocale } from 'next-intl/server';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const token_hash = searchParams.get('token');
   const type = searchParams.get('type') as EmailOtpType | null;
-
-  const pathname = new URL(request.url).pathname;
-  const locale = pathname.split('/')[1] || 'en';
+  const locale = await getLocale();
 
   const next = '/';
 

@@ -1,17 +1,18 @@
 import { createClient } from '@/supabase/server';
 import { redirect } from '@/i18n/navigation';
+import { getLocale } from 'next-intl/server';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const code = searchParams.get('code');
   const next = searchParams.get('next') || '/reset-password';
-
-  const pathname = new URL(request.url).pathname;
-  const locale = pathname.split('/')[1] || 'en';
+  const locale = await getLocale();
 
   if (code) {
     const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
+
+    console.log('💥💥', error, '💥💥');
 
     if (!error) {
       await supabase.auth.updateUser({
