@@ -17,8 +17,10 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { signup } from '../../actions/signup';
 import { type SignupFormSchema, signupSchema } from '../../schema';
+import { useTranslations } from 'next-intl';
 
 function SignupForm() {
+  const t = useTranslations('auth.signup');
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
 
@@ -36,9 +38,7 @@ function SignupForm() {
       const { success, error } = await signup(values);
 
       if (success) {
-        toast.success(
-          'Account created successfully! Please check your email to verify your account.',
-        );
+        toast.success(t('success'));
         router.push('/');
       }
       if (!success) toast.error(error);
@@ -53,10 +53,10 @@ function SignupForm() {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email Address</FormLabel>
+              <FormLabel>{t('form.emailLabel')}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder='Enter your email address'
+                  placeholder={t('form.emailPlaceholder')}
                   type='email'
                   {...field}
                 />
@@ -71,10 +71,10 @@ function SignupForm() {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>{t('form.passwordLabel')}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder='Create a strong password'
+                  placeholder={t('form.passwordPlaceholder')}
                   type='password'
                   {...field}
                 />
@@ -89,10 +89,10 @@ function SignupForm() {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
+              <FormLabel>{t('form.confirmPasswordLabel')}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder='Re-enter your password'
+                  placeholder={t('form.confirmPasswordPlaceholder')}
                   type='password'
                   {...field}
                 />
@@ -104,7 +104,7 @@ function SignupForm() {
 
         <div className='pt-2'>
           <Button type='submit' className='w-full' disabled={isPending}>
-            {isPending ? 'Creating Account...' : 'Create Account'}
+            {isPending ? t('form.submitButtonLoading') : t('form.submitButton')}
           </Button>
         </div>
       </form>

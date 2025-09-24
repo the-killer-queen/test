@@ -9,7 +9,7 @@ import { ForgotPasswordForm } from '@/features/auth';
 import { getTranslations } from 'next-intl/server';
 
 async function ForgotPasswordPage() {
-  const t = await getTranslations('Auth.ForgotPassword');
+  const t = await getTranslations('auth.forgotPassword');
 
   return (
     <Card className='w-full max-w-sm'>

@@ -1,5 +1,3 @@
-'use client';
-
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -10,10 +8,10 @@ import {
 } from '@/components/ui/card';
 import { SigninForm } from '@/features/auth';
 import { Link } from '@/i18n/navigation';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
-function SigninPage() {
-  const t = useTranslations('Auth.SignIn');
+async function SigninPage() {
+  const t = await getTranslations('auth.signin');
 
   return (
     <div className='w-full max-w-sm'>
@@ -27,9 +25,9 @@ function SigninPage() {
           <SigninForm />
 
           <p className='text-muted-foreground mt-4 flex items-center justify-center gap-1 text-sm'>
-            {t('noAccount')}
+            {t('cta.noAccount')}
             <Button variant='link' className='p-0'>
-              <Link href='/sign-up'>{t('signUpLink')}</Link>
+              <Link href='/sign-up'>{t('cta.signUpLink')}</Link>
             </Button>
           </p>
         </CardContent>

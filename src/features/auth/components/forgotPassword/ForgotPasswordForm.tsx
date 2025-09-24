@@ -15,8 +15,10 @@ import { toast } from 'sonner';
 import SubmitButton from '@/components/shared/SubmitButton';
 import { ForgotPasswordFormSchema, forgotPasswordSchema } from '../../schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 
 function ForgotPasswordForm() {
+  const t = useTranslations('auth.forgotPassword');
   const form = useForm<ForgotPasswordFormSchema>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
@@ -27,7 +29,7 @@ function ForgotPasswordForm() {
   async function onSubmit(values: ForgotPasswordFormSchema) {
     const { success, error } = await forgotPassword(values.email);
 
-    if (success) toast.success('Password reset link sent to your email!');
+    if (success) toast.success(t('success'));
     if (!success) toast.error(error);
   }
 
@@ -39,11 +41,11 @@ function ForgotPasswordForm() {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email Address</FormLabel>
+              <FormLabel>{t('form.emailLabel')}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  placeholder='Enter your registered email'
+                  placeholder={t('form.emailPlaceholder')}
                   type='email'
                 />
               </FormControl>
@@ -53,8 +55,8 @@ function ForgotPasswordForm() {
         />
 
         <SubmitButton
-          label='Send Reset Link'
-          loadinglabel='Sending...'
+          label={t('form.submitButton')}
+          loadinglabel={t('form.submitButtonLoading')}
           isLoading={form.formState.isSubmitting}
         />
       </form>

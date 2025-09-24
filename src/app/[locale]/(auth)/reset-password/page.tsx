@@ -12,7 +12,7 @@ import { createClient } from '@/supabase/server';
 import { getTranslations } from 'next-intl/server';
 
 async function ResetPasswordPage() {
-  const t = await getTranslations('Auth.ResetPassword');
+  const t = await getTranslations('auth.resetPassword');
 
   const supabase = await createClient();
   const {

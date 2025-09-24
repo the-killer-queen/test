@@ -17,8 +17,10 @@ import SigninCTA from './SigninCTA';
 import { Button } from '@/components/ui/button';
 import { Link, useRouter } from '@/i18n/navigation';
 import { LoginFormSchema, loginSchema } from '../../schema';
+import { useTranslations } from 'next-intl';
 
 function SigninForm() {
+  const t = useTranslations('auth.signin');
   const router = useRouter();
   const form = useForm<LoginFormSchema>({
     resolver: zodResolver(loginSchema),
@@ -32,7 +34,7 @@ function SigninForm() {
     const { success, error } = await login(values);
 
     if (success) {
-      toast.success('Welcome back! You have successfully signed in.');
+      toast.success(t('success'));
       router.push('/');
     }
 
@@ -47,10 +49,10 @@ function SigninForm() {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email Address</FormLabel>
+              <FormLabel>{t('form.emailLabel')}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder='Enter your email address'
+                  placeholder={t('form.emailPlaceholder')}
                   type='email'
                   {...field}
                 />
@@ -65,10 +67,10 @@ function SigninForm() {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>{t('form.passwordLabel')}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder='Enter your password'
+                  placeholder={t('form.passwordPlaceholder')}
                   type='password'
                   {...field}
                 />
@@ -80,7 +82,7 @@ function SigninForm() {
 
         <p className='text-muted-foreground flex items-center gap-1 text-sm'>
           <Button variant='link' className='p-0'>
-            <Link href='/forgot-password'>Forgot your password?</Link>
+            <Link href='/forgot-password'>{t('form.forgotPasswordLink')}</Link>
           </Button>
         </p>
 

@@ -11,7 +11,7 @@ import { Link } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
 
 async function AuthNotFound() {
-  const t = await getTranslations('Auth.NotFound');
+  const t = await getTranslations('auth.errors.notFound');
 
   return (
     <div className='w-full max-w-sm'>

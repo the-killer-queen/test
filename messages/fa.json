@@ -1,102 +1,128 @@
 {
-  "Auth": {
-    "SignIn": {
+  "auth": {
+    "signin": {
       "title": "خوش آمدید",
-      "description": "وارد شوید تا به پیگیری عادات خود ادامه دهید و به اهدافتان برسید.",
-      "emailLabel": "آدرس ایمیل",
-      "emailPlaceholder": "آدرس ایمیل خود را وارد کنید",
-      "passwordLabel": "رمز عبور",
-      "passwordPlaceholder": "رمز عبور خود را وارد کنید",
-      "forgotPassword": "رمز عبور خود را فراموش کرده‌اید؟",
-      "signInButton": "ورود",
-      "signingInButton": "در حال ورود...",
-      "noAccount": "حساب کاربری ندارید؟",
-      "signUpLink": "ثبت نام",
-      "successMessage": "خوش آمدید! شما با موفقیت وارد شدید.",
-      "googleButton": "گوگل",
-      "connectingButton": "در حال اتصال...",
+      "description": "برای ادامه پیگیری عادات و دستیابی به اهدافتان وارد شوید.",
+      "form": {
+        "emailLabel": "آدرس ایمیل",
+        "emailPlaceholder": "آدرس ایمیل خود را وارد کنید",
+        "passwordLabel": "رمز عبور",
+        "passwordPlaceholder": "رمز عبور خود را وارد کنید",
+        "forgotPasswordLink": "رمز عبور خود را فراموش کرده‌اید؟",
+        "submitButton": "ورود",
+        "submitButtonLoading": "در حال ورود..."
+      },
+      "cta": {
+        "noAccount": "حساب کاربری ندارید؟",
+        "signUpLink": "ثبت‌نام",
+        "googleButton": "گوگل",
+        "googleButtonLoading": "در حال اتصال..."
+      },
+      "success": "خوش آمدید! شما با موفقیت وارد شدید.",
       "welcomeBack": "خوش آمدید!"
     },
-    "SignUp": {
-      "title": "ایجاد حساب کاربری",
-      "description": "امروز به ما بپیوندید و شروع به ایجاد عادات بهتر برای زندگی سالم‌تر و پربارتر کنید.",
-      "emailLabel": "آدرس ایمیل",
-      "emailPlaceholder": "آدرس ایمیل خود را وارد کنید",
-      "passwordLabel": "رمز عبور",
-      "passwordPlaceholder": "رمز عبور قوی ایجاد کنید",
-      "confirmPasswordLabel": "تأیید رمز عبور",
-      "confirmPasswordPlaceholder": "رمز عبور را مجدداً وارد کنید",
-      "createAccountButton": "ایجاد حساب",
-      "creatingAccountButton": "در حال ایجاد حساب...",
-      "haveAccount": "حساب کاربری دارید؟",
-      "signInLink": "ورود",
-      "successMessage": "حساب با موفقیت ایجاد شد! لطفاً ایمیل خود را برای تأیید حساب بررسی کنید.",
-      "orSeparator": "یا"
+    "signup": {
+      "title": "حساب کاربری خود را بسازید",
+      "description": "همین امروز به ما بپیوندید و شروع به ساختن عادات بهتر برای زندگی سالم‌تر و پربارتر کنید.",
+      "form": {
+        "emailLabel": "آدرس ایمیل",
+        "emailPlaceholder": "آدرس ایمیل خود را وارد کنید",
+        "passwordLabel": "رمز عبور",
+        "passwordPlaceholder": "رمز عبور قوی ایجاد کنید",
+        "confirmPasswordLabel": "تأیید رمز عبور",
+        "confirmPasswordPlaceholder": "رمز عبور را مجدد وارد کنید",
+        "submitButton": "ایجاد حساب",
+        "submitButtonLoading": "در حال ایجاد حساب..."
+      },
+      "cta": {
+        "haveAccount": "قبلاً حساب دارید؟",
+        "signInLink": "ورود",
+        "orSeparator": "یا",
+        "googleButton": "گوگل",
+        "googleButtonLoading": "در حال اتصال..."
+      },
+      "success": "حساب با موفقیت ایجاد شد! لطفاً ایمیل خود را برای تأیید حساب بررسی کنید."
     },
-    "ForgotPassword": {
+    "forgotPassword": {
       "title": "فراموشی رمز عبور",
-      "description": "آدرس ایمیل خود را وارد کنید و ما لینک بازنشانی رمز عبور را برایتان ارسال خواهیم کرد.",
-      "emailLabel": "آدرس ایمیل",
-      "emailPlaceholder": "ایمیل ثبت شده خود را وارد کنید",
-      "sendResetButton": "ارسال لینک بازنشانی",
-      "sendingButton": "در حال ارسال...",
-      "successMessage": "لینک بازنشانی رمز عبور به ایمیل شما ارسال شد!"
+      "description": "آدرس ایمیل خود را وارد کنید تا لینک بازیابی رمز عبور برایتان ارسال شود.",
+      "form": {
+        "emailLabel": "آدرس ایمیل",
+        "emailPlaceholder": "ایمیل ثبت‌شده خود را وارد کنید",
+        "submitButton": "ارسال لینک بازیابی",
+        "submitButtonLoading": "در حال ارسال..."
+      },
+      "success": "لینک بازیابی رمز عبور به ایمیل شما ارسال شد!"
     },
-    "ResetPassword": {
-      "title": "بازنشانی رمز عبور",
-      "description": "ایمیل خود را وارد کنید تا لینک بازنشانی را برای بازگشت به حسابتان ارسال کنیم.",
-      "newPasswordLabel": "رمز عبور جدید",
-      "newPasswordPlaceholder": "رمز عبور جدید خود را وارد کنید",
-      "confirmPasswordLabel": "تأیید رمز عبور",
-      "confirmPasswordPlaceholder": "رمز عبور جدید را مجدداً وارد کنید",
-      "resetButton": "بازنشانی رمز عبور",
-      "resettingButton": "در حال بازنشانی...",
-      "successMessage": "رمز عبور شما با موفقیت بازنشانی شد!"
+    "resetPassword": {
+      "title": "بازیابی رمز عبور",
+      "description": "رمز عبور جدید خود را وارد کنید تا فرآیند بازیابی تکمیل شود.",
+      "form": {
+        "passwordLabel": "رمز عبور جدید",
+        "passwordPlaceholder": "رمز عبور جدید خود را وارد کنید",
+        "confirmPasswordLabel": "تأیید رمز عبور",
+        "confirmPasswordPlaceholder": "رمز عبور جدید را مجدد وارد کنید",
+        "submitButton": "بازیابی رمز عبور",
+        "submitButtonLoading": "در حال بازیابی..."
+      },
+      "success": "رمز عبور شما با موفقیت بازیابی شد!"
     },
-    "AuthError": {
-      "title": "خطای احراز هویت",
-      "goBackButton": "بازگشت",
-      "errors": {
+    "logout": {
+      "menuItem": "خروج",
+      "success": "با موفقیت خارج شدید!"
+    },
+    "oauth": {
+      "google": {
+        "button": "گوگل",
+        "buttonLoading": "در حال اتصال...",
+        "success": "خوش آمدید!",
+        "welcomeBack": "خوش آمدید!"
+      }
+    },
+    "errors": {
+      "authError": {
+        "title": "خطای احراز هویت",
+        "goBackButton": "بازگشت",
         "expired_link": {
           "title": "لینک منقضی شده",
-          "description": "لینک بازنشانی شما منقضی شده است. لطفاً لینک جدیدی درخواست کنید."
+          "description": "لینک بازیابی شما منقضی شده است. لطفاً لینک جدیدی درخواست کنید."
         },
         "already_used": {
           "title": "لینک قبلاً استفاده شده",
-          "description": "این لینک قبلاً استفاده شده است. لینک بازنشانی جدیدی درخواست کنید."
+          "description": "این لینک قبلاً استفاده شده است. لطفاً لینک بازیابی جدیدی درخواست کنید."
         },
         "exchange_failed": {
           "title": "تبادل جلسه ناموفق",
-          "description": "در هنگام تأیید جلسه شما مشکلی پیش آمد. لطفاً دوباره تلاش کنید."
+          "description": "در حین تأیید جلسه شما مشکلی پیش آمد. لطفاً دوباره تلاش کنید."
         },
         "verification_failed": {
           "title": "تأیید ناموفق",
           "description": "نتوانستیم درخواست شما را تأیید کنیم. لینک خود را دوباره بررسی کنید."
         },
         "invalid_or_missing_token": {
-          "title": "توکن نامعتبر یا گمشده",
-          "description": "توکن گمشده یا نامعتبر است. لطفاً دوباره تلاش کنید."
+          "title": "توکن نامعتبر یا مفقود",
+          "description": "توکن مفقود یا نامعتبر است. لطفاً دوباره تلاش کنید."
         },
         "invalid_or_missing_code": {
-          "title": "کد نامعتبر یا گمشده",
-          "description": "کد گمشده یا نامعتبر است. لطفاً دوباره تلاش کنید."
+          "title": "کد نامعتبر یا مفقود",
+          "description": "کد مفقود یا نامعتبر است. لطفاً دوباره تلاش کنید."
         },
         "default": {
           "title": "خطای احراز هویت",
           "description": "خطای غیرمنتظره‌ای رخ داد."
         }
+      },
+      "notFound": {
+        "title": "صفحه یافت نشد",
+        "description": "صفحه احراز هویت مورد نظر شما وجود ندارد یا جابجا شده است.",
+        "signInButton": "رفتن به صفحه ورود",
+        "signUpButton": "ایجاد حساب"
+      },
+      "general": {
+        "title": "مشکلی پیش آمد",
+        "description": "هنگام بارگذاری صفحه احراز هویت با خطایی مواجه شدیم. لطفاً دوباره تلاش کنید.",
+        "tryAgainButton": "تلاش مجدد"
       }
-    },
-    "NotFound": {
-      "title": "صفحه یافت نشد",
-      "description": "صفحه احراز هویت که به دنبال آن می‌گردید وجود ندارد یا جابجا شده است.",
-      "signInButton": "رفتن به ورود",
-      "signUpButton": "ایجاد حساب"
-    },
-    "Error": {
-      "title": "مشکلی پیش آمد",
-      "description": "هنگام بارگذاری صفحه احراز هویت با خطا مواجه شدیم. لطفاً دوباره تلاش کنید.",
-      "tryAgainButton": "تلاش دوباره"
     }
   }
 }

@@ -17,8 +17,10 @@ import { ResetPasswordFormSchema, resetPasswordSchema } from '../../schema';
 
 import { useRouter } from '@/i18n/navigation';
 import { oneTimeResetPassword } from '../../actions/forgotPassword';
+import { useTranslations } from 'next-intl';
 
 function ResetPasswordForm() {
+  const t = useTranslations('auth.resetPassword');
   const router = useRouter();
   const form = useForm<ResetPasswordFormSchema>({
     resolver: zodResolver(resetPasswordSchema),
@@ -32,7 +34,7 @@ function ResetPasswordForm() {
     const { success, error } = await oneTimeResetPassword(values.password);
 
     if (success) {
-      toast.success('Your password has been reset successfully!');
+      toast.success(t('success'));
       router.push('/sign-in');
     }
 
@@ -47,11 +49,11 @@ function ResetPasswordForm() {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>New Password</FormLabel>
+              <FormLabel>{t('form.passwordLabel')}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  placeholder='Enter your new password'
+                  placeholder={t('form.passwordPlaceholder')}
                   type='password'
                 />
               </FormControl>
@@ -65,11 +67,11 @@ function ResetPasswordForm() {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
+              <FormLabel>{t('form.confirmPasswordLabel')}</FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  placeholder='Re-enter your new password'
+                  placeholder={t('form.confirmPasswordPlaceholder')}
                   type='password'
                 />
               </FormControl>
@@ -79,8 +81,8 @@ function ResetPasswordForm() {
         />
 
         <SubmitButton
-          label='Reset Password'
-          loadinglabel='Resetting...'
+          label={t('form.submitButton')}
+          loadinglabel={t('form.submitButtonLoading')}
           isLoading={form.formState.isSubmitting}
         />
       </form>

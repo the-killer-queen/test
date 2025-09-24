@@ -17,7 +17,7 @@ type AuthErrorProps = {
 };
 
 function AuthError({ error, reset }: AuthErrorProps) {
-  const t = useTranslations('Auth.Error');
+  const t = useTranslations('auth.errors.general');
 
   return (
     <div className='w-full max-w-sm'>

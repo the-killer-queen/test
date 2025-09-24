@@ -12,10 +12,13 @@ import { Suspense } from 'react';
 import DashboardFooter from './DashboardFooter';
 import DashboardFooterSkeleton from './DashboardFooterSkeleton';
 import MenuNav from './MenuNav';
+import { getLocale } from 'next-intl/server';
 
-function DashboardSidebar() {
+async function DashboardSidebar() {
+  const locale = await getLocale();
+
   return (
-    <Sidebar>
+    <Sidebar side={locale === 'fa' ? 'right' : 'left'}>
       <SidebarHeader className='border-b !p-4'>
         <AppLogo />
       </SidebarHeader>

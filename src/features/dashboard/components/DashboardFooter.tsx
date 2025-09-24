@@ -12,7 +12,7 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { getUser } from '@/supabase/data/user-service';
-import LogoutMenuItem from './LogoutMenuItem';
+import Logout from './Logout';
 import UserMenuNav from './UserMenuNav';
 
 async function DashboardFooter() {
@@ -79,7 +79,7 @@ async function DashboardFooter() {
 
             <DropdownMenuSeparator className='my-2' />
 
-            <LogoutMenuItem />
+            <Logout />
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>

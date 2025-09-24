@@ -7,9 +7,9 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { SidebarMenuButton } from '@/components/ui/sidebar';
-import LogoutMenuItem from './LogoutMenuItem';
-import UserMenuNav from './UserMenuNav';
 import { type User } from '@supabase/supabase-js';
+import Logout from './Logout';
+import UserMenuNav from './UserMenuNav';
 
 type UserDropdownProps = {
   user: User;
@@ -66,7 +66,7 @@ function UserDropdown({ user }: UserDropdownProps) {
 
         <DropdownMenuSeparator className='my-2' />
 
-        <LogoutMenuItem />
+        <Logout />
       </DropdownMenuContent>
     </DropdownMenu>
   );

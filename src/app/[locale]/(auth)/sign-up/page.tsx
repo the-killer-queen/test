@@ -12,7 +12,7 @@ import { Link } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
 
 async function SignupPage() {
-  const t = await getTranslations('Auth.SignUp');
+  const t = await getTranslations('auth.signup');
 
   return (
     <div className='w-full max-w-sm'>
@@ -26,7 +26,7 @@ async function SignupPage() {
           <div className='grid grid-cols-7 items-center gap-3'>
             <Separator className='col-span-3' />
             <p className='!text-muted-foreground col-span-1 text-center text-sm'>
-              {t('orSeparator')}
+              {t('cta.orSeparator')}
             </p>
             <Separator className='col-span-3' />
           </div>
@@ -36,9 +36,9 @@ async function SignupPage() {
           <SignupForm />
 
           <p className='!text-muted-foreground mt-4 flex items-center justify-center gap-1 text-sm'>
-            {t('haveAccount')}
+            {t('cta.haveAccount')}
             <Button variant='link' className='p-0'>
-              <Link href='/sign-in'>{t('signInLink')}</Link>
+              <Link href='/sign-in'>{t('cta.signInLink')}</Link>
             </Button>
           </p>
         </CardContent>

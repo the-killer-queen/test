@@ -5,14 +5,16 @@ import { GoogleLogoIcon } from '@phosphor-icons/react';
 import { useTransition } from 'react';
 import { toast } from 'sonner';
 import { loginWithGoogle } from '../../actions/loginWithOAuth';
+import { useTranslations } from 'next-intl';
 
 function LoginWithGoogleButton() {
+  const t = useTranslations('auth.oauth.google');
   const [isLoading, startSignin] = useTransition();
 
   async function handleGoogleSignin() {
     startSignin(async () => {
       const { success, error } = await loginWithGoogle();
-      if (success) toast.success('Welcome back!');
+      if (success) toast.success(t('success'));
       if (!success) toast.error(error);
     });
   }
@@ -25,7 +27,7 @@ function LoginWithGoogleButton() {
       onClick={handleGoogleSignin}
     >
       <GoogleLogoIcon />
-      {isLoading ? 'Connecting...' : 'Google'}
+      {isLoading ? t('buttonLoading') : t('button')}
     </Button>
   );
 }

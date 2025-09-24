@@ -8,17 +8,17 @@ async function AuthErrorPage({
   searchParams,
 }: PageProps<'/[locale]/auth-error'>) {
   const { message } = (await searchParams) as { message: string };
-  const t = await getTranslations('Auth.AuthError');
+  const t = await getTranslations('auth.errors.authError');
 
   const title =
-    message && t.has(`errors.${message}.title`)
-      ? t(`errors.${message}.title`)
-      : t('errors.default.title');
+    message && t.has(`${message}.title`)
+      ? t(`${message}.title`)
+      : t('default.title');
 
   const description =
-    message && t.has(`errors.${message}.description`)
-      ? t(`errors.${message}.description`)
-      : t('errors.default.description');
+    message && t.has(`${message}.description`)
+      ? t(`${message}.description`)
+      : t('default.description');
 
   return (
     <Card className='!border-destructive w-full max-w-sm border-2 text-center'>
