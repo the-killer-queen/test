@@ -38,12 +38,13 @@ const Toaster = ({ ...props }: ToasterProps) => {
         } as React.CSSProperties
       }
       toastOptions={{
+        className: '!border-none !ring-2',
         classNames: {
-          success: '!text-success',
-          error: '!text-destructive',
-          warning: '!text-warning',
-          loading: '!text-foreground',
-          info: '!text-info',
+          success: '!text-success !ring-success/50',
+          error: '!text-destructive !ring-destructive/50',
+          warning: '!text-warning !ring-warning/50',
+          loading: '!text-foreground !ring-foreground/50',
+          info: '!text-info !ring-info/50',
         },
       }}
       {...props}

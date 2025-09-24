@@ -41,7 +41,7 @@ function Pagination({
     if (page > 1) updatePage(page - 1);
   }
 
-  if (itemsLength === 0) return <P>No Items found!</P>;
+  if (itemsLength === 0) return <P className='text-center'>No Items found</P>;
 
   return (
     <PaginationContext.Provider

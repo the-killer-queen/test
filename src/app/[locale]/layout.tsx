@@ -7,6 +7,7 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { Vazirmatn } from 'next/font/google';
+import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -28,19 +29,21 @@ export default async function RootLayout({
   params,
 }: LayoutProps<'/[locale]'>) {
   const { locale } = await params;
-
   if (!hasLocale(routing.locales, locale)) notFound();
 
+  const isFa = locale === 'fa';
+
   return (
-    <html
-      lang={locale}
-      dir={locale === 'fa' ? 'rtl' : 'ltr'}
-      suppressHydrationWarning
-    >
+    <html lang={locale} dir={isFa ? 'rtl' : 'ltr'} suppressHydrationWarning>
       <head>
         <meta name='apple-mobile-web-app-title' content='MyWebSite' />
       </head>
-      <body className={`min-h-dvh w-full ${vazirFont.className} antialiased`}>
+      <body
+        className={cn(
+          'min-h-dvh w-full antialiased',
+          isFa && vazirFont.className,
+        )}
+      >
         <ThemeProvider attribute={'class'} defaultTheme='system' enableSystem>
           <main>
             <NextIntlClientProvider>
