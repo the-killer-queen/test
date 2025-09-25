@@ -1,5 +1,6 @@
 'use client';
 
+import CurrencyDisplay from '@/components/shared/CurrencyDisplay';
 import DynamicIcon from '@/components/shared/DynamicIcon';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -13,13 +14,12 @@ import {
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useExcludedColumnsQuery } from '@/hooks/useExcludedColumnsQuery';
 import { Link } from '@/i18n/navigation';
-import { formatNumber } from '@/lib/utils';
 import { MenuRow } from '@/types/tables';
 import { Copy, Ellipsis, Eye, SquarePen, Trash2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import DeleteMenuItemDialog from '../dialog/DeleteMenuItemDialog';
 import DuplicateMenuItemDialog from '../dialog/DuplicateMenuItemDialog';
 import UpdateMenuItemDialog from '../dialog/UpdateMenuItemDialog';
-import { useTranslations } from 'next-intl';
 
 type MenuTableRowProps = {
   menuItem: MenuRow;
@@ -87,10 +87,7 @@ function MenuTableRow({ menuItem }: MenuTableRowProps) {
       <TableCell className='px-2 md:px-4'>
         <div className='flex items-center'>
           <span className='text-sm font-semibold md:text-base'>
-            {formatNumber({
-              locale: 'en-US',
-              number: menuItem.price,
-            })}
+            <CurrencyDisplay amount={menuItem.price} />
           </span>
         </div>
       </TableCell>

@@ -8,11 +8,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
-import { format, formatISO, isToday } from 'date-fns';
+import { cn, getDateLibPromise } from '@/lib/utils';
+import { formatISO } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
+import { useLocale } from 'next-intl';
 import { parseAsString, useQueryState } from 'nuqs';
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { useGetOrdersDate } from '../../hooks/useGetOrdersDate';
 import DateRangePickerSkeleton from '../skeletons/DateRangePickerSkeleton';
 
@@ -25,6 +26,8 @@ function DateRangePicker() {
       .withOptions({ shallow: false }),
   );
   const [isOpen, setIsOpen] = useState(false);
+  const locale = useLocale();
+  const dateFormat = use(getDateLibPromise(locale));
 
   if (isPending) return <DateRangePickerSkeleton />;
   if (error || !ordersDate) return <ErrorState message='Error' />;
@@ -49,10 +52,10 @@ function DateRangePicker() {
           >
             <CalendarIcon className='h-3 w-3 md:h-4 md:w-4' />
             {selectedDate ? (
-              isToday(selectedDate) ? (
+              dateFormat.isToday(selectedDate) ? (
                 'Today'
               ) : (
-                format(selectedDate, 'PP')
+                dateFormat.format(selectedDate, 'PP')
               )
             ) : (
               <span>Pick a date</span>

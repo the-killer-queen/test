@@ -30,6 +30,7 @@ import OrderStatusSelect from '../selects/OrderStatusSelect';
 import OrderTypeSelect from '../selects/OrderTypeSelect';
 import { parseAsString, useQueryStates } from 'nuqs';
 import { useTranslations } from 'next-intl';
+import TomanIcon from '@/components/typography/TomanIcon';
 
 function CreateOrderForm({ onClose }: { onClose: () => void }) {
   const t = useTranslations('orders');

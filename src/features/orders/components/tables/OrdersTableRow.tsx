@@ -1,5 +1,6 @@
 'use client';
 
+import CurrencyDisplay from '@/components/shared/CurrencyDisplay';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -10,25 +11,27 @@ import {
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useExcludedColumnsQuery } from '@/hooks/useExcludedColumnsQuery';
 import { Link } from '@/i18n/navigation';
-import { formatNumber } from '@/lib/utils';
 import { OrderRow } from '@/types/tables';
-import { format } from 'date-fns';
 import { Ellipsis, Eye, SquarePen, Trash2 } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
 import { handleCopyOrderId } from '../../lib/utils';
 import DeleteOrderDialog from '../dialog/DeleteOrderDialog';
 import EditOrderDialog from '../dialog/EditOrderDialog';
 import OrderPreviewDialog from '../dialog/OrderPreviewDialog';
 import OrderIsPaidSelector from '../selects/OrderIsPaidSelector';
 import OrderIsToGoSelector from '../selects/OrderIsToGoSelector';
-import { useTranslations } from 'next-intl';
+import { use } from 'react';
+import { getDateLibPromise } from '@/lib/utils';
 
 type OrdersTableRowProps = {
   order: OrderRow;
 };
 
 function OrdersTableRow({ order }: OrdersTableRowProps) {
+  const locale = useLocale() as 'fa' | 'en';
   const t = useTranslations('orders');
   const { excludedColumns } = useExcludedColumnsQuery();
+  const dateLib = use(getDateLibPromise(locale));
 
   return (
     <OrderPreviewDialog order={order}>
@@ -41,7 +44,7 @@ function OrdersTableRow({ order }: OrdersTableRowProps) {
               handleCopyOrderId(e, order, t('messages.success.copied'))
             }
           >
-            #
+            <span>#</span>
             {order.order_name
               ? order.order_name.replaceAll('-', ' ')
               : order.id}
@@ -86,20 +89,12 @@ function OrdersTableRow({ order }: OrdersTableRowProps) {
 
         {/* TOTAL PRICE */}
         <TableCell className='px-2 text-sm font-semibold md:px-4'>
-          {formatNumber({
-            locale: 'en-US',
-            number: order.total_price,
-            options: {
-              style: 'currency',
-              currency: 'USD',
-              maximumFractionDigits: 3,
-            },
-          })}
+          <CurrencyDisplay amount={order.total_price} />
         </TableCell>
 
         {/* CREATED AT */}
         <TableCell className='text-muted-foreground px-2 text-xs md:px-4'>
-          {format(new Date(order.created_at), 'MMM dd, HH:mm')}
+          {dateLib.format(new Date(order.created_at), 'd MMM, HH:mm')}
         </TableCell>
 
         {/* ACTIONS */}

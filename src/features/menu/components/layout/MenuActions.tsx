@@ -26,10 +26,7 @@ async function MenuActions() {
       </div>
 
       <div className='flex w-full items-center gap-1 md:gap-2'>
-        <Search
-          placeholder={t('ctaActions.search')}
-          className='col-span-2 text-xs md:text-sm'
-        />
+        <Search placeholder={t('ctaActions.search')} className='col-span-2' />
         <ManageCategoriesDialog />
         <CreateMenuItemDialog />
       </div>

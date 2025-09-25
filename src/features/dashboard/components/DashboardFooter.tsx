@@ -12,12 +12,16 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { getUser } from '@/supabase/data/user-service';
+import { getLocale } from 'next-intl/server';
 import Logout from './Logout';
 import UserMenuNav from './UserMenuNav';
 
 async function DashboardFooter() {
   const user = await getUser();
   if (!user) throw new Error();
+
+  const locale = await getLocale();
+  const isFa = locale === 'fa';
 
   const userInitials =
     user?.email?.split('@')[0].slice(0, 2).toUpperCase() || 'U';
@@ -50,9 +54,15 @@ async function DashboardFooter() {
             </SidebarMenuButton>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent side='top' align='end' className='w-64 p-2'>
+          <DropdownMenuContent
+            side='top'
+            align={isFa ? 'start' : 'end'}
+            className='w-64 p-2'
+          >
             <DropdownMenuItem className='hover:!bg-transparent'>
-              <div className='flex items-center gap-2'>
+              <div
+                className={`flex ${isFa ? 'flex-1 flex-row-reverse' : ''} items-center gap-2`}
+              >
                 <Avatar>
                   <AvatarImage
                     src={user.user_metadata?.picture}
@@ -73,11 +83,11 @@ async function DashboardFooter() {
               </div>
             </DropdownMenuItem>
 
-            <DropdownMenuSeparator className='my-2' />
+            <DropdownMenuSeparator />
 
             <UserMenuNav />
 
-            <DropdownMenuSeparator className='my-2' />
+            <DropdownMenuSeparator />
 
             <Logout />
           </DropdownMenuContent>

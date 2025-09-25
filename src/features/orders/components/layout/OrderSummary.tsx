@@ -1,14 +1,14 @@
 'use client';
 
+import CurrencyDisplay from '@/components/shared/CurrencyDisplay';
 import { Large } from '@/components/typography/Large';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { formatNumber } from '@/lib/utils';
 import { X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { ControllerRenderProps } from 'react-hook-form';
 import { OrderItem } from '../../lib/types';
-import { useTranslations } from 'next-intl';
 
 type OrderSummaryProps = { field: ControllerRenderProps };
 
@@ -21,25 +21,18 @@ function OrderSummary({ field }: OrderSummaryProps) {
     field.onChange(field.value.filter((item: OrderItem) => item.id !== id));
   }
 
+  const totalAmount = field.value.reduce(
+    (total: number, item: OrderItem) => total + item.price * item.quantity,
+    0,
+  );
+
   return (
     <Card className='border-none !bg-transparent !shadow-none'>
       <CardHeader className='p-0'>
         <div className='flex items-center justify-between'>
           <CardTitle>
             <Large>
-              {formatNumber({
-                locale: 'en-US',
-                options: {
-                  style: 'currency',
-                  currency: 'USD',
-                  maximumFractionDigits: 3,
-                },
-                number: field.value.reduce(
-                  (total: number, item: OrderItem) =>
-                    total + item.price * item.quantity,
-                  0,
-                ),
-              })}
+              <CurrencyDisplay amount={totalAmount} />
             </Large>
           </CardTitle>
           <Button
@@ -54,7 +47,7 @@ function OrderSummary({ field }: OrderSummaryProps) {
       </CardHeader>
       <CardContent className='p-0'>
         <div className='h-max max-h-36 overflow-y-auto'>
-          <div className='grid grid-cols-1 items-center gap-1 md:gap-2 lg:grid-cols-2'>
+          <div className='grid grid-cols-1 items-center gap-1 md:gap-2'>
             {field.value.map((item: OrderItem, i: number) => (
               <div
                 key={i}
@@ -70,31 +63,15 @@ function OrderSummary({ field }: OrderSummaryProps) {
                   <span className='text-xs font-medium md:text-sm'>
                     {item.name}
                   </span>
-                  <span className='text-muted-foreground text-xs'>
-                    {formatNumber({
-                      locale: 'en-US',
-                      number: item.price,
-                      options: {
-                        style: 'currency',
-                        currency: 'USD',
-                        maximumFractionDigits: 2,
-                      },
-                    })}
-                    {t('cards.items.each')}
+                  <span className='text-muted-foreground flex items-center gap-1 text-xs'>
+                    <CurrencyDisplay amount={item.price} />
+                    <span>{t('cards.items.each')}</span>
                   </span>
                 </div>
 
                 <div className='flex items-center gap-1 md:gap-2'>
                   <span className='text-xs font-semibold md:text-sm'>
-                    {formatNumber({
-                      locale: 'en-US',
-                      number: item.price * item.quantity,
-                      options: {
-                        style: 'currency',
-                        currency: 'USD',
-                        maximumFractionDigits: 3,
-                      },
-                    })}
+                    <CurrencyDisplay amount={item.price * item.quantity} />
                   </span>
                   <Button
                     type='button'

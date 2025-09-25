@@ -42,13 +42,3 @@ export function filterMenuItems(filters: string[], menu: MenuRow[]) {
       )
     : menu;
 }
-
-export function menuFilterOptions(
-  categories: { name: string; icon_name: string | null }[],
-) {
-  return categories.map((cat) => ({
-    label: cat.name,
-    value: cat.name,
-    iconName: cat?.icon_name || '',
-  }));
-}
