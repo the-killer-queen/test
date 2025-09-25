@@ -16,8 +16,10 @@ import { Send } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { changePasswordSchema, ChangePasswordSchema } from '../schema';
+import { useTranslations } from 'next-intl';
 
 function ChangePasswordForm() {
+  const t = useTranslations('profile');
   const form = useForm<ChangePasswordSchema>({
     resolver: zodResolver(changePasswordSchema),
     defaultValues: {
@@ -30,7 +32,7 @@ function ChangePasswordForm() {
     const { success, error } = await updateUserPasword(values.password);
 
     if (success) {
-      toast.success('Password changed successfully!');
+      toast.success(t('changePassword.success'));
       form.reset();
     }
 
@@ -45,10 +47,10 @@ function ChangePasswordForm() {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>New Password</FormLabel>
+              <FormLabel>{t('changePassword.newPassword')}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder='Enter your new password'
+                  placeholder={t('changePassword.newPasswordPlaceholder')}
                   type='password'
                   {...field}
                 />
@@ -63,10 +65,10 @@ function ChangePasswordForm() {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm New Password</FormLabel>
+              <FormLabel>{t('changePassword.confirmPassword')}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder='Confirm your new password'
+                  placeholder={t('changePassword.confirmPasswordPlaceholder')}
                   type='password'
                   {...field}
                 />
@@ -80,8 +82,8 @@ function ChangePasswordForm() {
           <SubmitButton
             className='w-min'
             icon={<Send />}
-            label='Change Password'
-            loadinglabel='Changing...'
+            label={t('changePassword.submit')}
+            loadinglabel={t('changePassword.submitting')}
             isLoading={form.formState.isSubmitting}
           />
         </div>

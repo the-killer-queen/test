@@ -8,20 +8,19 @@ import {
 import { getUser } from '@/supabase/data/user-service';
 import ChangePasswordForm from './ChangePasswordForm';
 import ProfileForm from './ProfileForm';
+import { getTranslations } from 'next-intl/server';
 
 async function ProfileContent() {
+  const t = await getTranslations('profile');
   const user = await getUser();
-  if (!user) throw new Error('User not found');
+  if (!user) throw new Error(t('errors.userNotFound'));
 
   return (
     <>
       <Card>
         <CardHeader>
-          <CardTitle>Personal Information</CardTitle>
-          <CardDescription>
-            Update your personal details and profile picture. Changes will be
-            reflected across your account.
-          </CardDescription>
+          <CardTitle>{t('personalInfo.title')}</CardTitle>
+          <CardDescription>{t('personalInfo.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <ProfileForm user={user} />
@@ -30,11 +29,8 @@ async function ProfileContent() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Change Password</CardTitle>
-          <CardDescription>
-            We&apos;ll send a password reset link to your email address. Click
-            the link to securely update your password.
-          </CardDescription>
+          <CardTitle>{t('changePassword.title')}</CardTitle>
+          <CardDescription>{t('changePassword.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <ChangePasswordForm />

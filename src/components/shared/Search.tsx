@@ -1,22 +1,26 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { SearchIcon, X } from 'lucide-react';
+import { Search as SearchIcon, X } from 'lucide-react';
 import { parseAsString, useQueryState } from 'nuqs';
 import { ComponentProps, FormEvent, useRef } from 'react';
 import { Input } from '../ui/input';
 import { useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 
 function Search({
-  placeholder = 'Search...',
+  placeholder,
   name = 'query',
   className,
   ...props
 }: ComponentProps<'input'>) {
+  const t = useTranslations('components');
   const ref = useRef<HTMLInputElement | null>(null);
   const [query, setQuery] = useQueryState(name, parseAsString.withDefault(''));
   const locale = useLocale();
   const isFa = locale === 'fa';
+
+  const searchPlaceholder = placeholder || t('search.placeholder');
 
   function handleSearch(e: FormEvent<HTMLInputElement>) {
     e.preventDefault();
@@ -44,7 +48,7 @@ function Search({
           )}
           defaultValue={query}
           name={name}
-          placeholder={placeholder}
+          placeholder={searchPlaceholder}
           {...props}
         />
       </div>

@@ -1,9 +1,12 @@
 import { Link } from '@/i18n/navigation';
 import { H4 } from '../typography/H4';
 import { Muted } from '../typography/Muted';
-import { DrumstickIcon } from 'lucide-react';
+import { Drumstick as DrumstickIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 function AppLogo() {
+  const t = useTranslations('components');
+
   return (
     <Link className='flex items-center gap-2' href={'/dashboard'}>
       <div className='relative'>
@@ -11,8 +14,8 @@ function AppLogo() {
       </div>
 
       <div className='flex flex-col'>
-        <H4>CafeCtrl</H4>
-        <Muted>Dashboard</Muted>
+        <H4>{t('appLogo.title')}</H4>
+        <Muted>{t('appLogo.subtitle')}</Muted>
       </div>
     </Link>
   );

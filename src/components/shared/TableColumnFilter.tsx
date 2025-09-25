@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
 import { useOptimistic, useState, useTransition } from 'react';
 import { Button } from '../ui/button';
+import { useTranslations } from 'next-intl';
 
 type TableColumnFilterProps = {
   options: {
@@ -21,6 +22,7 @@ type TableColumnFilterProps = {
 };
 
 function TableColumnFilter({ options }: TableColumnFilterProps) {
+  const t = useTranslations('components');
   const { excludedColumns, setExcludedColumns } = useExcludedColumnsQuery();
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -72,7 +74,7 @@ function TableColumnFilter({ options }: TableColumnFilterProps) {
           )}
           disabled={isPending}
         >
-          <span>Columns</span>
+          <span>{t('tableColumnFilter.columns')}</span>
           <ChevronDown
             className={cn(
               'transition-transform duration-200',

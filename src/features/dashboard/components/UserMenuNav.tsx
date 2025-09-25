@@ -1,21 +1,24 @@
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Link } from '@/i18n/navigation';
-import { Settings, User2 } from 'lucide-react';
-
-export const navLinks = [
-  {
-    title: 'Profile',
-    url: '/dashboard/profile',
-    icon: User2,
-  },
-  {
-    title: 'Settings',
-    url: '/dashboard/settings',
-    icon: Settings,
-  },
-];
+import { Settings, User as User2 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 function UserMenuNav() {
+  const t = useTranslations('dashboard');
+
+  const navLinks = [
+    {
+      title: t('userMenu.profile'),
+      url: '/dashboard/profile',
+      icon: User2,
+    },
+    {
+      title: t('userMenu.settings'),
+      url: '/dashboard/settings',
+      icon: Settings,
+    },
+  ];
+
   return navLinks.map((item) => (
     <Link href={item.url} key={item.title}>
       <DropdownMenuItem>

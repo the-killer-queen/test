@@ -9,9 +9,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useSortByQuery } from '@/hooks/useSortByQuery';
-import { Check, SortAscIcon } from 'lucide-react';
+import { Check, Proportions as SortAscIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '../ui/button';
+import { useTranslations } from 'next-intl';
 
 type SortByProps = {
   options: {
@@ -21,6 +22,7 @@ type SortByProps = {
 };
 
 function SortBy({ options }: SortByProps) {
+  const t = useTranslations('components');
   const { sortBy, setSortBy } = useSortByQuery();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -37,7 +39,7 @@ function SortBy({ options }: SortByProps) {
       <DropdownMenuTrigger asChild>
         <Button variant={'secondary'}>
           <SortAscIcon className='h-3 w-3 md:h-4 md:w-4' />
-          <span className='hidden sm:inline'>Sort Items</span>
+          <span className='hidden sm:inline'>{t('sortBy.sortItems')}</span>
         </Button>
       </DropdownMenuTrigger>
 

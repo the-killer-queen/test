@@ -1,10 +1,13 @@
 import { SidebarTrigger } from '@/components/ui/sidebar';
+import { getTranslations } from 'next-intl/server';
 
-function DashboardPage() {
+async function DashboardPage() {
+  const t = await getTranslations('dashboard');
+
   return (
     <div>
       <SidebarTrigger />
-      Welcome to dashboard!
+      {t('welcome')}
     </div>
   );
 }

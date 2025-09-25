@@ -12,9 +12,10 @@ import { Suspense } from 'react';
 import DashboardFooter from './DashboardFooter';
 import DashboardFooterSkeleton from './DashboardFooterSkeleton';
 import MenuNav from './MenuNav';
-import { getLocale } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 async function DashboardSidebar() {
+  const t = await getTranslations('dashboard');
   const locale = await getLocale();
 
   return (
@@ -25,7 +26,7 @@ async function DashboardSidebar() {
 
       <SidebarContent className='p-4'>
         <SidebarGroupLabel className='tracking-wider uppercase'>
-          <Muted>Navigation</Muted>
+          <Muted>{t('sidebar.navigation')}</Muted>
         </SidebarGroupLabel>
         <SidebarGroupContent>
           <MenuNav />

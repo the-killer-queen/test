@@ -649,5 +649,86 @@
         "iconNameMax": "Icon name must be less than 50 characters"
       }
     }
+  },
+  "components": {
+    "appLogo": {
+      "title": "CafeCtrl",
+      "subtitle": "Dashboard"
+    },
+    "filterBy": {
+      "applyFilter": "Apply Filter",
+      "searchPlaceholder": "Search...",
+      "noOptions": "No options available"
+    },
+    "search": {
+      "placeholder": "Search..."
+    },
+    "sortBy": {
+      "sortItems": "Sort Items"
+    },
+    "tableColumnFilter": {
+      "columns": "Columns"
+    },
+    "pagination": {
+      "showing": "Showing {start} to {end} of {total} results",
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome to dashboard!",
+    "sidebar": {
+      "navigation": "Navigation"
+    },
+    "navigation": {
+      "analytics": "Analytics",
+      "menu": "Menu",
+      "orders": "Orders",
+      "reports": "Reports"
+    },
+    "userMenu": {
+      "profile": "Profile",
+      "settings": "Settings"
+    }
+  },
+  "profile": {
+    "page": {
+      "title": "Your Profile",
+      "description": "Manage your personal information and account settings."
+    },
+    "personalInfo": {
+      "title": "Personal Information",
+      "description": "Update your personal details and profile picture. Changes will be reflected across your account."
+    },
+    "changePassword": {
+      "title": "Change Password",
+      "description": "We'll send a password reset link to your email address. Click the link to securely update your password.",
+      "newPassword": "New Password",
+      "newPasswordPlaceholder": "Enter your new password",
+      "confirmPassword": "Confirm New Password",
+      "confirmPasswordPlaceholder": "Confirm your new password",
+      "submit": "Change Password",
+      "submitting": "Changing...",
+      "success": "Password changed successfully!"
+    },
+    "form": {
+      "firstName": "First Name",
+      "firstNamePlaceholder": "Enter your first name",
+      "lastName": "Last Name",
+      "lastNamePlaceholder": "Enter your last name",
+      "phone": "Phone Number (Optional)",
+      "phonePlaceholder": "Enter your phone number",
+      "submit": "Update Profile",
+      "submitting": "Updating...",
+      "success": "Profile updated successfully!"
+    },
+    "status": {
+      "verified": "Verified",
+      "unverified": "Unverified",
+      "joined": "Joined {date}"
+    },
+    "errors": {
+      "userNotFound": "User not found"
+    }
   }
 }

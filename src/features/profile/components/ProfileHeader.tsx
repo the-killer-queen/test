@@ -5,12 +5,14 @@ import { P } from '@/components/typography/P';
 import { User } from '@supabase/supabase-js';
 import { format } from 'date-fns';
 import { Calendar, Mail, Phone, Shield } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 type ProfileHeaderProps = {
   user: User;
 };
 
 function ProfileHeader({ user }: ProfileHeaderProps) {
+  const t = useTranslations('profile');
   const userInitials =
     user.email?.split('@')[0].slice(0, 2).toUpperCase() || 'U';
 
@@ -53,12 +55,16 @@ function ProfileHeader({ user }: ProfileHeaderProps) {
         <div className='flex flex-wrap gap-2'>
           <Badge variant='secondary' className='flex items-center gap-1'>
             <Shield className='h-3 w-3' />
-            {user.email_confirmed_at ? 'Verified' : 'Unverified'}
+            {user.email_confirmed_at
+              ? t('status.verified')
+              : t('status.unverified')}
           </Badge>
 
           <Badge variant='outline' className='flex items-center gap-1'>
             <Calendar className='h-3 w-3' />
-            Joined {format(new Date(user.created_at), 'MMM yyyy')}
+            {t('status.joined', {
+              date: format(new Date(user.created_at), 'MMM yyyy'),
+            })}
           </Badge>
         </div>
       </div>

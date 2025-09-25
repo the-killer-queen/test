@@ -18,7 +18,13 @@ import { updateProfile } from '@/supabase/data/user-service';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { User } from '@supabase/supabase-js';
 import { format } from 'date-fns';
-import { Calendar, Mail, ShieldCheck, ShieldX, UserIcon } from 'lucide-react';
+import {
+  Calendar,
+  Mail,
+  ShieldCheck,
+  ShieldX,
+  User as UserIcon,
+} from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { updateProfileSchema, UpdateProfileSchema } from '../schema';

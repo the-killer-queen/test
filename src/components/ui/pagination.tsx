@@ -1,9 +1,9 @@
 'use client';
 
 import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  MoreHorizontalIcon,
+  ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon,
+  MoveHorizontal as MoreHorizontalIcon,
 } from 'lucide-react';
 import * as React from 'react';
 
@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 import { parseAsInteger, useQueryState } from 'nuqs';
 import { RESULT_PER_PAGE } from '@/config/config';
 import { P } from '../typography/P';
+import { useTranslations } from 'next-intl';
 
 type PaginationContextProps = {
   page: number;
@@ -28,6 +29,7 @@ function Pagination({
   itemsLength,
   ...props
 }: React.ComponentProps<'nav'> & { itemsLength: number }) {
+  const t = useTranslations('components');
   const [page, updatePage] = useQueryState(
     'page',
     parseAsInteger.withDefault(1),
@@ -54,11 +56,11 @@ function Pagination({
             itemsLength <= RESULT_PER_PAGE && 'text-center',
           )}
         >
-          Showing <span>{(page - 1) * RESULT_PER_PAGE + 1}</span> to{' '}
-          <span>
-            {page === totalPages ? itemsLength : RESULT_PER_PAGE * page}
-          </span>{' '}
-          of <span>{itemsLength}</span> results
+          {t('pagination.showing', {
+            start: (page - 1) * RESULT_PER_PAGE + 1,
+            end: page === totalPages ? itemsLength : RESULT_PER_PAGE * page,
+            total: itemsLength,
+          })}
         </P>
 
         {itemsLength >= RESULT_PER_PAGE && (
@@ -127,6 +129,7 @@ function PaginationPrevious({
   ...props
 }: React.ComponentProps<typeof PaginationLink>) {
   const { page, handlePrev } = usePaginationContext();
+  const t = useTranslations();
 
   return (
     <PaginationLink
@@ -138,7 +141,7 @@ function PaginationPrevious({
       {...props}
     >
       <ChevronLeftIcon />
-      <span className='hidden sm:block'>Previous</span>
+      <span className='hidden sm:block'>{t('pagination.previous')}</span>
     </PaginationLink>
   );
 }
@@ -149,6 +152,7 @@ function PaginationNext({
   ...props
 }: React.ComponentProps<typeof PaginationLink>) {
   const { page, totalPages, handleNext } = usePaginationContext();
+  const t = useTranslations();
 
   return (
     <PaginationLink
@@ -159,7 +163,7 @@ function PaginationNext({
       onClick={handleNext}
       isActive={page < totalPages}
     >
-      <span className='hidden sm:block'>Next</span>
+      <span className='hidden sm:block'>{t('pagination.next')}</span>
       <ChevronRightIcon />
     </PaginationLink>
   );

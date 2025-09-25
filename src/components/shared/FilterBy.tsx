@@ -2,7 +2,7 @@
 
 import { useFiltersQuery } from '@/hooks/useFiltersQuery';
 import { CommandEmpty } from 'cmdk';
-import { Check, Filter, Inbox } from 'lucide-react';
+import { Check, ListFilter as Filter, Inbox } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '../ui/button';
 import {
@@ -14,6 +14,7 @@ import {
 } from '../ui/command';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import DynamicIcon from './DynamicIcon';
+import { useTranslations } from 'next-intl';
 
 type FilterByProps = {
   options: {
@@ -25,6 +26,7 @@ type FilterByProps = {
 };
 
 function FilterBy({ options, filterName }: FilterByProps) {
+  const t = useTranslations('components');
   const { filters, setFilter } = useFiltersQuery(filterName);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -41,20 +43,20 @@ function FilterBy({ options, filterName }: FilterByProps) {
       <PopoverTrigger asChild>
         <Button role='combobox' variant={'secondary'}>
           <Filter className='h-3 w-3 md:h-4 md:w-4' />
-          <span className='hidden sm:inline'>Apply Filter</span>
+          <span className='hidden sm:inline'>{t('filterBy.applyFilter')}</span>
         </Button>
       </PopoverTrigger>
 
       <PopoverContent side='bottom' className='h-20 w-full p-0 sm:h-full'>
         <Command>
           <CommandInput
-            placeholder='Search...'
+            placeholder={t('filterBy.searchPlaceholder')}
             className='h-6 text-xs md:h-8 md:text-sm'
           />
           <CommandEmpty className='flex justify-center'>
             <span className='text-muted-foreground flex items-center gap-1 px-1 py-1 text-xs font-medium md:gap-2 md:px-2 md:py-1.5 md:text-sm'>
               <Inbox className='size-3 md:size-4' />
-              No categories available
+              {t('filterBy.noOptions')}
             </span>
           </CommandEmpty>
           <CommandList>

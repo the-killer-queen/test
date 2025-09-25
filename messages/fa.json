@@ -649,5 +649,86 @@
         "iconNameMax": "نام آیکون باید کمتر از ۵۰ کاراکتر باشد"
       }
     }
+  },
+  "components": {
+    "appLogo": {
+      "title": "کافه‌کنترل",
+      "subtitle": "داشبورد"
+    },
+    "filterBy": {
+      "applyFilter": "اعمال فیلتر",
+      "searchPlaceholder": "جستجو...",
+      "noOptions": "هیچ گزینه‌ای موجود نیست"
+    },
+    "search": {
+      "placeholder": "جستجو..."
+    },
+    "sortBy": {
+      "sortItems": "مرتب‌سازی اقلام"
+    },
+    "tableColumnFilter": {
+      "columns": "ستون‌ها"
+    },
+    "pagination": {
+      "showing": "نمایش {start} تا {end} از {total} نتیجه",
+      "previous": "قبلی",
+      "next": "بعدی"
+    }
+  },
+  "dashboard": {
+    "welcome": "به داشبورد خوش آمدید!",
+    "sidebar": {
+      "navigation": "ناوبری"
+    },
+    "navigation": {
+      "analytics": "تحلیل‌ها",
+      "menu": "منو",
+      "orders": "سفارش‌ها",
+      "reports": "گزارش‌ها"
+    },
+    "userMenu": {
+      "profile": "پروفایل",
+      "settings": "تنظیمات"
+    }
+  },
+  "profile": {
+    "page": {
+      "title": "پروفایل شما",
+      "description": "اطلاعات شخصی و تنظیمات حساب کاربری خود را مدیریت کنید."
+    },
+    "personalInfo": {
+      "title": "اطلاعات شخصی",
+      "description": "جزئیات شخصی و تصویر پروفایل خود را به‌روزرسانی کنید. تغییرات در تمام حساب شما اعمال خواهد شد."
+    },
+    "changePassword": {
+      "title": "تغییر رمز عبور",
+      "description": "لینک بازنشانی رمز عبور به آدرس ایمیل شما ارسال خواهد شد. برای به‌روزرسانی امن رمز عبور، روی لینک کلیک کنید.",
+      "newPassword": "رمز عبور جدید",
+      "newPasswordPlaceholder": "رمز عبور جدید خود را وارد کنید",
+      "confirmPassword": "تأیید رمز عبور جدید",
+      "confirmPasswordPlaceholder": "رمز عبور جدید خود را تأیید کنید",
+      "submit": "تغییر رمز عبور",
+      "submitting": "در حال تغییر...",
+      "success": "رمز عبور با موفقیت تغییر کرد!"
+    },
+    "form": {
+      "firstName": "نام",
+      "firstNamePlaceholder": "نام خود را وارد کنید",
+      "lastName": "نام خانوادگی",
+      "lastNamePlaceholder": "نام خانوادگی خود را وارد کنید",
+      "phone": "شماره تلفن (اختیاری)",
+      "phonePlaceholder": "شماره تلفن خود را وارد کنید",
+      "submit": "به‌روزرسانی پروفایل",
+      "submitting": "در حال به‌روزرسانی...",
+      "success": "پروفایل با موفقیت به‌روزرسانی شد!"
+    },
+    "status": {
+      "verified": "تأیید شده",
+      "unverified": "تأیید نشده",
+      "joined": "عضویت در {date}"
+    },
+    "errors": {
+      "userNotFound": "کاربر یافت نشد"
+    }
   }
 }
