@@ -1,11 +1,11 @@
+import CurrencyDisplay from '@/components/shared/CurrencyDisplay';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { formatNumber } from '@/lib/utils';
 import { getOrderById } from '@/supabase/data/orders-service';
 import { ShoppingCart } from 'lucide-react';
+import { getLocale, getTranslations } from 'next-intl/server';
 import CardError from '../error/CardError';
-import { getTranslations } from 'next-intl/server';
 
 async function OrderItemsCard({ orderId }: { orderId: string }) {
   const t = await getTranslations('orders');
@@ -18,6 +18,7 @@ async function OrderItemsCard({ orderId }: { orderId: string }) {
       />
     );
 
+  const locale = await getLocale();
   const items = order.items || [];
 
   return (
@@ -46,26 +47,15 @@ async function OrderItemsCard({ orderId }: { orderId: string }) {
                   </div>
                   <div className='flex flex-col items-end gap-1'>
                     <span className='text-sm font-semibold'>
-                      {formatNumber({
-                        locale: 'en-US',
-                        number: item.price * item.quantity,
-                        options: {
-                          style: 'currency',
-                          currency: 'USD',
-                          maximumFractionDigits: 2,
-                        },
-                      })}
+                      <CurrencyDisplay amount={item.price * item.quantity} />
                     </span>
-                    <span className='text-muted-foreground text-xs'>
-                      {formatNumber({
-                        locale: 'en-US',
-                        number: item.price,
-                        options: {
-                          style: 'currency',
-                          currency: 'USD',
-                          maximumFractionDigits: 2,
-                        },
-                      })}{' '}
+                    <span
+                      className={`text-muted-foreground flex items-center text-xs ${locale === 'fa' ? 'flex-row-reverse' : ''} gap-1`}
+                    >
+                      <CurrencyDisplay
+                        className='size-3 xl:size-4'
+                        amount={item.price}
+                      />
                       {t('cards.items.each')}
                     </span>
                   </div>
@@ -81,15 +71,7 @@ async function OrderItemsCard({ orderId }: { orderId: string }) {
                 {t('cards.items.total')}
               </span>
               <span className='text-lg font-bold'>
-                {formatNumber({
-                  locale: 'en-US',
-                  number: order.total_price,
-                  options: {
-                    style: 'currency',
-                    currency: 'USD',
-                    maximumFractionDigits: 2,
-                  },
-                })}
+                <CurrencyDisplay amount={order.total_price} />
               </span>
             </div>
           </div>

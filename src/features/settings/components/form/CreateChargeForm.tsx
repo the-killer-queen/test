@@ -203,7 +203,12 @@ function CreateChargeForm({ onClose }: { onClose: () => void }) {
         </Accordion>
 
         <div className='flex items-center justify-center gap-1 md:gap-2'>
-          <Button disabled={isLoading} variant={'secondary'} onClick={onClose}>
+          <Button
+            disabled={isLoading}
+            variant={'secondary'}
+            onClick={onClose}
+            type='button'
+          >
             {t('charges.form.create.cancel')}
           </Button>
           <Button variant={'default'} disabled={isLoading} className='flex-1'>

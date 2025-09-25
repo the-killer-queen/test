@@ -1,5 +1,6 @@
 'use client';
 
+import CurrencyDisplay from '@/components/shared/CurrencyDisplay';
 import { Badge } from '@/components/ui/badge';
 import {
   Dialog,
@@ -9,9 +10,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
-import { formatNumber } from '@/lib/utils';
+import { getDateLibPromise } from '@/lib/utils';
 import { OrderRow } from '@/types/tables';
-import { format } from 'date-fns';
 import {
   Calendar,
   Clock,
@@ -22,7 +22,8 @@ import {
   ShoppingBag,
   User,
 } from 'lucide-react';
-import { cloneElement, ReactElement, useState } from 'react';
+import { useLocale } from 'next-intl';
+import { cloneElement, ReactElement, use, useState } from 'react';
 
 type OrderPreviewDialogProps = {
   order: OrderRow;
@@ -31,6 +32,8 @@ type OrderPreviewDialogProps = {
 
 function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const locale = useLocale();
+  const dateFormat = use(getDateLibPromise(locale));
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -44,7 +47,10 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
       <DialogContent className='max-w-xs md:max-w-md'>
         <DialogHeader>
           <DialogTitle className='text-sm md:text-base'>
-            #{order?.order_name || order.id}
+            <div className={`flex items-center gap-1`}>
+              <span>#</span>
+              {order?.order_name || order.id}
+            </div>
           </DialogTitle>
           <DialogDescription className='text-xs md:text-sm'>
             Quick preview of order details
@@ -113,15 +119,7 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
                 Total
               </span>
               <span className='text-xs font-semibold md:text-sm'>
-                {formatNumber({
-                  locale: 'en-US',
-                  number: order.total_price,
-                  options: {
-                    style: 'currency',
-                    currency: 'USD',
-                    maximumFractionDigits: 4,
-                  },
-                })}
+                <CurrencyDisplay amount={order.total_price} />
               </span>
             </div>
 
@@ -132,7 +130,10 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
                 Created
               </span>
               <span className='text-xs md:text-sm'>
-                {format(new Date(order.created_at), 'MMM dd, yyyy HH:mm')}
+                {dateFormat.format(
+                  new Date(order.created_at),
+                  'd MMM yyyy, HH:mm',
+                )}
               </span>
             </div>
           </div>
@@ -150,15 +151,7 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
                     {item.quantity}x {item.name}
                   </Badge>
                   <span className='font-medium'>
-                    {formatNumber({
-                      locale: 'en-US',
-                      number: item.price * item.quantity,
-                      options: {
-                        style: 'currency',
-                        currency: 'USD',
-                        maximumFractionDigits: 2,
-                      },
-                    })}
+                    <CurrencyDisplay amount={item.price * item.quantity} />
                   </span>
                 </div>
               ))}

@@ -23,14 +23,13 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { createOrder } from '@/supabase/data/orders-service';
 import { Plus } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { parseAsString, useQueryStates } from 'nuqs';
 import { toast } from 'sonner';
 import { createOrderSchema, CreateOrderSchema } from '../../schema/schema';
 import MenuItemsSelector from '../selects/MenuItemsSelector';
 import OrderStatusSelect from '../selects/OrderStatusSelect';
 import OrderTypeSelect from '../selects/OrderTypeSelect';
-import { parseAsString, useQueryStates } from 'nuqs';
-import { useTranslations } from 'next-intl';
-import TomanIcon from '@/components/typography/TomanIcon';
 
 function CreateOrderForm({ onClose }: { onClose: () => void }) {
   const t = useTranslations('orders');
@@ -219,7 +218,12 @@ function CreateOrderForm({ onClose }: { onClose: () => void }) {
         </Accordion>
 
         <div className='flex items-center justify-center gap-1 md:gap-2'>
-          <Button disabled={isLoading} variant={'secondary'} onClick={onClose}>
+          <Button
+            type='button'
+            disabled={isLoading}
+            variant={'secondary'}
+            onClick={onClose}
+          >
             {t('form.create.cancel')}
           </Button>
           <Button variant={'default'} disabled={isLoading} className='flex-1'>

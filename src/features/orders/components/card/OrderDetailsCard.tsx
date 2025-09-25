@@ -1,9 +1,9 @@
+import CurrencyDisplay from '@/components/shared/CurrencyDisplay';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { formatNumber } from '@/lib/utils';
+import { getDateLibPromise } from '@/lib/utils';
 import { getOrderById } from '@/supabase/data/orders-service';
-import { format } from 'date-fns';
 import {
   Calendar,
   Clock,
@@ -15,8 +15,8 @@ import {
   ShoppingBag,
   User,
 } from 'lucide-react';
+import { getLocale, getTranslations } from 'next-intl/server';
 import CardError from '../error/CardError';
-import { getTranslations } from 'next-intl/server';
 
 async function OrderDetailsCard({ orderId }: { orderId: string }) {
   const t = await getTranslations('orders');
@@ -28,6 +28,9 @@ async function OrderDetailsCard({ orderId }: { orderId: string }) {
         message={t('messages.error.failedToLoad', { item: 'order details' })}
       />
     );
+
+  const locale = await getLocale();
+  const dateFormat = await getDateLibPromise(locale);
 
   return (
     <Card>
@@ -105,15 +108,10 @@ async function OrderDetailsCard({ orderId }: { orderId: string }) {
             {t('cards.details.total')}
           </span>
           <span className='text-sm font-semibold'>
-            {formatNumber({
-              locale: 'en-US',
-              number: order.total_price,
-              options: {
-                style: 'currency',
-                currency: 'USD',
-                maximumFractionDigits: 2,
-              },
-            })}
+            <CurrencyDisplay
+              className='size-4 xl:size-5'
+              amount={order.total_price}
+            />
           </span>
         </div>
 
@@ -124,7 +122,7 @@ async function OrderDetailsCard({ orderId }: { orderId: string }) {
             {t('cards.details.created')}
           </span>
           <span className='text-sm'>
-            {format(new Date(order.created_at), 'MMM dd, yyyy HH:mm')}
+            {dateFormat.format(new Date(order.created_at), 'd MMM yyyy, HH:mm')}
           </span>
         </div>
       </CardContent>

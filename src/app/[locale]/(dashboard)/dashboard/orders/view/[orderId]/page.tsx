@@ -22,7 +22,7 @@ import { ArrowLeft, Settings } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 export async function generateStaticParams() {
   const ordersId = await getAllOrdersId();
@@ -38,6 +38,8 @@ async function OrderViewPage({
   const { data: order, error } = await getOrderById(orderId);
   if (!order || error) notFound();
 
+  const locale = await getLocale();
+
   const orderDisplayName = order.order_name
     ? `#${order.order_name.replaceAll('-', ' ')}`
     : `#${order.id}`;
@@ -49,7 +51,10 @@ async function OrderViewPage({
         description={t('view.description')}
       >
         <Button variant='link' size='sm' asChild>
-          <Link href='/dashboard/orders'>
+          <Link
+            href='/dashboard/orders'
+            className={`flex ${locale === 'fa' ? 'flex-row-reverse' : ''} items-center`}
+          >
             <ArrowLeft />
             <span className='hidden sm:block'>{t('view.goBack')}</span>
           </Link>

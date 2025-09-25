@@ -4,11 +4,12 @@ import { formatNumber, getCurrencyFormatOptions } from '@/lib/utils';
 import { useLocale } from 'next-intl';
 import TomanIcon from '../typography/TomanIcon';
 
-interface CurrencyDisplayProps {
+type CurrencyDisplayProps = {
   amount: number;
-}
+  className?: string;
+};
 
-function CurrencyDisplay({ amount }: CurrencyDisplayProps) {
+function CurrencyDisplay({ amount, className }: CurrencyDisplayProps) {
   const locale = useLocale();
 
   const isFa = locale === 'fa';
@@ -22,7 +23,7 @@ function CurrencyDisplay({ amount }: CurrencyDisplayProps) {
     return (
       <span className='flex items-center gap-2'>
         {formatted}
-        <TomanIcon />
+        <TomanIcon className={className} />
       </span>
     );
   }
