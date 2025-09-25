@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import { cloneElement, ReactElement, use, useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 type OrderPreviewDialogProps = {
   order: OrderRow;
@@ -31,6 +32,7 @@ type OrderPreviewDialogProps = {
 };
 
 function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
+  const t = useTranslations('orders');
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const locale = useLocale();
   const dateFormat = use(getDateLibPromise(locale));
@@ -53,7 +55,7 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
             </div>
           </DialogTitle>
           <DialogDescription className='text-xs md:text-sm'>
-            Quick preview of order details
+            {t('dialog.preview.description')}
           </DialogDescription>
         </DialogHeader>
 
@@ -63,10 +65,10 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
             <div className='flex items-center justify-between'>
               <span className='text-muted-foreground flex items-center gap-1 text-xs md:text-sm'>
                 <User className='size-3 md:size-4' />
-                Customer
+                {t('cards.details.customer')}
               </span>
               <span className='text-xs font-medium md:text-sm'>
-                {order.customer_name || 'Walk-in Customer'}
+                {order.customer_name || t('cards.details.walkInCustomer')}
               </span>
             </div>
 
@@ -76,7 +78,7 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
                 <div className='flex items-center justify-between'>
                   <span className='text-muted-foreground flex items-center gap-1 text-xs md:text-sm'>
                     <Phone className='size-3 md:size-4' />
-                    Contact
+                    {t('cards.details.contact')}
                   </span>
                   <span className='text-xs md:text-sm'>
                     {order.customer_contact}
@@ -89,11 +91,11 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
             <div className='flex items-center justify-between'>
               <span className='text-muted-foreground flex items-center gap-1 text-xs md:text-sm'>
                 <MapPin className='size-3 md:size-4' />
-                Type
+                {t('cards.details.type')}
               </span>
               <Badge className='w-18' variant={'outline'}>
                 {order.is_togo ? <ShoppingBag /> : <MapPin />}
-                {order.is_togo ? 'To Go' : 'Dine In'}
+                {order.is_togo ? t('type.togo') : t('type.dinein')}
               </Badge>
             </div>
 
@@ -101,14 +103,14 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
             <div className='flex items-center justify-between'>
               <span className='text-muted-foreground flex items-center gap-1 text-xs md:text-sm'>
                 <MapPin className='size-3 md:size-4' />
-                Status
+                {t('cards.details.status')}
               </span>
               <Badge
                 variant={'outline'}
                 className={`${order.status !== 'paid' ? 'border-warning text-warning' : ''} w-18 capitalize`}
               >
                 {order.status === 'paid' ? <CreditCard /> : <Clock />}
-                {order.status}
+                {t(`status.${order.status}`)}
               </Badge>
             </div>
 
@@ -116,7 +118,7 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
             <div className='flex items-center justify-between'>
               <span className='text-muted-foreground flex items-center gap-1 text-xs md:text-sm'>
                 <DollarSign className='size-3 md:size-4' />
-                Total
+                {t('cards.details.total')}
               </span>
               <span className='text-xs font-semibold md:text-sm'>
                 <CurrencyDisplay amount={order.total_price} />
@@ -127,7 +129,7 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
             <div className='flex items-center justify-between'>
               <span className='text-muted-foreground flex items-center gap-1 text-xs md:text-sm'>
                 <Calendar className='size-3 md:size-4' />
-                Created
+                {t('cards.details.created')}
               </span>
               <span className='text-xs md:text-sm'>
                 {dateFormat.format(
@@ -140,7 +142,9 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
 
           {/* Order Items */}
           <div className='space-y-2'>
-            <h4 className='text-xs font-medium md:text-sm'>Order Items</h4>
+            <h4 className='text-xs font-medium md:text-sm'>
+              {t('dialog.preview.orderItems')}
+            </h4>
             <div className='bg-muted/50 max-h-24 space-y-1 overflow-y-auto rounded-md p-2 md:max-h-48'>
               {order.items?.map((item, index) => (
                 <div
@@ -161,7 +165,9 @@ function OrderPreviewDialog({ order, children }: OrderPreviewDialogProps) {
           {/* Notes */}
           {order.notes && (
             <div className='space-y-2'>
-              <h4 className='text-xs font-medium md:text-sm'>Notes</h4>
+              <h4 className='text-xs font-medium md:text-sm'>
+                {t('cards.notes.title')}
+              </h4>
               <p className='bg-muted/50 rounded-md p-2 text-xs md:text-sm'>
                 {order.notes}
               </p>

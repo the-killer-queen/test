@@ -44,8 +44,13 @@ function ChargeIconsSelector({ ...field }: ControllerRenderProps) {
       </PopoverTrigger>
       <PopoverContent side='bottom' className='h-26 w-full p-0 px-1 md:h-48'>
         <Command>
-          <CommandInput placeholder='Search icons...' className='text-sm' />
-          <CommandEmpty className='text-sm'>No icon found.</CommandEmpty>
+          <CommandInput
+            placeholder={t('charges.form.fields.iconSearchPlaceholder')}
+            className='text-sm'
+          />
+          <CommandEmpty className='text-sm'>
+            {t('charges.form.fields.noIconFound')}
+          </CommandEmpty>
           <CommandList>
             <CommandGroup className='[&>*]:!grid [&>*]:!grid-cols-6 [&>*]:!gap-0.5 md:[&>*]:!gap-1'>
               {icons.map((icon, i) => {

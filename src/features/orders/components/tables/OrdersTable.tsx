@@ -1,17 +1,16 @@
 import { Table, TableFooter } from '@/components/ui/table';
 import { Suspense } from 'react';
 
-import TableContentHeader from '@/components/shared/TableContentHeader';
-import { tableHeaderColumns } from '../../lib/constant';
 import OrdersTableLoadingSkeleton from '../skeletons/OrdersTableLoadingSkeleton';
 import OrdersTableBody from './OrdersTableBody';
 import OrdersTableFooterContent from './OrdersTableFooterContent';
+import OrdersTableHeader from './OrdersTableHeader';
 
 function OrdersTable() {
   return (
     <div className='rounded-md border'>
       <Table>
-        <TableContentHeader columns={tableHeaderColumns} />
+        <OrdersTableHeader />
         <Suspense fallback={<OrdersTableLoadingSkeleton />}>
           <OrdersTableBody />
         </Suspense>

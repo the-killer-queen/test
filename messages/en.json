@@ -173,6 +173,7 @@
       "delete": "Delete",
       "edit": "Edit",
       "view": "View",
+      "viewDetails": "View Details",
       "filter": "Apply Filter",
       "sort": "Sort Items",
       "columns": "Columns"
@@ -216,7 +217,9 @@
       },
       "fields": {
         "orderType": "Order Type",
+        "orderTypePlaceholder": "Select order type...",
         "status": "Status",
+        "statusPlaceholder": "Select status...",
         "orderItems": "Order Items",
         "customerName": "Customer Name",
         "customerNamePlaceholder": "Enter customer name",
@@ -292,6 +295,13 @@
         "tryAgain": "Try Again"
       }
     },
+    "datePicker": {
+      "today": "Today",
+      "pickDate": "Pick a date"
+    },
+    "selectors": {
+      "rightClickToUpdate": "Right click to update"
+    },
     "messages": {
       "success": {
         "created": "Order Created Successfully",
@@ -302,6 +312,9 @@
       "info": {
         "printPreview": "Print preview would open here",
         "printDescription": "This is a mock action for demonstration purposes"
+      },
+      "error": {
+        "failedToLoad": "Failed to load {item}"
       }
     },
     "validation": {
@@ -343,6 +356,11 @@
           "description": "There was a problem loading your menu. Please try again.",
           "tryAgain": "Try again"
         }
+      },
+      "pagination": {
+        "showing": "Showing {start} to {end} of {total} results",
+        "previous": "Previous",
+        "next": "Next"
       }
     },
     "ctaActions": {
@@ -596,6 +614,8 @@
           "icon": "Icon",
           "iconDescription": "Choose an icon to represent this charge",
           "iconPlaceholder": "Select icon",
+          "iconSearchPlaceholder": "Search icons...",
+          "noIconFound": "No icon found.",
           "description": "Description",
           "descriptionPlaceholder": "Write a short description of this additional charge"
         },

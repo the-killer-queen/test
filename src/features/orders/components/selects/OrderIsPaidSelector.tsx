@@ -18,10 +18,12 @@ import { updateOrderStatus } from '@/supabase/data/orders-service';
 import { OrderRow } from '@/types/tables';
 import { Clock, CreditCard } from 'lucide-react';
 import { MouseEvent, useOptimistic, useTransition } from 'react';
+import { useTranslations } from 'next-intl';
 
 type OrderIsPaidSelectorProps = { order: OrderRow };
 
 function OrderIsPaidSelector({ order }: OrderIsPaidSelectorProps) {
+  const t = useTranslations('orders');
   const [, startTransition] = useTransition();
   const [optimisticOrder, setOptimisticOrder] = useOptimistic(
     order,
@@ -59,12 +61,12 @@ function OrderIsPaidSelector({ order }: OrderIsPaidSelectorProps) {
               className={`${!isPaid ? 'border-warning text-warning' : ''} capitalize`}
             >
               {isPaid ? <CreditCard /> : <Clock />}
-              {optimisticOrder.status}
+              {t(`status.${optimisticOrder.status}`)}
             </Badge>
           </DropdownMenuTrigger>
         </TooltipTrigger>
 
-        <TooltipContent>Right click to update</TooltipContent>
+        <TooltipContent>{t('selectors.rightClickToUpdate')}</TooltipContent>
       </Tooltip>
 
       <DropdownMenuContent className='min-w-12 !px-0 !py-0'>
@@ -75,7 +77,7 @@ function OrderIsPaidSelector({ order }: OrderIsPaidSelectorProps) {
           >
             <Badge className='flex w-full items-center justify-start'>
               <CreditCard />
-              Paid
+              {t('status.paid')}
             </Badge>
           </DropdownMenuItem>
           <DropdownMenuItem
@@ -87,7 +89,7 @@ function OrderIsPaidSelector({ order }: OrderIsPaidSelectorProps) {
               className='flex w-full items-center justify-start'
             >
               <Clock />
-              Unpaid
+              {t('status.unpaid')}
             </Badge>
           </DropdownMenuItem>
         </DropdownMenuGroup>

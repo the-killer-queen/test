@@ -9,8 +9,10 @@ import {
 } from '@/components/ui/pagination';
 import { getOrdersCountByDate } from '@/supabase/data/orders-service';
 import { searchParamsCache } from '@/lib/utils';
+import { getTranslations } from 'next-intl/server';
 
 async function OrdersTableFooterContent() {
+  const t = await getTranslations('orders');
   const { selected_date } = searchParamsCache.all();
   const itemsLength = await getOrdersCountByDate(selected_date);
 
@@ -20,11 +22,13 @@ async function OrdersTableFooterContent() {
         <Pagination itemsLength={itemsLength}>
           <PaginationContent>
             <PaginationItem>
-              <PaginationPrevious />
+              <PaginationPrevious>
+                {t('table.pagination.previous')}
+              </PaginationPrevious>
             </PaginationItem>
 
             <PaginationItem>
-              <PaginationNext />
+              <PaginationNext>{t('table.pagination.next')}</PaginationNext>
             </PaginationItem>
           </PaginationContent>
         </Pagination>

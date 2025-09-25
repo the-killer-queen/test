@@ -15,14 +15,16 @@ import {
 import { Check, ChevronsUpDown, MapPin, ShoppingBag } from 'lucide-react';
 import { useState } from 'react';
 import { ControllerRenderProps } from 'react-hook-form';
-
-const orderTypes = [
-  { value: false, label: 'Dine In', icon: MapPin },
-  { value: true, label: 'To Go', icon: ShoppingBag },
-];
+import { useTranslations } from 'next-intl';
 
 function OrderTypeSelect({ ...field }: ControllerRenderProps) {
+  const t = useTranslations('orders');
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const orderTypes = [
+    { value: false, label: t('type.dinein'), icon: MapPin },
+    { value: true, label: t('type.togo'), icon: ShoppingBag },
+  ];
 
   const selectedType = orderTypes.find((type) => type.value === field.value);
 
@@ -40,7 +42,7 @@ function OrderTypeSelect({ ...field }: ControllerRenderProps) {
               {selectedType.label}
             </span>
           ) : (
-            'Select order type...'
+            t('form.fields.orderTypePlaceholder')
           )}
           <ChevronsUpDown />
         </Button>

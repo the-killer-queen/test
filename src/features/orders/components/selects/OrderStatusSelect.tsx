@@ -15,14 +15,16 @@ import {
 import { Check, ChevronsUpDown, CreditCard, Clock } from 'lucide-react';
 import { useState } from 'react';
 import { ControllerRenderProps } from 'react-hook-form';
-
-const orderStatuses = [
-  { value: 'paid', label: 'Paid', icon: CreditCard },
-  { value: 'unpaid', label: 'Unpaid', icon: Clock },
-];
+import { useTranslations } from 'next-intl';
 
 function OrderStatusSelect({ ...field }: ControllerRenderProps) {
+  const t = useTranslations('orders');
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const orderStatuses = [
+    { value: 'paid', label: t('status.paid'), icon: CreditCard },
+    { value: 'unpaid', label: t('status.unpaid'), icon: Clock },
+  ];
 
   const selectedStatus = orderStatuses.find(
     (status) => status.value === field.value,
@@ -42,7 +44,7 @@ function OrderStatusSelect({ ...field }: ControllerRenderProps) {
               {selectedStatus.label}
             </span>
           ) : (
-            'Select status...'
+            t('form.fields.statusPlaceholder')
           )}
           <ChevronsUpDown />
         </Button>

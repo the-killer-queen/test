@@ -174,6 +174,7 @@
       "sort": "مرتب‌سازی",
       "columns": "ستون‌ها",
       "view": "مشاهده",
+      "viewDetails": "مشاهده جزئیات",
       "edit": "ویرایش",
       "delete": "حذف"
     },
@@ -216,7 +217,9 @@
       },
       "fields": {
         "orderType": "نوع سفارش",
+        "orderTypePlaceholder": "انتخاب نوع سفارش...",
         "status": "وضعیت",
+        "statusPlaceholder": "انتخاب وضعیت...",
         "orderItems": "اقلام سفارش",
         "customerName": "نام مشتری",
         "customerNamePlaceholder": "نام مشتری را وارد کنید",
@@ -292,6 +295,13 @@
         "tryAgain": "تلاش مجدد"
       }
     },
+    "datePicker": {
+      "today": "امروز",
+      "pickDate": "انتخاب تاریخ"
+    },
+    "selectors": {
+      "rightClickToUpdate": "برای به‌روزرسانی کلیک راست کنید"
+    },
     "messages": {
       "success": {
         "created": "سفارش با موفقیت ایجاد شد",
@@ -302,6 +312,9 @@
       "info": {
         "printPreview": "پیش‌نمایش چاپ در اینجا باز می‌شود",
         "printDescription": "این یک اقدام نمایشی برای اهداف آزمایشی است"
+      },
+      "error": {
+        "failedToLoad": "بارگذاری {item} ناموفق بود"
       }
     },
     "validation": {
@@ -343,6 +356,11 @@
           "description": "در بارگذاری منوی شما مشکلی پیش آمد. لطفاً دوباره تلاش کنید.",
           "tryAgain": "تلاش مجدد"
         }
+      },
+      "pagination": {
+        "showing": "نمایش {start} تا {end} از {total} نتیجه",
+        "previous": "قبلی",
+        "next": "بعدی"
       }
     },
     "ctaActions": {
@@ -596,6 +614,8 @@
           "icon": "آیکون",
           "iconDescription": "یک آیکون برای نمایش این هزینه انتخاب کنید",
           "iconPlaceholder": "انتخاب آیکون",
+          "iconSearchPlaceholder": "جستجوی آیکون‌ها...",
+          "noIconFound": "آیکونی یافت نشد.",
           "description": "توضیحات",
           "descriptionPlaceholder": "توضیح کوتاهی درباره این هزینه اضافی بنویسید"
         },

@@ -82,7 +82,7 @@ function TableColumnFilter({ options }: TableColumnFilterProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        align='end'
+        align='center'
         className={cn(
           'transition-all duration-200 ease-out',
           !isOpen && isPending && 'scale-95 opacity-0',
@@ -98,7 +98,7 @@ function TableColumnFilter({ options }: TableColumnFilterProps) {
             <DropdownMenuCheckboxItem
               key={option.value}
               className={cn(
-                'py-1 text-xs capitalize transition-all duration-150 md:py-2 md:text-sm',
+                'flex-row-reverse py-1 text-xs capitalize transition-all duration-150 md:py-2 md:text-sm',
                 isPending && 'pointer-events-none opacity-60',
               )}
               checked={isChecked}

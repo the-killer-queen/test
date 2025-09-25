@@ -1,18 +1,22 @@
+'use client';
+
 import MenuItemsFilter from '@/components/shared/MenuItemsFilter';
 import Search from '@/components/shared/Search';
 import SortBy from '@/components/shared/SortBy';
 import TableColumnFilter from '@/components/shared/TableColumnFilter';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 import { Suspense } from 'react';
 import {
-  menuExcludedColumnsOptions,
-  menuSortByOptions,
+  useMenuExcludedColumnsOptions,
+  useMenuSortByOptions,
 } from '../../lib/constant';
 import CreateMenuItemDialog from '../dialog/CreateMenuItemDialog';
 import ManageCategoriesDialog from '../dialog/ManageCategoriesDialog';
 
-async function MenuActions() {
-  const t = await getTranslations('menu');
+function MenuActions() {
+  const t = useTranslations('menu');
+  const sortBy = useMenuSortByOptions();
+  const excludedColumns = useMenuExcludedColumnsOptions();
 
   return (
     <div className='my-2 flex flex-col-reverse gap-2 xl:flex-row'>
@@ -20,9 +24,9 @@ async function MenuActions() {
         <Suspense>
           <MenuItemsFilter />
         </Suspense>
-        <SortBy options={menuSortByOptions} />
+        <SortBy options={sortBy} />
 
-        <TableColumnFilter options={menuExcludedColumnsOptions} />
+        <TableColumnFilter options={excludedColumns} />
       </div>
 
       <div className='flex w-full items-center gap-1 md:gap-2'>

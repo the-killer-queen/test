@@ -8,8 +8,10 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 import { getMenuItemCount } from '@/supabase/data/menu-service';
+import { getTranslations } from 'next-intl/server';
 
 async function MenuTableFooterContent() {
+  const t = await getTranslations('menu');
   const itemsLength = await getMenuItemCount();
 
   return (
@@ -18,11 +20,13 @@ async function MenuTableFooterContent() {
         <Pagination itemsLength={itemsLength}>
           <PaginationContent>
             <PaginationItem>
-              <PaginationPrevious />
+              <PaginationPrevious>
+                {t('table.pagination.previous')}
+              </PaginationPrevious>
             </PaginationItem>
 
             <PaginationItem>
-              <PaginationNext />
+              <PaginationNext>{t('table.pagination.next')}</PaginationNext>
             </PaginationItem>
           </PaginationContent>
         </Pagination>

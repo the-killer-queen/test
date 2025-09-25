@@ -16,8 +16,10 @@ import { parseAsString, useQueryState } from 'nuqs';
 import { use, useState } from 'react';
 import { useGetOrdersDate } from '../../hooks/useGetOrdersDate';
 import DateRangePickerSkeleton from '../skeletons/DateRangePickerSkeleton';
+import { useTranslations } from 'next-intl';
 
 function DateRangePicker() {
+  const t = useTranslations('orders');
   const { ordersDate, isPending, error } = useGetOrdersDate();
   const [selectedDate, setSelectedDate] = useQueryState(
     'selected_date',
@@ -53,12 +55,12 @@ function DateRangePicker() {
             <CalendarIcon className='h-3 w-3 md:h-4 md:w-4' />
             {selectedDate ? (
               dateFormat.isToday(selectedDate) ? (
-                'Today'
+                t('datePicker.today')
               ) : (
                 dateFormat.format(selectedDate, 'PP')
               )
             ) : (
-              <span>Pick a date</span>
+              <span>{t('datePicker.pickDate')}</span>
             )}
           </Button>
         </PopoverTrigger>

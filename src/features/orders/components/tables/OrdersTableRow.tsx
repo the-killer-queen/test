@@ -138,7 +138,7 @@ function OrdersTableRow({ order }: OrdersTableRowProps) {
                   className='flex items-center gap-2'
                 >
                   <Eye />
-                  {t('actions.view')} Details
+                  {t('actions.viewDetails')}
                 </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>

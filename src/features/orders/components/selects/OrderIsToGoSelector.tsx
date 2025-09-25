@@ -17,10 +17,12 @@ import { updateOrderIsToGo } from '@/supabase/data/orders-service';
 import { OrderRow } from '@/types/tables';
 import { MapPin, ShoppingBag } from 'lucide-react';
 import { MouseEvent, useOptimistic, useTransition } from 'react';
+import { useTranslations } from 'next-intl';
 
 type OrderIsToGoSelectorProps = { order: OrderRow };
 
 function OrderIsToGoSelector({ order }: OrderIsToGoSelectorProps) {
+  const t = useTranslations('orders');
   const [, startTransition] = useTransition();
   const [optimisticOrder, setOptimisticOrder] = useOptimistic(
     order,
@@ -54,12 +56,12 @@ function OrderIsToGoSelector({ order }: OrderIsToGoSelectorProps) {
               variant={optimisticOrder.is_togo ? 'default' : 'secondary'}
             >
               {optimisticOrder.is_togo ? <ShoppingBag /> : <MapPin />}
-              {optimisticOrder.is_togo ? 'To Go' : 'Dine In'}
+              {optimisticOrder.is_togo ? t('type.togo') : t('type.dinein')}
             </Badge>
           </DropdownMenuTrigger>
         </TooltipTrigger>
 
-        <TooltipContent>Right click to update</TooltipContent>
+        <TooltipContent>{t('selectors.rightClickToUpdate')}</TooltipContent>
       </Tooltip>
 
       <DropdownMenuContent className='min-w-12 !px-0 !py-0'>
@@ -70,7 +72,7 @@ function OrderIsToGoSelector({ order }: OrderIsToGoSelectorProps) {
           >
             <Badge className='flex w-full items-center justify-start'>
               <ShoppingBag />
-              To Go
+              {t('type.togo')}
             </Badge>
           </DropdownMenuItem>
           <DropdownMenuItem
@@ -82,7 +84,7 @@ function OrderIsToGoSelector({ order }: OrderIsToGoSelectorProps) {
               className='flex w-full items-center justify-start'
             >
               <MapPin />
-              Dine in
+              {t('type.dinein')}
             </Badge>
           </DropdownMenuItem>
         </DropdownMenuGroup>

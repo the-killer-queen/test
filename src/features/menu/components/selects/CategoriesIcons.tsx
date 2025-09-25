@@ -21,8 +21,10 @@ import { ChevronsUpDown } from 'lucide-react';
 import { useState } from 'react';
 import { ControllerRenderProps } from 'react-hook-form';
 import { icons } from '../../lib/constant';
+import { useTranslations } from 'next-intl';
 
 function CategoriesIcons({ ...field }: ControllerRenderProps) {
+  const t = useTranslations('menu');
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
@@ -43,11 +45,11 @@ function CategoriesIcons({ ...field }: ControllerRenderProps) {
       >
         <Command>
           <CommandInput
-            placeholder='Search categories...'
+            placeholder={t('categories.search')}
             className='text-xs md:text-sm'
           />
           <CommandEmpty className='text-xs md:text-sm'>
-            No category found.
+            {t('categories.noCategories')}
           </CommandEmpty>
           <CommandList>
             <CommandGroup className='[&>*]:!grid [&>*]:!grid-cols-4 [&>*]:!gap-0.5 md:[&>*]:!gap-1'>

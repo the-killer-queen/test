@@ -71,7 +71,7 @@ function FilterBy({ options, filterName }: FilterByProps) {
                     className='justify-between border-b py-1 text-xs md:py-2 md:text-sm'
                     onSelect={() => handleUpdateFilter(option.value)}
                   >
-                    <span className='flex gap-1'>
+                    <span className='flex items-center gap-1'>
                       <DynamicIcon
                         iconName={option.iconName || ''}
                         className='h-3 w-3 md:h-4 md:w-4'
