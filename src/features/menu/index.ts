@@ -13,5 +13,3 @@ export { default as UpdateMenuItemAction } from './components/layout/UpdateMenuI
 export { default as MenuTable } from './components/tables/MenuTable';
 
 export { type MenuIngredient } from './lib/types';
-
-export { menuFilterOptions } from './lib/utils';

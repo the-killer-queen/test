@@ -11,6 +11,30 @@ import { DayPicker } from 'react-day-picker/persian';
 
 import { cn } from '@/lib/utils';
 import { Button, buttonVariants } from '@/components/ui/button';
+import dynamic from 'next/dynamic';
+import { useLocale } from 'next-intl';
+
+const CalendarComponents = {
+  fa: dynamic(
+    () =>
+      import('react-day-picker/persian').then((mod) => ({
+        default: mod.DayPicker,
+      })),
+    {
+      loading: () => <div>Loading Persian calendar...</div>,
+      ssr: false,
+    },
+  ),
+
+  en: dynamic(
+    () =>
+      import('react-day-picker').then((mod) => ({ default: mod.DayPicker })),
+    {
+      loading: () => <div>Loading Persian calendar...</div>,
+      ssr: false,
+    },
+  ),
+};
 
 function Calendar({
   className,
@@ -24,10 +48,12 @@ function Calendar({
 }: React.ComponentProps<typeof DayPicker> & {
   buttonVariant?: React.ComponentProps<typeof Button>['variant'];
 }) {
+  const locale = useLocale() as 'fa' | 'en';
   const defaultClassNames = getDefaultClassNames();
+  const CalendarComponent = CalendarComponents[locale];
 
   return (
-    <DayPicker
+    <CalendarComponent
       showOutsideDays={showOutsideDays}
       className={cn(
         'bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent',

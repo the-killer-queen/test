@@ -4,6 +4,7 @@ import * as React from 'react';
 import * as SwitchPrimitives from '@radix-ui/react-switch';
 
 import { cn } from '../../lib/utils';
+import { useLocale } from 'next-intl';
 
 export interface SwitchProps
   extends React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root> {
@@ -25,6 +26,7 @@ const Switch = React.forwardRef<
       props.defaultChecked ?? false,
     );
     const isChecked = isControlled ? props.checked : internalChecked;
+    const locale = useLocale();
 
     const handleCheckedChange = (checked: boolean) => {
       if (!isControlled) {
@@ -52,7 +54,7 @@ const Switch = React.forwardRef<
       >
         <SwitchPrimitives.Thumb
           className={cn(
-            'bg-background pointer-events-none flex h-4 w-4 items-center justify-center rounded-full shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0',
+            `bg-background pointer-events-none flex h-4 w-4 items-center justify-center rounded-full shadow-lg ring-0 transition-transform ${locale === 'fa' ? 'data-[state=checked]:-translate-x-5' : 'data-[state=checked]:translate-x-5'} data-[state=unchecked]:translate-x-0`,
           )}
         >
           {icon && (

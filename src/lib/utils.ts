@@ -1,6 +1,8 @@
 import { clsx, type ClassValue } from 'clsx';
 import { createSearchParamsCache, parseAsString } from 'nuqs/server';
 import { twMerge } from 'tailwind-merge';
+import type * as DateFns from 'date-fns';
+import type * as DateFnsJalali from 'date-fns-jalali';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -34,8 +36,54 @@ export function formatNumber({
   return Intl.NumberFormat(locale, options).format(number);
 }
 
+export function getCurrencyFormatOptions(
+  isFarsi: boolean,
+  maximumFractionDigits: number = 2,
+): Intl.NumberFormatOptions {
+  if (isFarsi) {
+    return {
+      maximumFractionDigits,
+      minimumFractionDigits: 0,
+    };
+  }
+
+  return {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits,
+    minimumFractionDigits: 2,
+  };
+}
+
 export const searchParamsCache = createSearchParamsCache({
   selected_date: parseAsString.withDefault(
     new Date().toISOString().split('T')[0],
   ),
 });
+
+const dateLibPromises = new Map();
+
+type DateLibModule = typeof DateFns | typeof DateFnsJalali;
+export function getDateLibPromise(locale: string): Promise<DateLibModule> {
+  if (dateLibPromises.has(locale)) {
+    return dateLibPromises.get(locale);
+  }
+
+  const promise =
+    locale === 'fa'
+      ? import(/* webpackChunkName: "date-fns-jalali" */ 'date-fns-jalali')
+      : import(/* webpackChunkName: "date-fns" */ 'date-fns');
+
+  dateLibPromises.set(locale, promise);
+  return promise;
+}
+
+export function menuFilterOptions(
+  categories: { name: string; icon_name: string | null }[],
+) {
+  return categories.map((cat) => ({
+    label: cat.name,
+    value: cat.name,
+    iconName: cat?.icon_name || '',
+  }));
+}
