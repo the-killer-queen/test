@@ -25,6 +25,7 @@ import {
   ShieldX,
   User as UserIcon,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { updateProfileSchema, UpdateProfileSchema } from '../schema';
@@ -34,6 +35,7 @@ type ProfileFormProps = {
 };
 
 function ProfileForm({ user }: ProfileFormProps) {
+  const t = useTranslations('profile');
   const [firstName, ...lastName] = user.user_metadata?.full_name?.split(' ');
   const form = useForm<UpdateProfileSchema>({
     resolver: zodResolver(updateProfileSchema),
@@ -49,7 +51,7 @@ function ProfileForm({ user }: ProfileFormProps) {
     const { success, error } = await updateProfile(values);
 
     if (success) {
-      toast.success('Profile updated successfully!');
+      toast.success(t('form.success'));
       form.reset({
         first_name: values.first_name,
         last_name: values.last_name,
@@ -73,7 +75,7 @@ function ProfileForm({ user }: ProfileFormProps) {
               <FormControl>
                 <div className='flex flex-col items-center gap-2 text-center sm:flex-row sm:text-left'>
                   <UploadImage
-                    avatarFallback='FA'
+                    avatarFallback={user.user_metadata?.full_name?.slice(0, 2).toUpperCase() || 'U'}
                     isAvatar={true}
                     error={error}
                     {...field}
@@ -99,12 +101,12 @@ function ProfileForm({ user }: ProfileFormProps) {
                           <ShieldX />
                         )}
 
-                        {user.email_confirmed_at ? 'Verified' : 'Unverified'}
+                        {user.email_confirmed_at ? t('status.verified') : t('status.unverified')}
                       </Badge>
 
                       <Badge variant='outline'>
                         <Calendar />
-                        Joined {format(new Date(user.created_at), 'MMM yyyy')}
+                        {t('status.joined', { date: format(new Date(user.created_at), 'MMM yyyy') })}
                       </Badge>
                     </div>
                   </div>
@@ -122,9 +124,9 @@ function ProfileForm({ user }: ProfileFormProps) {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>First Name</FormLabel>
+                <FormLabel>{t('form.firstName')}</FormLabel>
                 <FormControl>
-                  <Input placeholder='Enter your first name' {...field} />
+                  <Input placeholder={t('form.firstNamePlaceholder')} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -136,9 +138,9 @@ function ProfileForm({ user }: ProfileFormProps) {
             control={form.control}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Last Name</FormLabel>
+                <FormLabel>{t('form.lastName')}</FormLabel>
                 <FormControl>
-                  <Input placeholder='Enter your last name' {...field} />
+                  <Input placeholder={t('form.lastNamePlaceholder')} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -153,10 +155,10 @@ function ProfileForm({ user }: ProfileFormProps) {
             control={form.control}
             render={({ field }) => (
               <FormItem className='flex-1'>
-                <FormLabel>Phone Number (Optional)</FormLabel>
+                <FormLabel>{t('form.phone')}</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder='Enter your phone number'
+                    placeholder={t('form.phonePlaceholder')}
                     type='tel'
                     {...field}
                   />
@@ -169,8 +171,8 @@ function ProfileForm({ user }: ProfileFormProps) {
           <SubmitButton
             icon={<UserIcon />}
             className='w-min'
-            label='Update Profile'
-            loadinglabel='Updating...'
+            label={t('form.submit')}
+            loadinglabel={t('form.submitting')}
             isLoading={form.formState.isSubmitting}
           />
         </div>
