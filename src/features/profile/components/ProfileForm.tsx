@@ -14,10 +14,10 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { getDateLibPromise } from '@/lib/utils';
 import { updateProfile } from '@/supabase/data/user-service';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { User } from '@supabase/supabase-js';
-import { format } from 'date-fns';
 import {
   Calendar,
   Mail,
@@ -25,6 +25,8 @@ import {
   ShieldX,
   User as UserIcon,
 } from 'lucide-react';
+import { useLocale } from 'next-intl';
+import { use } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { updateProfileSchema, UpdateProfileSchema } from '../schema';
@@ -44,6 +46,16 @@ function ProfileForm({ user }: ProfileFormProps) {
       avatar: undefined,
     },
   });
+
+  const locale = useLocale();
+
+  const dateForamt = use(getDateLibPromise(locale));
+  const avatarFallBack = user.user_metadata?.full_name
+    ? user.user_metadata.full_name
+        .split(' ')
+        .map((n: string) => n[0])
+        .join(' ')
+    : user?.email?.slice(0, 2);
 
   async function onSubmit(values: UpdateProfileSchema) {
     const { success, error } = await updateProfile(values);
@@ -73,7 +85,7 @@ function ProfileForm({ user }: ProfileFormProps) {
               <FormControl>
                 <div className='flex flex-col items-center gap-2 text-center sm:flex-row sm:text-left'>
                   <UploadImage
-                    avatarFallback='FA'
+                    avatarFallback={avatarFallBack}
                     isAvatar={true}
                     error={error}
                     {...field}
@@ -81,7 +93,9 @@ function ProfileForm({ user }: ProfileFormProps) {
                   />
 
                   <div className='flex flex-col gap-2'>
-                    <div>
+                    <div
+                      className={`flex flex-col ${locale === 'fa' ? 'items-start' : 'items-end'}`}
+                    >
                       <H3 className='capitalize'>
                         {user.user_metadata.full_name}
                       </H3>
@@ -104,7 +118,11 @@ function ProfileForm({ user }: ProfileFormProps) {
 
                       <Badge variant='outline'>
                         <Calendar />
-                        Joined {format(new Date(user.created_at), 'MMM yyyy')}
+                        Joined{' '}
+                        {dateForamt.format(
+                          new Date(user.created_at),
+                          'MMMM yyyy',
+                        )}
                       </Badge>
                     </div>
                   </div>

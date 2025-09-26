@@ -3,74 +3,79 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 function MenuItemViewLoading() {
   return (
-    <>
-      {/* Header Skeleton */}
-      <header className='bg-sidebar/95 flex justify-between border-b px-4 py-[17px] backdrop-blur'>
-        <div>
-          <Skeleton className='mb-2 h-6 w-48' />
-          <Skeleton className='h-4 w-80' />
+    <div role='status' aria-busy='true' className='flex flex-col'>
+      <span className='sr-only'>Loading menu item details...</span>
+
+      {/* Header */}
+      <header className='bg-sidebar/95 flex flex-col gap-2 border-b px-4 py-4 backdrop-blur sm:flex-row sm:items-center sm:justify-between'>
+        <div className='space-y-2'>
+          <Skeleton className='h-6 w-48 sm:w-56' aria-hidden='true' />
+          <Skeleton className='h-4 w-64 sm:w-80' aria-hidden='true' />
         </div>
 
-        <div className='flex items-center'>
-          <Skeleton className='mr-2 h-8 w-20' />
-          <Skeleton className='h-7 w-7' />
+        <div className='flex items-center gap-2'>
+          <Skeleton className='h-8 w-16 sm:w-20' aria-hidden='true' />
+          <Skeleton className='h-7 w-7' aria-hidden='true' />
         </div>
       </header>
 
       <div className='flex flex-col gap-4 p-4'>
         <Card>
           <CardHeader>
-            <div className='flex items-center justify-between'>
-              <Skeleton className='h-6 w-48' />
-              <Skeleton className='h-9 w-28' />
+            <div className='flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between'>
+              <Skeleton className='h-6 w-48' aria-hidden='true' />
+              <Skeleton className='h-9 w-28' aria-hidden='true' />
             </div>
-            <Skeleton className='h-4 w-80' />
+            <Skeleton className='h-4 w-80' aria-hidden='true' />
           </CardHeader>
 
           <CardContent>
             <div className='grid h-full w-full grid-cols-1 gap-4 lg:grid-cols-2'>
-              {/* Image Card Skeleton */}
+              {/* Image Card */}
               <div className='w-full'>
                 <Card className='h-full overflow-hidden p-0'>
                   <CardContent className='h-full p-0'>
-                    <Skeleton className='h-96 w-full' />
+                    <Skeleton
+                      className='aspect-[4/3] w-full sm:h-96'
+                      aria-hidden='true'
+                    />
                   </CardContent>
                 </Card>
               </div>
 
               <div className='flex w-full flex-col space-y-4'>
-                {/* Details Card Skeleton */}
+                {/* Details Card */}
                 <Card>
                   <CardHeader>
                     <div className='flex items-center gap-2'>
-                      <Skeleton className='h-4 w-4' />
-                      <Skeleton className='h-5 w-24' />
+                      <Skeleton className='h-4 w-4' aria-hidden='true' />
+                      <Skeleton className='h-5 w-24' aria-hidden='true' />
                     </div>
                   </CardHeader>
-                  <CardContent className='space-y-2'>
+                  <CardContent className='space-y-3'>
                     {Array.from({ length: 4 }).map((_, index) => (
-                      <div key={index}>
+                      <div key={index} className='space-y-2'>
                         <div className='flex items-center justify-between'>
                           <div className='flex items-center gap-1'>
-                            <Skeleton className='h-4 w-4' />
-                            <Skeleton className='h-4 w-16' />
+                            <Skeleton className='h-4 w-4' aria-hidden='true' />
+                            <Skeleton className='h-4 w-16' aria-hidden='true' />
                           </div>
-                          <Skeleton className='h-4 w-20' />
+                          <Skeleton className='h-4 w-20' aria-hidden='true' />
                         </div>
-                        {index < 3 && <div className='bg-border my-2 h-px' />}
+                        {index < 3 && <div className='bg-border h-px' />}
                       </div>
                     ))}
                   </CardContent>
                 </Card>
 
-                {/* Ingredients Card Skeleton */}
+                {/* Ingredients Card */}
                 <Card>
                   <CardHeader>
                     <div className='flex items-center gap-2'>
-                      <Skeleton className='h-4 w-4' />
-                      <Skeleton className='h-5 w-24' />
+                      <Skeleton className='h-4 w-4' aria-hidden='true' />
+                      <Skeleton className='h-5 w-24' aria-hidden='true' />
                     </div>
-                    <Skeleton className='h-4 w-64' />
+                    <Skeleton className='h-4 w-64' aria-hidden='true' />
                   </CardHeader>
                   <CardContent>
                     <div className='flex flex-wrap gap-2'>
@@ -78,6 +83,7 @@ function MenuItemViewLoading() {
                         <Skeleton
                           key={index}
                           className='h-6 w-20 rounded-full'
+                          aria-hidden='true'
                         />
                       ))}
                     </div>
@@ -85,36 +91,40 @@ function MenuItemViewLoading() {
                 </Card>
 
                 <div className='flex w-full flex-col gap-4 sm:flex-row lg:flex-col xl:flex-row'>
-                  {/* Quick Actions Card Skeleton */}
+                  {/* Quick Actions Card */}
                   <Card className='flex-1'>
                     <CardHeader>
                       <div className='flex items-center gap-2'>
-                        <Skeleton className='h-4 w-4' />
-                        <Skeleton className='h-5 w-28' />
+                        <Skeleton className='h-4 w-4' aria-hidden='true' />
+                        <Skeleton className='h-5 w-28' aria-hidden='true' />
                       </div>
                     </CardHeader>
                     <CardContent className='space-y-2'>
                       {Array.from({ length: 3 }).map((_, index) => (
-                        <Skeleton key={index} className='h-8 w-full' />
+                        <Skeleton
+                          key={index}
+                          className='h-8 w-full'
+                          aria-hidden='true'
+                        />
                       ))}
                     </CardContent>
                   </Card>
 
-                  {/* Description Card Skeleton */}
+                  {/* Description Card */}
                   <Card className='flex-1'>
                     <CardHeader>
                       <div className='flex items-center gap-2'>
-                        <Skeleton className='h-4 w-4' />
-                        <Skeleton className='h-5 w-24' />
+                        <Skeleton className='h-4 w-4' aria-hidden='true' />
+                        <Skeleton className='h-5 w-24' aria-hidden='true' />
                       </div>
                     </CardHeader>
                     <CardContent>
                       <div className='space-y-2'>
-                        <Skeleton className='h-4 w-full' />
-                        <Skeleton className='h-4 w-4/5' />
-                        <Skeleton className='h-4 w-3/4' />
+                        <Skeleton className='h-4 w-full' aria-hidden='true' />
+                        <Skeleton className='h-4 w-4/5' aria-hidden='true' />
+                        <Skeleton className='h-4 w-3/4' aria-hidden='true' />
                       </div>
-                      <Skeleton className='mt-4 h-8 w-32' />
+                      <Skeleton className='mt-4 h-8 w-32' aria-hidden='true' />
                     </CardContent>
                   </Card>
                 </div>
@@ -123,7 +133,7 @@ function MenuItemViewLoading() {
           </CardContent>
         </Card>
       </div>
-    </>
+    </div>
   );
 }
 

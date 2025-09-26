@@ -73,8 +73,10 @@ async function DashboardFooter() {
                   </AvatarFallback>
                 </Avatar>
                 <div className='flex flex-col'>
-                  <span className='text-sm font-medium'>
-                    {user.user_metadata.name || user?.email?.split('@')[0]}
+                  <span
+                    className={`${isFa ? 'text-end' : ''} text-sm font-medium`}
+                  >
+                    {user.user_metadata.full_name || user?.email?.split('@')[0]}
                   </span>
                   <span className='text-muted-foreground text-xs'>
                     {truncatedEmail}
