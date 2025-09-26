@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 import { parseAsInteger, useQueryState } from 'nuqs';
 import { RESULT_PER_PAGE } from '@/config/config';
 import { P } from '../typography/P';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 type PaginationContextProps = {
   page: number;
@@ -129,7 +129,9 @@ function PaginationPrevious({
   ...props
 }: React.ComponentProps<typeof PaginationLink>) {
   const { page, handlePrev } = usePaginationContext();
-  const t = useTranslations();
+  const t = useTranslations('components');
+
+  const locale = useLocale();
 
   return (
     <PaginationLink
@@ -140,7 +142,7 @@ function PaginationPrevious({
       isActive={page !== 1}
       {...props}
     >
-      <ChevronLeftIcon />
+      {locale === 'fa' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
       <span className='hidden sm:block'>{t('pagination.previous')}</span>
     </PaginationLink>
   );
@@ -152,7 +154,8 @@ function PaginationNext({
   ...props
 }: React.ComponentProps<typeof PaginationLink>) {
   const { page, totalPages, handleNext } = usePaginationContext();
-  const t = useTranslations();
+  const t = useTranslations('components');
+  const locale = useLocale();
 
   return (
     <PaginationLink
@@ -164,7 +167,7 @@ function PaginationNext({
       isActive={page < totalPages}
     >
       <span className='hidden sm:block'>{t('pagination.next')}</span>
-      <ChevronRightIcon />
+      {locale === 'fa' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
     </PaginationLink>
   );
 }
