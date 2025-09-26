@@ -13,10 +13,10 @@ import { Input } from '@/components/ui/input';
 import { updateUserPasword } from '@/supabase/data/user-service';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Send } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { changePasswordSchema, ChangePasswordSchema } from '../schema';
-import { useTranslations } from 'next-intl';
 
 function ChangePasswordForm() {
   const t = useTranslations('profile');
