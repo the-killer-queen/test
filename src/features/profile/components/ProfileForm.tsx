@@ -124,7 +124,7 @@ function ProfileForm({ user }: ProfileFormProps) {
                         {t('status.joined', {
                           date: dateForamt.format(
                             new Date(user.created_at),
-                            'MMM yyyy',
+                            'MMMM yyyy',
                           ),
                         })}
                       </Badge>
@@ -184,6 +184,7 @@ function ProfileForm({ user }: ProfileFormProps) {
                 <FormLabel>{t('form.phone')}</FormLabel>
                 <FormControl>
                   <Input
+                    className={`${locale === 'fa' ? 'placeholder:text-end' : ''} `}
                     placeholder={t('form.phonePlaceholder')}
                     type='tel'
                     {...field}
