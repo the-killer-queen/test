@@ -1,18 +1,73 @@
 'use client';
 
-import * as React from 'react';
 import {
   ChevronDownIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
 } from 'lucide-react';
+import * as React from 'react';
 import { DayButton, getDefaultClassNames } from 'react-day-picker';
 import { DayPicker } from 'react-day-picker/persian';
 
-import { cn } from '@/lib/utils';
 import { Button, buttonVariants } from '@/components/ui/button';
-import dynamic from 'next/dynamic';
+import { cn } from '@/lib/utils';
 import { useLocale } from 'next-intl';
+import dynamic from 'next/dynamic';
+
+function CalendarLoadingSkeleton({ className }: { className?: string }) {
+  return (
+    <div
+      data-slot='calendar'
+      className={cn(
+        'bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent',
+        '[&_*]:!font-inherit w-fit animate-pulse',
+        className,
+      )}
+    >
+      <div className='[&_*]:!font-inherit flex w-full flex-col gap-4'>
+        {/* Navigation Header */}
+        <div className='[&_*]:!font-inherit relative flex h-8 w-full items-center justify-between gap-1'>
+          <div className='bg-muted size-8 rounded-md' />
+          <div className='bg-muted h-6 w-24 rounded-md' />
+          <div className='bg-muted size-8 rounded-md' />
+        </div>
+
+        {/* Calendar Grid */}
+        <div className='w-full'>
+          {/* Weekday Headers */}
+          <div className='[&_*]:!font-inherit mb-2 flex'>
+            {Array.from({ length: 7 }).map((_, i) => (
+              <div key={i} className='flex-1 text-center'>
+                <div className='bg-muted mx-auto h-4 w-6 rounded' />
+              </div>
+            ))}
+          </div>
+
+          {/* Calendar Days - 6 weeks */}
+          <div className='space-y-2'>
+            {Array.from({ length: 6 }).map((_, weekIndex) => (
+              <div
+                key={weekIndex}
+                className='[&_*]:!font-inherit flex w-full gap-0'
+              >
+                {Array.from({ length: 7 }).map((_, dayIndex) => (
+                  <div
+                    key={dayIndex}
+                    className='[&_*]:!font-inherit relative aspect-square h-full w-full p-0 text-center select-none'
+                  >
+                    <div className='flex aspect-square size-auto w-full min-w-8 flex-col items-center justify-center gap-1 leading-none font-normal'>
+                      <div className='bg-muted h-4 w-6 rounded' />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const CalendarComponents = {
   fa: dynamic(
@@ -21,7 +76,7 @@ const CalendarComponents = {
         default: mod.DayPicker,
       })),
     {
-      loading: () => <div>Loading Persian calendar...</div>,
+      loading: () => <CalendarLoadingSkeleton />,
       ssr: false,
     },
   ),
@@ -30,7 +85,7 @@ const CalendarComponents = {
     () =>
       import('react-day-picker').then((mod) => ({ default: mod.DayPicker })),
     {
-      loading: () => <div>Loading Persian calendar...</div>,
+      loading: () => <CalendarLoadingSkeleton />,
       ssr: false,
     },
   ),
