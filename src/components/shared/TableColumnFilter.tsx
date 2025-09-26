@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
 import { useOptimistic, useState, useTransition } from 'react';
 import { Button } from '../ui/button';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 type TableColumnFilterProps = {
   options: {
@@ -23,6 +23,7 @@ type TableColumnFilterProps = {
 
 function TableColumnFilter({ options }: TableColumnFilterProps) {
   const t = useTranslations('components');
+  const locale = useLocale();
   const { excludedColumns, setExcludedColumns } = useExcludedColumnsQuery();
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -100,8 +101,9 @@ function TableColumnFilter({ options }: TableColumnFilterProps) {
             <DropdownMenuCheckboxItem
               key={option.value}
               className={cn(
-                'flex-row-reverse py-1 text-xs capitalize transition-all duration-150 md:py-2 md:text-sm',
+                'py-1 text-xs capitalize transition-all duration-150 md:py-2 md:text-sm',
                 isPending && 'pointer-events-none opacity-60',
+                locale === 'fa' ? 'flex-row-reverse' : '',
               )}
               checked={isChecked}
               onSelect={(event) => handleColumnToggle(option.value, event)}
