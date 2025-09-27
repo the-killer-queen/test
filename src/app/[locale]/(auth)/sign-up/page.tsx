@@ -10,6 +10,14 @@ import { Separator } from '@/components/ui/separator';
 import { LoginWithGoogleButton, SignupForm } from '@/features/auth';
 import { Link } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
+import { Metadata } from 'next';
+
+export async function generateMetadata(): Promise<Metadata> {
+  // const t = await getTranslations();
+  return {
+    title: 'Sign up',
+  };
+}
 
 async function SignupPage() {
   const t = await getTranslations('auth.signup');

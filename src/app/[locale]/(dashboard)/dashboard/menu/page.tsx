@@ -9,6 +9,16 @@ import {
 import { MenuActions, MenuTable } from '@/features/menu';
 import MenuFiltersList from '@/components/shared/FiltersList';
 import { getTranslations } from 'next-intl/server';
+import { Metadata } from 'next';
+
+export async function generateMetadata(): Promise<Metadata> {
+  // const t = await getTranslations();
+
+  return {
+    title: 'Menu',
+    description: '',
+  };
+}
 
 async function MenuPage() {
   const t = await getTranslations('menu');

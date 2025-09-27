@@ -23,6 +23,20 @@ import { Link } from '@/i18n/navigation';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import { getLocale, getTranslations } from 'next-intl/server';
+import { Metadata } from 'next';
+
+export async function generateMetadata({
+  params,
+}: PageProps<'/[locale]/dashboard/orders/view/[orderId]'>): Promise<Metadata> {
+  const { orderId } = await params;
+  const { data: order, error } = await getOrderById(orderId);
+  if (!order || error) notFound();
+
+  // const t = await getTranslations();
+  return {
+    title: `Order #${order?.id}`,
+  };
+}
 
 export async function generateStaticParams() {
   const ordersId = await getAllOrdersId();

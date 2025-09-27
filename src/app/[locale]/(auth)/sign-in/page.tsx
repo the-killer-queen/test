@@ -9,6 +9,14 @@ import {
 import { SigninForm } from '@/features/auth';
 import { Link } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
+import { Metadata } from 'next';
+
+export async function generateMetadata(): Promise<Metadata> {
+  // const t = await getTranslations();
+  return {
+    title: 'Sign in',
+  };
+}
 
 async function SigninPage() {
   const t = await getTranslations('auth.signin');

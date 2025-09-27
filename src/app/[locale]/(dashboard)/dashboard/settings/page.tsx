@@ -1,6 +1,14 @@
 import LayoutHeader from '@/components/shared/LayoutHeader';
 import { ChargeCard, LanguageCard, ThemeCard } from '@/features/settings';
+import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+
+export async function generateMetadata(): Promise<Metadata> {
+  // const t = await getTranslations();
+  return {
+    title: 'Settings',
+  };
+}
 
 async function SettingsPage() {
   const t = await getTranslations('settings');

@@ -3,6 +3,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from '@/i18n/navigation';
 import { AlertTriangle } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
+import { Metadata } from 'next';
+
+export async function generateMetadata(): Promise<Metadata> {
+  // const t = await getTranslations();
+  return {
+    title: 'Error',
+  };
+}
 
 async function AuthErrorPage({
   searchParams,

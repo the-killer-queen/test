@@ -19,10 +19,27 @@ import { Link } from '@/i18n/navigation';
 import {
   checkMenuItemExists,
   getAllMenuItemIds,
+  getMenuItemById,
 } from '@/supabase/data/menu-service';
 import { ArrowLeft } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
+import { Metadata } from 'next';
+
+export async function generateMetadata({
+  params,
+}: PageProps<'/[locale]/dashboard/menu/view/[menuId]'>): Promise<Metadata> {
+  // const t = await getTranslations();
+
+  const { menuId } = await params;
+  const { data, error } = await getMenuItemById(+menuId);
+
+  if (!data || error) notFound();
+
+  return {
+    title: data.name,
+  };
+}
 
 export async function generateStaticParams() {
   const ids = await getAllMenuItemIds();

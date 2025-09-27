@@ -3,6 +3,14 @@ import { ProfileContent } from '@/features/profile';
 import { Suspense } from 'react';
 import ProfilePageLoading from './loading';
 import { getTranslations } from 'next-intl/server';
+import { Metadata } from 'next';
+
+export async function generateMetadata(): Promise<Metadata> {
+  // const t = await getTranslations();
+  return {
+    title: 'Profile',
+  };
+}
 
 async function ProfilePage() {
   const t = await getTranslations('profile');

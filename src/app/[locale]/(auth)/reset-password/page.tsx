@@ -10,6 +10,14 @@ import { redirect } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
 import { createClient } from '@/supabase/server';
 import { getTranslations } from 'next-intl/server';
+import { Metadata } from 'next';
+
+export async function generateMetadata(): Promise<Metadata> {
+  // const t = await getTranslations();
+  return {
+    title: 'Reset Password',
+  };
+}
 
 async function ResetPasswordPage() {
   const t = await getTranslations('auth.resetPassword');

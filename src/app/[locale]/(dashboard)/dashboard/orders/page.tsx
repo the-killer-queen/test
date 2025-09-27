@@ -9,7 +9,15 @@ import {
 } from '@/components/ui/card';
 import { OrdersActions, OrdersTable } from '@/features/orders';
 import { searchParamsCache } from '@/lib/utils';
+import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
+
+export async function generateMetadata(): Promise<Metadata> {
+  // const t = await getTranslations();s
+  return {
+    title: 'Orders',
+  };
+}
 
 async function OrdersPage({
   searchParams,
