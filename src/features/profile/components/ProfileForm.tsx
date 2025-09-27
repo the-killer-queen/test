@@ -14,6 +14,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { getDateLibPromise } from '@/lib/utils';
 import { updateProfile } from '@/supabase/data/user-service';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { User } from '@supabase/supabase-js';
@@ -25,11 +26,10 @@ import {
   User as UserIcon,
 } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+import { use } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { updateProfileSchema, UpdateProfileSchema } from '../schema';
-import { use } from 'react';
-import { getDateLibPromise } from '@/lib/utils';
 
 type ProfileFormProps = {
   user: User;
@@ -95,7 +95,7 @@ function ProfileForm({ user }: ProfileFormProps) {
 
                   <div className='flex flex-col gap-2'>
                     <div
-                      className={`flex flex-col ${locale === 'fa' ? 'items-start' : 'items-end'}`}
+                      className={`flex flex-col ${locale === 'fa' ? 'items-start' : ''}`}
                     >
                       <H3 className='capitalize'>
                         {user.user_metadata.full_name}
@@ -174,7 +174,7 @@ function ProfileForm({ user }: ProfileFormProps) {
           />
         </div>
 
-        <div className='flex w-full items-end gap-2'>
+        <div className='flex w-full flex-col gap-2 md:flex-row md:items-end'>
           {/* Phone Field */}
           <FormField
             name='phone'
@@ -197,7 +197,7 @@ function ProfileForm({ user }: ProfileFormProps) {
 
           <SubmitButton
             icon={<UserIcon />}
-            className='w-min'
+            className='w-min self-end'
             label={t('form.submit')}
             loadinglabel={t('form.submitting')}
             isLoading={form.formState.isSubmitting}

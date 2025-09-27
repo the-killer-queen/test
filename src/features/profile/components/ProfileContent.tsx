@@ -6,9 +6,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { getUser } from '@/supabase/data/user-service';
+import { getTranslations } from 'next-intl/server';
 import ChangePasswordForm from './ChangePasswordForm';
 import ProfileForm from './ProfileForm';
-import { getTranslations } from 'next-intl/server';
 
 async function ProfileContent() {
   const t = await getTranslations('profile');

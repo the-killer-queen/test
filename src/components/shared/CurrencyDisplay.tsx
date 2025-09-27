@@ -21,7 +21,7 @@ function CurrencyDisplay({ amount, className }: CurrencyDisplayProps) {
 
   if (isFa) {
     return (
-      <span className='flex items-center gap-2'>
+      <span className='flex items-center gap-1 md:gap-2'>
         {formatted}
         <TomanIcon className={className} />
       </span>

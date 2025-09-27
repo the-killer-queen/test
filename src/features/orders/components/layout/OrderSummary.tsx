@@ -63,7 +63,7 @@ function OrderSummary({ field }: OrderSummaryProps) {
                   <span className='text-xs font-medium md:text-sm'>
                     {item.name}
                   </span>
-                  <span className='text-muted-foreground flex items-center gap-1 text-xs'>
+                  <span className='text-muted-foreground hidden items-center gap-1 text-xs md:flex'>
                     <CurrencyDisplay amount={item.price} />
                     <span>{t('cards.items.each')}</span>
                   </span>
@@ -71,7 +71,10 @@ function OrderSummary({ field }: OrderSummaryProps) {
 
                 <div className='flex items-center gap-1 md:gap-2'>
                   <span className='text-xs font-semibold md:text-sm'>
-                    <CurrencyDisplay amount={item.price * item.quantity} />
+                    <CurrencyDisplay
+                      amount={item.price * item.quantity}
+                      className='size-4 md:size-6'
+                    />
                   </span>
                   <Button
                     type='button'
@@ -80,7 +83,7 @@ function OrderSummary({ field }: OrderSummaryProps) {
                     className='text-destructive hover:text-destructive h-4 w-4 md:h-6 md:w-6'
                     onClick={() => removeItem(item.id)}
                   >
-                    <X className='h-3 w-3 md:h-4 md:w-4' />
+                    <X />
                   </Button>
                 </div>
               </div>

@@ -12,8 +12,8 @@ function MenuItemsSelector(field: ControllerRenderProps) {
 
   return (
     <div className='space-y-4'>
-      <Card className='flex flex-col gap-2 bg-transparent'>
-        <CardHeader className='flex flex-col gap-2'>
+      <Card className='flex flex-col gap-2 bg-transparent !p-2'>
+        <CardHeader className='flex flex-col gap-2 p-1'>
           <div className='flex w-full gap-2'>
             <MenuItemsFilter filterName='menu_item_filter' />
             <Search
@@ -26,7 +26,7 @@ function MenuItemsSelector(field: ControllerRenderProps) {
           <FiltersList filterName='menu_item_filter' />
         </CardHeader>
 
-        <CardContent>
+        <CardContent className='!p-1'>
           <OrderItemList field={field} />
           <OrderSummary field={field} />
         </CardContent>

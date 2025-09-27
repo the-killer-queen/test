@@ -132,7 +132,7 @@ function EditChargeForm({ chargeToEdit, onClose }: EditChargeFormProps) {
                   {t('charges.form.fields.status')}
                 </FormLabel>
                 <FormControl>
-                  <div className='flex w-24 items-center space-x-2'>
+                  <div className='flex w-18 items-center space-x-2 md:w-24'>
                     <Switch
                       id='is-active'
                       checkedIcon={<Check width={12} height={12} />}
