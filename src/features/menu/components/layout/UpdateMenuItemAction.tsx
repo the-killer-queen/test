@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button';
+import { searchParamsCache } from '@/lib/utils';
 import { getMenuItemById } from '@/supabase/data/menu-service';
 import { VariantProps } from 'class-variance-authority';
-import { Edit, AlertTriangle } from 'lucide-react';
-import UpdateMenuItemDialog from '../dialog/UpdateMenuItemDialog';
+import { AlertTriangle, Edit } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
+import UpdateMenuItemDialog from '../dialog/UpdateMenuItemDialog';
 
 type UpdateMenuItemActionProps = {
-  menuId: string;
   className?: string;
   variant?: VariantProps<typeof Button>['variant'];
 };
@@ -14,8 +14,10 @@ type UpdateMenuItemActionProps = {
 async function UpdateMenuItemAction({
   className,
   variant,
-  menuId,
 }: UpdateMenuItemActionProps) {
+  const { menuId } = searchParamsCache.all();
+  if (!menuId) return null;
+
   const t = await getTranslations('menu');
   const { data: menuItem, error } = await getMenuItemById(+menuId);
   if (!menuItem || error) {

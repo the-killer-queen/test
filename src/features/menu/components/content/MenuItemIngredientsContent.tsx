@@ -1,10 +1,14 @@
 import ErrorState from '@/components/shared/ErrorState';
 import { P } from '@/components/typography/P';
 import { Badge } from '@/components/ui/badge';
+import { searchParamsCache } from '@/lib/utils';
 import { getMenuItemIngredients } from '@/supabase/data/menu-service';
 import { getTranslations } from 'next-intl/server';
 
-async function MenuItemIngredientsContent({ menuId }: { menuId: string }) {
+async function MenuItemIngredientsContent() {
+  const { menuId } = searchParamsCache.all();
+  if (!menuId) return null;
+
   const t = await getTranslations('menu');
   const { data: ingredients, error } = await getMenuItemIngredients(+menuId);
 

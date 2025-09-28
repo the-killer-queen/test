@@ -3,7 +3,7 @@ import ErrorState from '@/components/shared/ErrorState';
 import { Badge } from '@/components/ui/badge';
 import { CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { formatNumber } from '@/lib/utils';
+import { formatNumber, searchParamsCache } from '@/lib/utils';
 import { getMenuItemDetails } from '@/supabase/data/menu-service';
 import { format } from 'date-fns';
 import {
@@ -14,9 +14,12 @@ import {
 } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 
-async function MenuItemDetailsContent({ menuId }: { menuId: string }) {
+async function MenuItemDetailsContent() {
+  const { menuId } = searchParamsCache.all();
+  if (!menuId) return null;
+
   const t = await getTranslations('menu');
-  const { data: details, error } = await getMenuItemDetails(+menuId);
+  const { data: details, error } = await getMenuItemDetails(menuId);
   if (error || !details) {
     return (
       <CardContent className='flex flex-col items-center justify-center py-8'>

@@ -3,10 +3,14 @@ import { getMenuItemImage } from '@/supabase/data/menu-service';
 import { ImageOff } from 'lucide-react';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
+import { searchParamsCache } from '@/lib/utils';
 
-async function MenuItemImageContent({ menuId }: { menuId: string }) {
+async function MenuItemImageContent() {
+  const { menuId } = searchParamsCache.all();
+  if (!menuId) return null;
+
   const t = await getTranslations('menu');
-  const { data: menuItem, error } = await getMenuItemImage(+menuId);
+  const { data: menuItem, error } = await getMenuItemImage(menuId);
   if (error || !menuItem)
     return (
       <ErrorState
