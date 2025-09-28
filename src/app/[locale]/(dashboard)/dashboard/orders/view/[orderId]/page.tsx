@@ -11,19 +11,27 @@ import {
   OrderDetailsCard,
   OrderItemsCard,
   OrderNotesCard,
-  OrderQuickActionsCard,
-  UpdateOrderAction,
-  OrderDetailsCardSkeleton,
-  OrderNotesCardSkeleton,
   OrderItemsCardSkeleton,
+  UpdateOrderActionSkeleton,
+  OrderNotesCardSkeleton,
+  OrderDetailsCardSkeleton,
+  OrderQuickActionsContent,
+  QuickActionsSkeleton,
+  UpdateOrderAction,
 } from '@/features/orders';
-import { getAllOrdersId, getOrderById } from '@/supabase/data/orders-service';
-import { ArrowLeft, Settings } from 'lucide-react';
+
 import { Link } from '@/i18n/navigation';
+import { searchParamsCache } from '@/lib/utils';
+import {
+  getAllOrdersId,
+  getOrderById,
+  getOrderName,
+} from '@/supabase/data/orders-service';
+import { ArrowLeft } from 'lucide-react';
+import { Metadata } from 'next';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-import { getLocale, getTranslations } from 'next-intl/server';
-import { Metadata } from 'next';
 
 export async function generateMetadata({
   params,
@@ -46,17 +54,16 @@ export async function generateStaticParams() {
 async function OrderViewPage({
   params,
 }: PageProps<'/[locale]/dashboard/orders/view/[orderId]'>) {
-  const t = await getTranslations('orders');
   const { orderId } = await params;
 
-  const { data: order, error } = await getOrderById(orderId);
-  if (!order || error) notFound();
+  const { data: name, error } = await getOrderName(orderId);
+  if (!name || error) notFound();
 
+  const t = await getTranslations('orders');
   const locale = await getLocale();
+  searchParamsCache.parse(params);
 
-  const orderDisplayName = order.order_name
-    ? `#${order.order_name.replaceAll('-', ' ')}`
-    : `#${order.id}`;
+  const orderDisplayName = `#${name.replaceAll('-', ' ')}`;
 
   return (
     <>
@@ -80,68 +87,32 @@ async function OrderViewPage({
           <CardHeader>
             <CardTitle className='flex items-center justify-between'>
               <span>{t('view.overview.title')}</span>
-              <Suspense
-                fallback={
-                  <Button variant='default' size='sm' disabled>
-                    <span>Loading...</span>
-                  </Button>
-                }
-              >
-                <UpdateOrderAction
-                  orderId={orderId}
-                  variant='default'
-                  className='[&_span]:hidden sm:[&_span]:inline-block'
-                />
+              <Suspense fallback={<UpdateOrderActionSkeleton />}>
+                <UpdateOrderAction className='[&_span]:hidden sm:[&_span]:inline-block' />
               </Suspense>
             </CardTitle>
             <CardDescription>{t('view.overview.description')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className='grid h-full w-full grid-cols-1 gap-4 lg:grid-cols-2'>
-              {/* Left Column - Order Items */}
               <div className='w-full'>
                 <Suspense fallback={<OrderItemsCardSkeleton />}>
-                  <OrderItemsCard orderId={orderId} />
+                  <OrderItemsCard />
                 </Suspense>
               </div>
 
-              {/* Right Column - Details and Actions */}
               <div className='flex w-full flex-col space-y-4'>
                 <Suspense fallback={<OrderDetailsCardSkeleton />}>
-                  <OrderDetailsCard orderId={orderId} />
+                  <OrderDetailsCard />
                 </Suspense>
 
                 <div className='flex w-full flex-col gap-4 sm:flex-row lg:flex-col xl:flex-row'>
-                  <Suspense
-                    fallback={
-                      <Card className='flex-1'>
-                        <CardHeader>
-                          <CardTitle className='flex items-center gap-2 text-base font-semibold'>
-                            <Settings className='h-4 w-4' />
-                            {t('cards.quickActions.title')}
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent className='space-y-2'>
-                          {Array.from({ length: 4 }).map((_, i) => (
-                            <Button
-                              key={i}
-                              variant='ghost'
-                              size='sm'
-                              className='w-full justify-start'
-                              disabled
-                            >
-                              Loading...
-                            </Button>
-                          ))}
-                        </CardContent>
-                      </Card>
-                    }
-                  >
-                    <OrderQuickActionsCard order={order} />
+                  <Suspense fallback={<QuickActionsSkeleton />}>
+                    <OrderQuickActionsContent />
                   </Suspense>
 
                   <Suspense fallback={<OrderNotesCardSkeleton />}>
-                    <OrderNotesCard orderId={orderId} />
+                    <OrderNotesCard />
                   </Suspense>
                 </div>
               </div>

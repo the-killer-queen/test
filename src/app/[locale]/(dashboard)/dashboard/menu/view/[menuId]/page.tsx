@@ -25,6 +25,7 @@ import { ArrowLeft } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { Metadata } from 'next';
+import { searchParamsCache } from '@/lib/utils';
 
 export async function generateMetadata({
   params,
@@ -49,11 +50,13 @@ export async function generateStaticParams() {
 async function MenuItemPageView({
   params,
 }: PageProps<'/[locale]/dashboard/menu/view/[menuId]'>) {
-  const t = await getTranslations('menu');
   const { menuId } = await params;
   const { exists, error } = await checkMenuItemExists(+menuId);
 
   if (!exists || error) notFound();
+
+  const t = await getTranslations('menu');
+  searchParamsCache.parse(params);
 
   return (
     <>
@@ -72,7 +75,6 @@ async function MenuItemPageView({
             <CardTitle className='flex items-center justify-between'>
               <span>{t('view.details.title')}</span>
               <UpdateMenuItemAction
-                menuId={menuId}
                 variant={'default'}
                 className='[&_span]:hidden sm:[&_span]:inline-block'
               />
@@ -82,18 +84,18 @@ async function MenuItemPageView({
           <CardContent>
             <div className='grid h-full w-full grid-cols-1 gap-4 lg:grid-cols-2'>
               <div className='max-h-160 w-full'>
-                <MenuItemImageCard menuId={menuId} />
+                <MenuItemImageCard />
               </div>
 
               <div className='flex w-full flex-col space-y-4'>
-                <MenuItemDetailsCard menuId={menuId} />
+                <MenuItemDetailsCard />
 
-                <MenuItemIngredientsCard menuId={menuId} />
+                <MenuItemIngredientsCard />
 
                 <div className='flex w-full flex-col gap-4 sm:flex-row lg:flex-col xl:flex-row'>
-                  <MenuItemQuickActionsCard menuId={menuId} />
+                  <MenuItemQuickActionsCard />
 
-                  <MenuItemDescriptonCard menuId={menuId} />
+                  <MenuItemDescriptonCard />
                 </div>
               </div>
             </div>

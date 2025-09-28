@@ -2,7 +2,14 @@
 
 import { createClient } from '@/supabase/server';
 import { GetActionResult } from '@/types';
-import { OrderInsert, OrderRow, OrderUpdate } from '@/types/tables';
+import {
+  OrderCustomerInfoRow,
+  OrderDetailsRow,
+  OrderInsert,
+  OrderRow,
+  OrderStatus,
+  OrderUpdate,
+} from '@/types/tables';
 import { revalidatePath } from 'next/cache';
 import { createBuildTimeClient } from '../client';
 
@@ -161,6 +168,225 @@ export async function getOrdersCountByDate(date: string): Promise<number> {
       error instanceof Error ? error.message : 'Unknown error',
     );
     return 0;
+  }
+}
+
+// Additional GET functions for order-service (add these to your existing functions)
+export async function getOrderDetails(
+  orderId: string,
+): Promise<GetActionResult<OrderDetailsRow>> {
+  try {
+    const supabase = await createClient();
+    const { data: order, error: orderError } = await supabase
+      .from('orders')
+      .select(
+        'customer_name, customer_contact, total_price, status, is_togo, created_at',
+      )
+      .eq('id', orderId)
+      .single();
+
+    if (orderError)
+      return {
+        success: false,
+        error: orderError.message,
+      };
+
+    return { success: true, data: order };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : 'An unexpected error occurred',
+    };
+  }
+}
+
+export async function getOrderItems(
+  orderId: string,
+): Promise<GetActionResult<OrderRow['items']>> {
+  try {
+    const supabase = await createClient();
+    const { data: order, error: orderError } = await supabase
+      .from('orders')
+      .select('items')
+      .eq('id', orderId)
+      .single();
+
+    if (orderError)
+      return {
+        success: false,
+        error: orderError.message,
+      };
+
+    return { success: true, data: order.items };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : 'An unexpected error occurred',
+    };
+  }
+}
+
+export async function getOrderNotes(
+  orderId: string,
+): Promise<GetActionResult<string | null>> {
+  try {
+    const supabase = await createClient();
+    const { data: order, error: orderError } = await supabase
+      .from('orders')
+      .select('notes')
+      .eq('id', orderId)
+      .single();
+
+    if (orderError)
+      return {
+        success: false,
+        error: orderError.message,
+      };
+
+    return { success: true, data: order.notes };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : 'An unexpected error occurred',
+    };
+  }
+}
+
+export async function getOrderStatus(
+  orderId: string,
+): Promise<GetActionResult<OrderStatus>> {
+  try {
+    const supabase = await createClient();
+    const { data: order, error: orderError } = await supabase
+      .from('orders')
+      .select('status')
+      .eq('id', orderId)
+      .single();
+
+    if (orderError)
+      return {
+        success: false,
+        error: orderError.message,
+      };
+
+    return { success: true, data: order.status };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : 'An unexpected error occurred',
+    };
+  }
+}
+
+export async function getOrderCustomerInfo(
+  orderId: string,
+): Promise<GetActionResult<OrderCustomerInfoRow>> {
+  try {
+    const supabase = await createClient();
+    const { data: order, error: orderError } = await supabase
+      .from('orders')
+      .select('customer_name, customer_contact')
+      .eq('id', orderId)
+      .single();
+
+    if (orderError || !order)
+      return {
+        success: false,
+        error: orderError.message,
+      };
+
+    return { success: true, data: order };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : 'An unexpected error occurred',
+    };
+  }
+}
+
+export async function getOrderTotalPrice(
+  orderId: string,
+): Promise<GetActionResult<number>> {
+  try {
+    const supabase = await createClient();
+    const { data: order, error: orderError } = await supabase
+      .from('orders')
+      .select('total_price')
+      .eq('id', orderId)
+      .single();
+
+    if (orderError)
+      return {
+        success: false,
+        error: orderError.message,
+      };
+
+    return { success: true, data: order.total_price };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : 'An unexpected error occurred',
+    };
+  }
+}
+
+export async function getOrderIsToGo(
+  orderId: string,
+): Promise<GetActionResult<boolean>> {
+  try {
+    const supabase = await createClient();
+    const { data: order, error: orderError } = await supabase
+      .from('orders')
+      .select('is_togo')
+      .eq('id', orderId)
+      .single();
+
+    if (orderError)
+      return {
+        success: false,
+        error: orderError.message,
+      };
+
+    return { success: true, data: order.is_togo };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : 'An unexpected error occurred',
+    };
+  }
+}
+
+export async function getOrderName(
+  orderId: string,
+): Promise<GetActionResult<string | null>> {
+  try {
+    const supabase = await createClient();
+    const { data: order, error: orderError } = await supabase
+      .from('orders')
+      .select('id, order_name')
+      .eq('id', orderId)
+      .single();
+
+    if (orderError)
+      return {
+        success: false,
+        error: orderError.message,
+      };
+
+    return { success: true, data: order.order_name || order.id };
+  } catch (error) {
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : 'An unexpected error occurred',
+    };
   }
 }
 

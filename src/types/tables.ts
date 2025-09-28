@@ -86,6 +86,20 @@ export type MenuItemImageRow = {
   image_url: string | null;
 };
 
+export type OrderCustomerInfoRow = {
+  customer_name: string | null;
+  customer_contact: string | null;
+};
+
+export type OrderDetailsRow = {
+  customer_name: string | null;
+  customer_contact: string | null;
+  total_price: number;
+  status: Database['public']['Enums']['order_status'];
+  is_togo: boolean;
+  created_at: string;
+};
+
 export type MenuItemIngredientsRow = MenuIngredient[] | null;
 
 // Order-specific utility types
