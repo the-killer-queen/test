@@ -5,9 +5,13 @@ import DeleteMenuItemDialog from '../dialog/DeleteMenuItemDialog';
 import DuplicateMenuItemDialog from '../dialog/DuplicateMenuItemDialog';
 import UpdateMenuItemAction from '../layout/UpdateMenuItemAction';
 import { getTranslations } from 'next-intl/server';
+import { searchParamsCache } from '@/lib/utils';
 
-async function MenuItemQuickActionsCard({ menuId }: { menuId: string }) {
+async function MenuItemQuickActionsCard() {
   const t = await getTranslations('menu');
+
+  const { menuId } = searchParamsCache.all();
+  if (!menuId) return null;
 
   return (
     <Card className='flex-1'>
@@ -19,19 +23,18 @@ async function MenuItemQuickActionsCard({ menuId }: { menuId: string }) {
       </CardHeader>
       <CardContent className='space-y-2'>
         <UpdateMenuItemAction
-          menuId={menuId}
           variant={'ghost'}
           className='w-full justify-start'
         />
 
-        <DuplicateMenuItemDialog menuItemId={+menuId}>
+        <DuplicateMenuItemDialog menuItemId={menuId}>
           <Button variant='ghost' size='sm' className='w-full justify-start'>
             <Copy />
             {t('cards.quickActions.duplicateItem')}
           </Button>
         </DuplicateMenuItemDialog>
 
-        <DeleteMenuItemDialog menuItemId={+menuId} redirectBack={true}>
+        <DeleteMenuItemDialog menuItemId={menuId} redirectBack={true}>
           <Button
             variant='destructive'
             size='sm'

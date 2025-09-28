@@ -1,12 +1,12 @@
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Brain, FileText } from 'lucide-react';
-import MenuItemDetailsDescription from '../content/MenuItemDetailsDescription';
-import { Suspense } from 'react';
-import { Button } from '@/components/ui/button';
-import MenuItemDetailsDescriptionSkeleton from '../skeletons/MenuItemDetailsDescriptionSkeleton';
 import { getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
+import MenuItemDetailsDescription from '../content/MenuItemDetailsDescription';
+import MenuItemDetailsDescriptionSkeleton from '../skeletons/MenuItemDetailsDescriptionSkeleton';
 
-async function MenuItemDescriptonCard({ menuId }: { menuId: string }) {
+async function MenuItemDescriptonCard() {
   const t = await getTranslations('menu');
 
   return (
@@ -19,7 +19,7 @@ async function MenuItemDescriptonCard({ menuId }: { menuId: string }) {
       </CardHeader>
       <CardContent>
         <Suspense fallback={<MenuItemDetailsDescriptionSkeleton />}>
-          <MenuItemDetailsDescription menuId={menuId} />
+          <MenuItemDetailsDescription />
         </Suspense>
 
         <Button size='sm' variant='outline' className='mt-4'>

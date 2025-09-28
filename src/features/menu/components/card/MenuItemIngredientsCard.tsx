@@ -11,7 +11,7 @@ import MenuItemIngredientsContentSkeleton from '../skeletons/MenuItemIngredients
 import MenuItemIngredientsContent from '../content/MenuItemIngredientsContent';
 import { getTranslations } from 'next-intl/server';
 
-async function MenuItemIngredientsCard({ menuId }: { menuId: string }) {
+async function MenuItemIngredientsCard() {
   const t = await getTranslations('menu');
 
   return (
@@ -26,7 +26,7 @@ async function MenuItemIngredientsCard({ menuId }: { menuId: string }) {
       <CardContent>
         <div className='flex flex-wrap gap-2'>
           <Suspense fallback={<MenuItemIngredientsContentSkeleton />}>
-            <MenuItemIngredientsContent menuId={menuId} />
+            <MenuItemIngredientsContent />
           </Suspense>
         </div>
       </CardContent>

@@ -5,7 +5,7 @@ import MenuItemDetailsContentSkeleton from '../skeletons/MenuItemDetailsContentS
 import MenuItemDetailsContent from '../content/MenuItemDetailsContent';
 import { getTranslations } from 'next-intl/server';
 
-async function MenuItemDetailsCard({ menuId }: { menuId: string }) {
+async function MenuItemDetailsCard() {
   const t = await getTranslations('menu');
 
   return (
@@ -17,7 +17,7 @@ async function MenuItemDetailsCard({ menuId }: { menuId: string }) {
         </CardTitle>
       </CardHeader>
       <Suspense fallback={<MenuItemDetailsContentSkeleton />}>
-        <MenuItemDetailsContent menuId={menuId} />
+        <MenuItemDetailsContent />
       </Suspense>
     </Card>
   );

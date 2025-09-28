@@ -3,12 +3,12 @@ import { Suspense } from 'react';
 import MenuItemImageContentSkeleton from '../skeletons/MenuItemImageContentSkeleton';
 import MenuItemImageContent from '../content/MenuItemImageContent';
 
-function MenuItemImageCard({ menuId }: { menuId: string }) {
+function MenuItemImageCard() {
   return (
     <Card className='h-full overflow-hidden p-0'>
       <CardContent className='h-full p-0'>
         <Suspense fallback={<MenuItemImageContentSkeleton />}>
-          <MenuItemImageContent menuId={menuId} />
+          <MenuItemImageContent />
         </Suspense>
       </CardContent>
     </Card>
