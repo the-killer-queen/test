@@ -2,14 +2,21 @@ import CurrencyDisplay from '@/components/shared/CurrencyDisplay';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { getOrderById } from '@/supabase/data/orders-service';
+import { searchParamsCache } from '@/lib/utils';
+import { getOrderItems } from '@/supabase/data/orders-service';
 import { ShoppingCart } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
+import TotalPriceContent from '../content/OrderTotalPriceContent';
 import CardError from '../error/CardError';
+import TotalPriceContentSkeleton from '../skeletons/TotalPriceContentSkeleton';
 
-async function OrderItemsCard({ orderId }: { orderId: string }) {
+async function OrderItemsCard() {
+  const { orderId } = searchParamsCache.all();
+  if (!orderId) return null;
+
   const t = await getTranslations('orders');
-  const { data: order, error } = await getOrderById(orderId);
+  const { data: order, error } = await getOrderItems(orderId);
 
   if (error || !order)
     return (
@@ -19,7 +26,7 @@ async function OrderItemsCard({ orderId }: { orderId: string }) {
     );
 
   const locale = await getLocale();
-  const items = order.items || [];
+  const items = order || [];
 
   return (
     <Card>
@@ -66,14 +73,9 @@ async function OrderItemsCard({ orderId }: { orderId: string }) {
 
             <Separator className='my-4' />
 
-            <div className='flex items-center justify-between'>
-              <span className='text-base font-semibold'>
-                {t('cards.items.total')}
-              </span>
-              <span className='text-lg font-bold'>
-                <CurrencyDisplay amount={order.total_price} />
-              </span>
-            </div>
+            <Suspense fallback={<TotalPriceContentSkeleton />}>
+              <TotalPriceContent />
+            </Suspense>
           </div>
         )}
       </CardContent>

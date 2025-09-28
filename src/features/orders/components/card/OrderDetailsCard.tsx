@@ -2,8 +2,8 @@ import CurrencyDisplay from '@/components/shared/CurrencyDisplay';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { getDateLibPromise } from '@/lib/utils';
-import { getOrderById } from '@/supabase/data/orders-service';
+import { getDateLibPromise, searchParamsCache } from '@/lib/utils';
+import { getOrderDetails } from '@/supabase/data/orders-service';
 import {
   Calendar,
   Clock,
@@ -18,9 +18,12 @@ import {
 import { getLocale, getTranslations } from 'next-intl/server';
 import CardError from '../error/CardError';
 
-async function OrderDetailsCard({ orderId }: { orderId: string }) {
+async function OrderDetailsCard() {
+  const { orderId } = searchParamsCache.all();
+  if (!orderId) return null;
+
   const t = await getTranslations('orders');
-  const { data: order, error } = await getOrderById(orderId);
+  const { data: order, error } = await getOrderDetails(orderId);
 
   if (error || !order)
     return (

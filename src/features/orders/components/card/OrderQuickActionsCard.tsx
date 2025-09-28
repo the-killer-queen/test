@@ -16,6 +16,7 @@ type OrderQuickActionsCardProps = {
 
 function OrderQuickActionsCard({ order }: OrderQuickActionsCardProps) {
   const t = useTranslations('orders');
+  if (!order) return null;
 
   function handlePrintOrder() {
     toast.info(t('messages.info.printPreview'), {

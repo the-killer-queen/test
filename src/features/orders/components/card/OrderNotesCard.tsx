@@ -1,15 +1,19 @@
 import { P } from '@/components/typography/P';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { getOrderById } from '@/supabase/data/orders-service';
+import { searchParamsCache } from '@/lib/utils';
+import { getOrderNotes } from '@/supabase/data/orders-service';
 import { MessageSquare } from 'lucide-react';
-import CardError from '../error/CardError';
 import { getTranslations } from 'next-intl/server';
+import CardError from '../error/CardError';
 
-async function OrderNotesCard({ orderId }: { orderId: string }) {
+async function OrderNotesCard() {
+  const { orderId } = searchParamsCache.all();
+  if (!orderId) return null;
+
   const t = await getTranslations('orders');
-  const { data: order, error } = await getOrderById(orderId);
+  const { data: note, error } = await getOrderNotes(orderId);
 
-  if (error || !order)
+  if (error)
     return (
       <CardError
         message={t('messages.error.failedToLoad', { item: 'order notes' })}
@@ -25,7 +29,7 @@ async function OrderNotesCard({ orderId }: { orderId: string }) {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <P>{order.notes || t('cards.notes.noNotes')}</P>
+        <P>{note || t('cards.notes.noNotes')}</P>
       </CardContent>
     </Card>
   );
