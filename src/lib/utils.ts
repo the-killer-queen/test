@@ -1,5 +1,9 @@
 import { clsx, type ClassValue } from 'clsx';
-import { createSearchParamsCache, parseAsString } from 'nuqs/server';
+import {
+  createSearchParamsCache,
+  parseAsInteger,
+  parseAsString,
+} from 'nuqs/server';
 import { twMerge } from 'tailwind-merge';
 import type * as DateFns from 'date-fns';
 import type * as DateFnsJalali from 'date-fns-jalali';
@@ -8,6 +12,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+//GET THE CORRECT URL
 export function getURL() {
   let url =
     process?.env?.NEXT_PUBLIC_SITE_URL ??
@@ -20,6 +25,7 @@ export function getURL() {
   return url;
 }
 
+// NUMBER FORMAT
 export function formatNumber({
   locale,
   options = {
@@ -36,6 +42,7 @@ export function formatNumber({
   return Intl.NumberFormat(locale, options).format(number);
 }
 
+// FORMAT CURRENCY BASED ON THE LOCALE
 export function getCurrencyFormatOptions(
   isFarsi: boolean,
   maximumFractionDigits: number = 2,
@@ -55,12 +62,16 @@ export function getCurrencyFormatOptions(
   };
 }
 
+//NUQS SEARCH PARAMS
 export const searchParamsCache = createSearchParamsCache({
   selected_date: parseAsString.withDefault(
     new Date().toISOString().split('T')[0],
   ),
+  orderId: parseAsString,
+  menuId: parseAsInteger,
 });
 
+//GET THE CURRECT DATE-FNS LIB BASED ON THE LOCALE
 const dateLibPromises = new Map();
 
 type DateLibModule = typeof DateFns | typeof DateFnsJalali;
@@ -78,6 +89,7 @@ export function getDateLibPromise(locale: string): Promise<DateLibModule> {
   return promise;
 }
 
+//MENU ITEM FILTER OPTIONS
 export function menuFilterOptions(
   categories: { name: string; icon_name: string | null }[],
 ) {
