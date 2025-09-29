@@ -1,15 +1,21 @@
+'use client';
+
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { getTranslations } from 'next-intl/server';
+import { Metadata } from 'next';
 
-async function DashboardPage() {
-  const t = await getTranslations('dashboard');
+export async function generateMetadata(): Promise<Metadata> {
+  // const t = await getTranslations();
+  return {
+    title: 'Analytics',
+  };
+}
 
+function AnalyticsPage() {
   return (
     <div>
       <SidebarTrigger />
-      {t('welcome')}
     </div>
   );
 }
 
-export default DashboardPage;
+export default AnalyticsPage;
