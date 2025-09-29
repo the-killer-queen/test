@@ -103,7 +103,7 @@ function OrderItemList({ field }: OrderItemListProps) {
               {/* Item details */}
               <div className='h-full flex-1'>
                 <div className='flex h-full items-center justify-between'>
-                  <div className='flex flex-col text-start'>
+                  <div className='flex flex-col gap-1 text-start'>
                     <Small>{item.name}</Small>
                     <CurrencyDisplay
                       className='size-4 md:size-6'

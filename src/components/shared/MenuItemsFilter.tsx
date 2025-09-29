@@ -36,6 +36,7 @@ function MenuItemsFilter({ filterName }: MenuItemsFilterProps) {
     error: categoriesError,
   } = useGetSelectedMenuCategories();
 
+  // ---> MUST CHANGE <---
   if (categoriesError) return <p>Error!!!</p>;
   if (categoriesPending || !categories) return <MenuItemsFilterSkeleton />;
 

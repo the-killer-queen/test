@@ -5,6 +5,7 @@ import OrdersTableLoadingSkeleton from '../skeletons/OrdersTableLoadingSkeleton'
 import OrdersTableBody from './OrdersTableBody';
 import OrdersTableFooterContent from './OrdersTableFooterContent';
 import OrdersTableHeader from './OrdersTableHeader';
+import OrdersTableFooterSkeleton from '../skeletons/OrdersTableFooterSkeleton';
 
 function OrdersTable() {
   return (
@@ -16,7 +17,7 @@ function OrdersTable() {
         </Suspense>
 
         <TableFooter>
-          <Suspense fallback={null}>
+          <Suspense fallback={<OrdersTableFooterSkeleton />}>
             <OrdersTableFooterContent />
           </Suspense>
         </TableFooter>

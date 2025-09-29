@@ -16,16 +16,16 @@ import {
   UpdateMenuItemAction,
 } from '@/features/menu';
 import { Link } from '@/i18n/navigation';
+import { searchParamsCache } from '@/lib/utils';
 import {
   checkMenuItemExists,
   getAllMenuItemIds,
   getMenuItemById,
 } from '@/supabase/data/menu-service';
 import { ArrowLeft } from 'lucide-react';
-import { notFound } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
 import { Metadata } from 'next';
-import { searchParamsCache } from '@/lib/utils';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
   params,
@@ -56,13 +56,17 @@ async function MenuItemPageView({
   if (!exists || error) notFound();
 
   const t = await getTranslations('menu');
+  const locale = await getLocale();
   searchParamsCache.parse(params);
 
   return (
     <>
       <LayoutHeader title={t('view.title')} description={t('view.description')}>
         <Button variant='link' size='sm' asChild>
-          <Link href={'/dashboard/menu'}>
+          <Link
+            href={'/dashboard/menu'}
+            className={`flex ${locale === 'fa' ? 'flex-row-reverse' : ''} items-center`}
+          >
             <ArrowLeft />
             <span className='hidden sm:block'>{t('view.goBack')}</span>
           </Link>

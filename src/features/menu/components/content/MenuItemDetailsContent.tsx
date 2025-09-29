@@ -1,18 +1,18 @@
+import CurrencyDisplay from '@/components/shared/CurrencyDisplay';
 import DynamicIcon from '@/components/shared/DynamicIcon';
 import ErrorState from '@/components/shared/ErrorState';
 import { Badge } from '@/components/ui/badge';
 import { CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { formatNumber, searchParamsCache } from '@/lib/utils';
+import { getDateLibPromise, searchParamsCache } from '@/lib/utils';
 import { getMenuItemDetails } from '@/supabase/data/menu-service';
-import { format } from 'date-fns';
 import {
   Calendar,
   ChartColumnStacked,
   DollarSign,
   TagIcon,
 } from 'lucide-react';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 async function MenuItemDetailsContent() {
   const { menuId } = searchParamsCache.all();
@@ -30,6 +30,9 @@ async function MenuItemDetailsContent() {
       </CardContent>
     );
   }
+
+  const locale = await getLocale();
+  const dateFormat = await getDateLibPromise(locale);
 
   return (
     <CardContent className='space-y-2'>
@@ -49,10 +52,7 @@ async function MenuItemDetailsContent() {
           {t('cards.details.price')}
         </span>
         <span className='text-sm font-semibold'>
-          {formatNumber({
-            locale: 'en-US',
-            number: details.price,
-          })}
+          <CurrencyDisplay amount={details.price} />
         </span>
       </div>
 
@@ -77,7 +77,7 @@ async function MenuItemDetailsContent() {
           {t('cards.details.created')}
         </span>
         <span className='text-sm'>
-          {format(details.created_at, 'dd MMM yyyy')}
+          {dateFormat.format(details.created_at, 'dd MMM yyyy')}
         </span>
       </div>
     </CardContent>

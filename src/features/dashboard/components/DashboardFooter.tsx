@@ -76,10 +76,11 @@ async function DashboardFooter() {
                   <span
                     className={`${isFa ? 'text-end' : ''} text-sm font-medium`}
                   >
-                    {user.user_metadata.full_name || user?.email?.split('@')[0]}
+                    {user.user_metadata.full_name ||
+                      user.email!.split('@').at(0)}
                   </span>
                   <span className='text-muted-foreground text-xs'>
-                    {truncatedEmail}
+                    {user.email!.slice(0, 30)}
                   </span>
                 </div>
               </div>

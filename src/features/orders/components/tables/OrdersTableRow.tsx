@@ -28,7 +28,7 @@ type OrdersTableRowProps = {
 };
 
 function OrdersTableRow({ order }: OrdersTableRowProps) {
-  const locale = useLocale() as 'fa' | 'en';
+  const locale = useLocale();
   const t = useTranslations('orders');
   const { excludedColumns } = useExcludedColumnsQuery();
   const dateLib = use(getDateLibPromise(locale));
